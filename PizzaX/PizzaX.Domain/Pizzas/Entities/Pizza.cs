@@ -16,34 +16,36 @@ namespace PizzaX.Domain.Pizzas.Entities
         public PizzaSize Size { get; private set; }
 
         [Required]
-        public int Amount { get; private set; }
+        public int NoOfPizzas { get; private set; }
         public string? Description { get; private set; }
 
         [Required]
         public int PizzaVarietyId { get; private set; }
         public PizzaVariety Variety { get; private set; }
 
+        public bool IsAvailable => NoOfPizzas > 0;
+
         // Constructors
         private Pizza() { }
 
-        private Pizza(decimal price, PizzaSize size, int amount, int varietyId, string? description, byte[]? image)
+        private Pizza(decimal price, PizzaSize size, int noOfPizzas, int varietyId, string? description, byte[]? image)
         {
             // Validation Check
             Guard.AgainstNegative(price, nameof(Price));
-            Guard.AgainstZeroOrLess(amount, nameof(Amount));
+            Guard.AgainstZeroOrLess(noOfPizzas, nameof(NoOfPizzas));
 
             // Assigning values
             Price = price;
             Size = size;
-            Amount = amount;
+            NoOfPizzas = noOfPizzas;
             PizzaVarietyId = varietyId;
             Description = description;
             Image = image;
         }
 
         // Method - Create a new pizza
-        public static Pizza Create(decimal price, PizzaSize size, int amount, int varietyId, string? description = null, byte[]? image = null) 
-            => new(price, size, amount, varietyId, description, image);
+        public static Pizza Create(decimal price, PizzaSize size, int noOfPizzas, int varietyId, string? description = null, byte[]? image = null) 
+            => new(price, size, noOfPizzas, varietyId, description, image);
 
         // Method - Update Price
         public void UpdatePrice(decimal newPrice)
@@ -53,11 +55,11 @@ namespace PizzaX.Domain.Pizzas.Entities
             MarkUpdated();
         }
 
-        // Method - Update Amount
-        public void UpdateAmount(int newAmount)
+        // Method - Update the number of pizzas in stock
+        public void UpdateNoOfPizzas(int noOfPizzas)
         {
-            Guard.AgainstZeroOrLess(newAmount, nameof(Amount));
-            Amount = newAmount;
+            Guard.AgainstZeroOrLess(noOfPizzas, nameof(NoOfPizzas));
+            NoOfPizzas = noOfPizzas;
             MarkUpdated();
         }
 

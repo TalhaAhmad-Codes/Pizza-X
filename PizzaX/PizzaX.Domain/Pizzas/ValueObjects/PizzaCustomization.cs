@@ -1,5 +1,4 @@
 ﻿using PizzaX.Domain.Common;
-using System.Numerics;
 
 namespace PizzaX.Domain.Pizzas.ValueObjects
 {
