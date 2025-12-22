@@ -36,7 +36,7 @@ namespace PizzaX.Domain.Employees.Entities
         {
             Guard.AgainstZeroOrLess(salary, nameof(salary));
 
-            UserId = UserId;
+            UserId = userId;
             EmployeeDesignation = employeeDesignation;
             Salary = salary;
             Contact = contact;
