@@ -25,7 +25,7 @@ namespace PizzaX.Domain.Pizzas.ValueObjects
         // Method – Creates pizza customization
         public static PizzaCustomization Create(bool extraCheese = false, bool extraSauce = false, bool extraToppings = false, int noOfCustomizedPizzas = 0, int totalPizzas = 0)
         {
-            Guard.AgainstRange(0, totalPizzas, noOfCustomizedPizzas, nameof(NoOfCustomizedPizzas));
+            Guard.AgainstOutOfRange(0, totalPizzas, noOfCustomizedPizzas, nameof(NoOfCustomizedPizzas));
 
             return new(extraCheese, extraSauce, extraToppings, noOfCustomizedPizzas);
         }

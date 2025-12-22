@@ -4,7 +4,7 @@
     {
         public static void AgainstNull(string value, string property)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(value) || string.IsNullOrEmpty(value))
                 throw new DomainException($"{property} cannot be empty.");
         }
 
@@ -20,7 +20,13 @@
                 throw new DomainException($"{property} must be greater than zero.");
         }
 
-        public static void AgainstRange(int rangeStart, int rangeEnd, int value, string property)
+        public static void AgainstZeroOrLess(decimal value, string property)
+        {
+            if (value <= 0)
+                throw new DomainException($"{property} must be greater than zero.");
+        }
+
+        public static void AgainstOutOfRange(int rangeStart, int rangeEnd, int value, string property)
         {
             if (value < rangeStart || value > rangeEnd)
                 throw new DomainException($"{property} must be between the range of {rangeStart} and {rangeEnd}.");

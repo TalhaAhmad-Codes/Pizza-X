@@ -17,8 +17,7 @@ namespace PizzaX.Domain.Users.Entities
         [Required]
         public Email Email { get; private set; }
 
-        [Required]
-        public UserRole Role { get; private set; }
+        public UserRole? Role { get; private set; }
 
         [Required]
         public bool IsActive { get; private set; }
@@ -28,7 +27,7 @@ namespace PizzaX.Domain.Users.Entities
         // Constructors
         private User() { }
 
-        private User(string username, string password, Email email, UserRole role, bool isActive)
+        private User(string username, string password, Email email, UserRole? role, bool isActive)
         {
             // Validation Check
             Guard.AgainstNull(username, nameof(Username));
@@ -43,7 +42,7 @@ namespace PizzaX.Domain.Users.Entities
         }
 
         // Method - Create a new user
-        public static User Create(string username, string password, Email email, UserRole role, bool isActive) 
+        public static User Create(string username, string password, Email email, UserRole? role, bool isActive) 
             => new(username, password, email, role, isActive);
 
         // Method - Change password
@@ -62,7 +61,7 @@ namespace PizzaX.Domain.Users.Entities
         }
 
         // Method - Update role of the user
-        public void UpdateRole(UserRole newRole)
+        public void UpdateRole(UserRole? newRole)
         {
             Role = newRole;
             MarkUpdated();

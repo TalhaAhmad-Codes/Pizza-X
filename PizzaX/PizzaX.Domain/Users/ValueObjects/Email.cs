@@ -7,8 +7,10 @@ namespace PizzaX.Domain.Users.ValueObjects
     {
         public string Value { get; }
 
+        // Constructor
         private Email(string value) => Value = value;
 
+        // Method - Create an email object
         public static Email Create(string value)
         {
             // Checking if email is null
@@ -22,6 +24,7 @@ namespace PizzaX.Domain.Users.ValueObjects
             return new Email(value);
         }
 
+        // Method - To string convertor
         public override string ToString() => Value;
     }
 }
