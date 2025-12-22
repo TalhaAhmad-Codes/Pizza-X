@@ -8,21 +8,12 @@ namespace PizzaX.Domain.Users.Entities
     public sealed class User : BaseEntity
     {
         // Attributes
-        [Required]
-        public string Username { get; private set; }
-
-        [Required]
-        public string Password { get; private set; }
-
-        [Required]
-        public Email Email { get; private set; }
-
-        public UserRole? Role { get; private set; }
-
-        [Required]
-        public bool IsActive { get; private set; }
-
         public byte[]? ProfilePic { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
+        public Email Email { get; private set; }
+        public UserRole? Role { get; private set; }
+        public bool IsActive { get; private set; }
 
         // Constructors
         private User() { }

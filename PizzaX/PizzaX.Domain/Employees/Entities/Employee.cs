@@ -9,35 +9,24 @@ namespace PizzaX.Domain.Employees.Entities
     public sealed class Employee : BaseEntity
     {
         // Attributes
-        [Required]
         public int UserId { get; private set; }
         public User User { get; private set; }
-
-        [Required]
-        public EmployeeDesignation EmployeeDesignation { get; private set; }
-
-        [Required]
+        public EmployeeDesignation Designation { get; private set; }
         public decimal Salary { get; private set; }
-
-        [Required]
         public Contact Contact {  get; private set; }
-
-        [Required]
         public Address Address { get; private set; }
-
-        [Required]
         public DateTime JoiningDate { get; }
         public DateTime? LeaveDate { get; private set; }
 
         // Constructors
         private Employee() { }
 
-        private Employee(int userId, EmployeeDesignation employeeDesignation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate)
+        private Employee(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate)
         {
             Guard.AgainstZeroOrLess(salary, nameof(salary));
 
             UserId = userId;
-            EmployeeDesignation = employeeDesignation;
+            Designation = designation;
             Salary = salary;
             Contact = contact;
             Address = address;
@@ -46,13 +35,13 @@ namespace PizzaX.Domain.Employees.Entities
         }
 
         // Method - Create a new Employee
-        public static Employee Create(int userId, EmployeeDesignation employeeDesignation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate = null) 
-            => new(userId, employeeDesignation, salary, contact, address, joiningDate, leaveDate);
+        public static Employee Create(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate = null) 
+            => new(userId, designation, salary, contact, address, joiningDate, leaveDate);
 
         // Method - Change Designation
-        public void ChangeDesignation(EmployeeDesignation employeeDesignation)
+        public void ChangeDesignation(EmployeeDesignation designation)
         {
-            EmployeeDesignation = employeeDesignation;
+            Designation = designation;
             MarkUpdated();
         }
 
@@ -82,8 +71,10 @@ namespace PizzaX.Domain.Employees.Entities
         // Method - Mark leave date
         public void MarkLeaveDate(DateTime leaveDate)
         {
+            if (leaveDate < JoiningDate)
+                throw new DomainException("Leave date cannot be before joining date.");
+
             LeaveDate = leaveDate;
-            User.UpdateToInActive();
             MarkUpdated();
         }
     }

@@ -1,7 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Orders.Enums;
 using PizzaX.Domain.Orders.ValueObjects;
-using System.ComponentModel.DataAnnotations;
 
 namespace PizzaX.Domain.Orders.Entities
 {
@@ -11,26 +10,12 @@ namespace PizzaX.Domain.Orders.Entities
         private readonly List<OrderItem> _items = new();
 
         public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
-
-        [Required]
         public OrderStatus Status { get; private set; }
-
-        [Required]
         public PaymentStatus PaymentStatus { get; private set; }
-
-        [Required]
         public PaymentMethod PaymentMethod { get; private set; }
-
-        [Required]
         public decimal TotalPrice { get; private set; }
-
-        [Required]
         public int UserId { get; private set; }
-
-        [Required]
         public OrderNumber OrderNumber { get; private set; }
-
-        [Required]
         public DeliveryInfo DeliveryInfo { get; private set; }
 
         // Constructors

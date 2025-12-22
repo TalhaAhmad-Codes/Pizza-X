@@ -1,7 +1,5 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Pizzas.ValueObjects;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
 
 namespace PizzaX.Domain.Orders.Entities
 {
@@ -9,15 +7,9 @@ namespace PizzaX.Domain.Orders.Entities
     {
         // Attributes
         public int PizzaId { get; private set; }
-        
-        [Required]
-        public int Quantity { get; private set; } = 0;
-
-        [Required]
+        public int Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
-
         public PizzaCustomization? PizzaCustomization { get; private set; }
-
         public decimal TotalPrice
             => (UnitPrice * Quantity) + PizzaCustomization!.CalculateExtraCharges();
 

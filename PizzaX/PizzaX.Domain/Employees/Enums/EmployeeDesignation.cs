@@ -17,8 +17,8 @@
         Cleaner = 6,            // Maintains hygiene
 
         // Management
-        Manager = 7,            // Manages daily operations (Also, Admin)
+        Manager = 7,            // Manages daily operations
         ShiftSupervisor = 8,    // Manages a shift
-        Owner = 9
+        Owner = 9               // The owner
     }
 }

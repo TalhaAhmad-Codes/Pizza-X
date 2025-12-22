@@ -15,19 +15,16 @@ namespace PizzaX.Domain.Employees.ValueObject
         {
             Guard.AgainstNull(number, nameof(number));
 
-            foreach (var digit in number)
-            {
-                if (!char.IsAsciiDigit(digit))
-                    throw new DomainException("The number is invalid. It must contain only digits.");
-            }
+            if (number.Length != 11)
+                throw new DomainException("The number must be exactly 11 digits long.");
+
+            if (!number.All(char.IsDigit))
+                throw new DomainException("Contact number must contain digits only.");
 
             return new Contact(number);
         }
 
         // Method - To string convertor
-        public override string ToString()
-        {
-            return Number;
-        }
+        public override string ToString() => Number;
     }
 }

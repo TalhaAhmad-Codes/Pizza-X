@@ -3,7 +3,7 @@ using PizzaX.Domain.Pizzas.Enums;
 
 namespace PizzaX.ApplicationCore.DTOs.PizzaDTOs
 {
-    public sealed class PizzaDto : BaseDto
+    public sealed class PizzaDto : AuditableDto
     {
         public byte[]? Image { get; init; } = null;
         public PizzaSize Size { get; init; }

@@ -24,6 +24,9 @@ namespace PizzaX.Domain.Employees.ValueObject
             Guard.AgainstNull(city, nameof(city));
             Guard.AgainstNull(postalCode, nameof(postalCode));
 
+            if (postalCode.Length < 4)
+                throw new DomainException("Postal code is invalid.");
+
             return new Address(region, city, postalCode);
         }
 

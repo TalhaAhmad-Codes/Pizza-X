@@ -1,6 +1,5 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Pizzas.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace PizzaX.Domain.Pizzas.Entities
 {
@@ -8,18 +7,10 @@ namespace PizzaX.Domain.Pizzas.Entities
     {
         // Attributes
         public byte[]? Image { get; private set; }
-
-        [Required]
         public decimal Price { get; private set; }
-
-        [Required]
         public PizzaSize Size { get; private set; }
-
-        [Required]
         public int NoOfPizzas { get; private set; }
         public string? Description { get; private set; }
-
-        [Required]
         public int PizzaVarietyId { get; private set; }
         public PizzaVariety Variety { get; private set; }
 
