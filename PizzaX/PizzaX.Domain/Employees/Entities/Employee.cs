@@ -2,7 +2,6 @@
 using PizzaX.Domain.Employees.Enums;
 using PizzaX.Domain.Employees.ValueObject;
 using PizzaX.Domain.Users.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace PizzaX.Domain.Employees.Entities
 {
