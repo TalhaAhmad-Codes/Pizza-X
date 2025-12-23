@@ -1,7 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Users.Enums;
 using PizzaX.Domain.Users.ValueObjects;
-using System.ComponentModel.DataAnnotations;
 
 namespace PizzaX.Domain.Users.Entities
 {

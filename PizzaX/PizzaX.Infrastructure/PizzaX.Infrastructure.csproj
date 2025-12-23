@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.15.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaX.ApplicationCore\PizzaX.ApplicationCore.csproj" />
+  </ItemGroup>
+
 </Project>

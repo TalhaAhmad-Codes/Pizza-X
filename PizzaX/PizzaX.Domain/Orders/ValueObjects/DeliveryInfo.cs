@@ -6,20 +6,20 @@ namespace PizzaX.Domain.Orders.ValueObjects
     {
         // Attributes
         public string CustomerName { get; }
-        public string AddressLine { get; }
+        public string Address { get; }
         public string City { get; }
         public string Phone { get; }
 
         // Constructor
-        private DeliveryInfo(string customerName, string addressLine, string city, string phone)
+        private DeliveryInfo(string customerName, string address, string city, string phone)
         {
             Guard.AgainstNull(customerName, nameof(CustomerName));
-            Guard.AgainstNull(addressLine, nameof(AddressLine));
+            Guard.AgainstNull(address, nameof(Address));
             Guard.AgainstNull(city, nameof(City));
             Guard.AgainstNull(phone, nameof(Phone));
 
             CustomerName = customerName;
-            AddressLine = addressLine;
+            Address = address;
             City = city;
             Phone = phone;
         }
