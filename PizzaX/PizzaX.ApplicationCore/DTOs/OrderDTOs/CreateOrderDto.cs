@@ -6,6 +6,5 @@ namespace PizzaX.ApplicationCore.DTOs.OrderDTOs
     {
         public int UserId { get; init; }
         public IReadOnlyList<CreateOrderItemDto> itemDtos { get; init; } = [];
-        
     }
 }

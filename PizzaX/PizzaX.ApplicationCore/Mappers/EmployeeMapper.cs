@@ -5,20 +5,20 @@ namespace PizzaX.ApplicationCore.Mappers
 {
     public static class EmployeeMapper
     {
-        public static EmployeeDto ToDto(Employee employee)
+        public static EmployeeDto ToDto(Employee entity)
             => new() { 
-                Id = employee.Id,
-                UserId = employee.UserId,
-                Designation = employee.Designation,
-                Salary = employee.Salary,
-                ContactNumber = employee.Contact.Number,
-                Region = employee.Address.Region,
-                City = employee.Address.City,
-                PostalCode = employee.Address.PostalCode,
-                JoiningDate = employee.JoiningDate,
-                LeaveDate = employee.LeaveDate,
-                CreatedAt = employee.CreatedAt,
-                UpdatedAt = employee.UpdatedAt
+                Id = entity.Id,
+                UserId = entity.UserId,
+                Designation = entity.Designation,
+                Salary = entity.Salary,
+                ContactNumber = entity.Contact.Number,
+                Region = entity.Address.Region,
+                City = entity.Address.City,
+                PostalCode = entity.Address.PostalCode,
+                JoiningDate = entity.JoiningDate,
+                LeaveDate = entity.LeaveDate,
+                CreatedAt = entity.CreatedAt,
+                UpdatedAt = entity.UpdatedAt
             };
     }
 }

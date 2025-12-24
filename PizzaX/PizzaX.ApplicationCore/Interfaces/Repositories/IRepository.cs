@@ -7,8 +7,8 @@ namespace PizzaX.ApplicationCore.Interfaces.Repositories
         Task<IQueryable<T>?> GetAllAsync();
         Task<T?> GetByIdAsync(int id);
         Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        Task<T> UpdateAsync(int id);
+        Task DeleteAsync(int id);
         Task SaveChangesAsync();
     }
 }
