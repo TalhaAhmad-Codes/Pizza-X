@@ -18,7 +18,7 @@ namespace PizzaX.ApplicationCore.Factories
                     postalCode: dto.PostalCode
                 ),
                 joiningDate: dto.JoiningDate,
-                leaveDate: dto.LeaveDate
+                leftDate: dto.LeaveDate
             );
     }
 }

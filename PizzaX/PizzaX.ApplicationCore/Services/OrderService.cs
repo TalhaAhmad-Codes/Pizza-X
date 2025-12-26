@@ -1,8 +1,11 @@
 ﻿using PizzaX.ApplicationCore.DTOs.Common;
 using PizzaX.ApplicationCore.DTOs.OrderDTOs;
+using PizzaX.ApplicationCore.Factories;
 using PizzaX.ApplicationCore.Interfaces.Repositories;
 using PizzaX.ApplicationCore.Interfaces.Services;
 using PizzaX.ApplicationCore.Mappers;
+using PizzaX.Domain.Common;
+using PizzaX.Domain.Pizzas.Entities;
 
 namespace PizzaX.Infrastructure.Services
 {
@@ -21,11 +24,37 @@ namespace PizzaX.Infrastructure.Services
 
         public async Task<OrderDto> PlaceOrderAsync(CreateOrderDto dto)
         {
-            // 1. Load pizzas
-            // 2. Create Order aggregate
-            // 3. Apply domain rules
-            // 4. Persist
-            // 5. Return mapped DTO
+            // Basic application-level validation
+            if (dto.itemDtos.Count == 0)
+                throw new DomainException("Order must contain at least one item.");
+
+            // Load all pizzas involved in the order
+            var pizzasById = new Dictionary<int, Pizza>();
+
+            foreach (var item in dto.itemDtos)
+            {
+                Guard.AgainstZeroOrLess(item.Quantity, nameof(item.Quantity));
+
+                if (!pizzasById.ContainsKey(item.PizzaId))
+                {
+                    var pizza = await _pizzaRepository.GetByIdAsync(item.PizzaId)
+                        ?? throw new DomainException($"Pizza with Id {item.PizzaId} not found.");
+
+                    if (!pizza.IsAvailable)
+                        throw new DomainException($"Pizza '{pizza.Variety.Name}' is not available.");
+
+                    pizzasById.Add(item.PizzaId, pizza);
+                }
+            }
+
+            // Create Order aggregate using factory (DTO → Entity)
+            var order = OrderFactory.Create(dto, pizzasById);
+
+            // Persist aggregate root
+            await _orderRepository.AddAsync(order);
+
+            // Return read model (Entity → DTO)
+            return OrderMapper.ToDto(order);
 
             throw new NotImplementedException();
         }
@@ -44,7 +73,7 @@ namespace PizzaX.Infrastructure.Services
         public async Task<OrderDto?> GetOrderAsync(string orderNumber)
         {
             var order = await _orderRepository.GetByOrderNumberAsync(orderNumber);
-            return order is null ? null : OrderMapper.ToDto(order);
+            return OrderMapper.ToDto(order!);
         }
     }
 }

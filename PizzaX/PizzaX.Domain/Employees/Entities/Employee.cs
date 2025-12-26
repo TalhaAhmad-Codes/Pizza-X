@@ -15,12 +15,13 @@ namespace PizzaX.Domain.Employees.Entities
         public Contact Contact {  get; private set; }
         public Address Address { get; private set; }
         public DateTime JoiningDate { get; }
-        public DateTime? LeaveDate { get; private set; }
+        public DateTime? LeftDate { get; private set; }
+        public bool HasLeft => LeftDate is null;
 
         // Constructors
         private Employee() { }
 
-        private Employee(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate)
+        private Employee(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leftDate)
         {
             Guard.AgainstZeroOrLess(salary, nameof(salary));
 
@@ -30,12 +31,12 @@ namespace PizzaX.Domain.Employees.Entities
             Contact = contact;
             Address = address;
             JoiningDate = joiningDate;
-            LeaveDate = leaveDate;
+            LeftDate = leftDate;
         }
 
         // Method - Create a new Employee
-        public static Employee Create(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leaveDate = null) 
-            => new(userId, designation, salary, contact, address, joiningDate, leaveDate);
+        public static Employee Create(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leftDate = null) 
+            => new(userId, designation, salary, contact, address, joiningDate, leftDate);
 
         // Method - Change Designation
         public void ChangeDesignation(EmployeeDesignation designation)
@@ -73,7 +74,7 @@ namespace PizzaX.Domain.Employees.Entities
             if (leaveDate < JoiningDate)
                 throw new DomainException("Leave date cannot be before joining date.");
 
-            LeaveDate = leaveDate;
+            LeftDate = leaveDate;
             MarkUpdated();
         }
     }

@@ -10,16 +10,19 @@ namespace PizzaX.ApplicationCore.DTOs.EmployeeDTOs
         public decimal? MinSalary { get; init; }
         public decimal? MaxSalary { get; init; }
 
-        public bool? IsActive { get; init; }
-
         public EmployeeDesignation? Designation { get; init; }
+
+        public bool? HasLeft { get; init; }
 
         // Address-based filtering (query-friendly)
         public string? City { get; init; }
         public string? Region { get; init; }
         public string? PostalCode { get; init; }
 
-        public DateTime? JoinedAfter { get; init; }
-        public DateTime? JoinedBefore { get; init; }
+        public DateTime? JoinedFrom { get; init; }
+        public DateTime? JoinedTo { get; init; }
+
+        public DateTime? LeftFrom { get; init; }
+        public DateTime? LeftTo { get; init; }
     }
 }

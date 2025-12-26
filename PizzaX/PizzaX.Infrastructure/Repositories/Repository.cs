@@ -25,6 +25,7 @@ namespace PizzaX.Infrastructure.Repositories
         public async Task AddAsync(T entity)
         {
             await _set.AddAsync(entity);
+            await SaveChangesAsync();
         }
 
         public async Task<T> UpdateAsync(int id)
@@ -34,6 +35,7 @@ namespace PizzaX.Infrastructure.Repositories
                 throw new DomainException($"The entity of Id '{id}' not found.");
 
             _set.Update(obj);
+            await SaveChangesAsync();
             return obj;
         }
 
@@ -44,6 +46,7 @@ namespace PizzaX.Infrastructure.Repositories
                 throw new DomainException($"The entity of Id '{id}' not found.");
 
             _set.Remove(obj);
+            await SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

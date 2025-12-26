@@ -16,7 +16,7 @@ namespace PizzaX.ApplicationCore.Mappers
                 City = entity.Address.City,
                 PostalCode = entity.Address.PostalCode,
                 JoiningDate = entity.JoiningDate,
-                LeaveDate = entity.LeaveDate,
+                LeaveDate = entity.LeftDate,
                 CreatedAt = entity.CreatedAt,
                 UpdatedAt = entity.UpdatedAt
             };
