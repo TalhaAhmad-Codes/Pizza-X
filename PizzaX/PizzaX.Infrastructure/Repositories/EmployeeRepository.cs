@@ -41,16 +41,16 @@ namespace PizzaX.Infrastructure.Repositories
                 query = query.Where(e => e.Address.PostalCode.ToLower() == filter.PostalCode.ToLower());
 
             if (filter.JoinedFrom.HasValue)
-                query = query.Where(e => e.JoiningDate > filter.JoinedFrom.Value);
+                query = query.Where(e => e.JoiningDate >= filter.JoinedFrom.Value);
 
             if (filter.JoinedTo.HasValue)
-                query = query.Where(e => e.JoiningDate < filter.JoinedTo.Value);
+                query = query.Where(e => e.JoiningDate <= filter.JoinedTo.Value);
 
             if (filter.LeftFrom.HasValue)
-                query = query.Where(e => e.LeftDate > filter.LeftFrom.Value);
+                query = query.Where(e => e.LeftDate >= filter.LeftFrom.Value);
 
             if (filter.LeftTo.HasValue)
-                query = query.Where(e => e.LeftDate < filter.LeftTo.Value);
+                query = query.Where(e => e.LeftDate <= filter.LeftTo.Value);
 
             var totalCount = await query.CountAsync();
 
