@@ -6,7 +6,7 @@ namespace PizzaX.ApplicationCore.DTOs.OrderDTOs
     {
         public int UserId { get; init; }
         public PaymentMethod PaymentMethod { get; init; }
-        public IReadOnlyList<CreateOrderItemDto> itemDtos { get; init; } = [];
+        public IReadOnlyList<CreateOrderItemDto> itemDtos { get; init; }
 
         // Delivery Info
         public string CustomerName { get; init; }

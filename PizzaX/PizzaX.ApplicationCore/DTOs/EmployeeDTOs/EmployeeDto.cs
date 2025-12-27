@@ -17,7 +17,7 @@ namespace PizzaX.ApplicationCore.DTOs.EmployeeDTOs
         public string City { get; init; }
         public string PostalCode { get; init; }
 
-        public DateTime JoiningDate { get; init; }
-        public DateTime? LeaveDate { get; init; }
+        public DateTime JoinedDate { get; init; }
+        public DateTime? LeftDate { get; init; }
     }
 }

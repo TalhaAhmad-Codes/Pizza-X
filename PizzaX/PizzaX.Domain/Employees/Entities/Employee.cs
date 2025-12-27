@@ -14,14 +14,14 @@ namespace PizzaX.Domain.Employees.Entities
         public decimal Salary { get; private set; }
         public Contact Contact {  get; private set; }
         public Address Address { get; private set; }
-        public DateTime JoiningDate { get; }
+        public DateTime JoinedDate { get; }
         public DateTime? LeftDate { get; private set; }
-        public bool HasLeft => LeftDate is null;
+        public bool HasLeft => LeftDate is not null;
 
         // Constructors
         private Employee() { }
 
-        private Employee(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leftDate)
+        private Employee(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joinedDate, DateTime? leftDate)
         {
             Guard.AgainstZeroOrLess(salary, nameof(salary));
 
@@ -30,13 +30,13 @@ namespace PizzaX.Domain.Employees.Entities
             Salary = salary;
             Contact = contact;
             Address = address;
-            JoiningDate = joiningDate;
+            JoinedDate = joinedDate;
             LeftDate = leftDate;
         }
 
         // Method - Create a new Employee
-        public static Employee Create(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joiningDate, DateTime? leftDate = null) 
-            => new(userId, designation, salary, contact, address, joiningDate, leftDate);
+        public static Employee Create(int userId, EmployeeDesignation designation, decimal salary, Contact contact, Address address, DateTime joinedDate, DateTime? leftDate = null) 
+            => new(userId, designation, salary, contact, address, joinedDate, leftDate);
 
         // Method - Change Designation
         public void ChangeDesignation(EmployeeDesignation designation)
@@ -71,7 +71,7 @@ namespace PizzaX.Domain.Employees.Entities
         // Method - Mark leave date
         public void MarkLeaveDate(DateTime leaveDate)
         {
-            if (leaveDate < JoiningDate)
+            if (leaveDate < JoinedDate)
                 throw new DomainException("Leave date cannot be before joining date.");
 
             LeftDate = leaveDate;

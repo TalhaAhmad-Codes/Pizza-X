@@ -10,11 +10,14 @@ namespace PizzaX.Domain.Pizzas.Entities
         // Constructors
         private PizzaVariety() { }
 
-        public PizzaVariety(string name)
+        private PizzaVariety(string name)
         {
             Guard.AgainstNull(name, nameof(Name));
             Name = name;
         }
+
+        public static PizzaVariety Create(string name)
+            => new(name);
 
         // Method - Update name of the pizza variety
         public void Rename(string newName)
