@@ -1,6 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 
-namespace PizzaX.Domain.ValueObjects
+namespace PizzaX.Domain.ValueObjects.User
 {
     public sealed class Email
     {

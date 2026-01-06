@@ -1,8 +1,7 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.Enums;
-using PizzaX.Domain.ValueObjects;
-using System.Security.Authentication;
+using PizzaX.Domain.Enums.User;
+using PizzaX.Domain.ValueObjects.User;
 
 namespace PizzaX.Domain.Entities
 {
@@ -13,12 +12,12 @@ namespace PizzaX.Domain.Entities
         public string Username {  get; private set; }
         public Email Email {  get; private set; }
         public Password Password { get; private set; }
-        public UserRole UserRole { get; private set; }
+        public Role UserRole { get; private set; }
 
         // Constructors
         private User() { }
 
-        private User(string username, string email, string password, UserRole userRole)
+        private User(string username, string email, string password, Role userRole)
         {
             // Guard against invalid values
             Guard.AgainstNullOrWhitespace(username, nameof(Username));
@@ -33,7 +32,7 @@ namespace PizzaX.Domain.Entities
         }
 
         // Method - Create a new object
-        public static User Create(string username, string email, string password, UserRole userRole)
+        public static User Create(string username, string email, string password, Role userRole)
             => new(username, email, password, userRole);
 
         /*******************************************/
@@ -80,7 +79,7 @@ namespace PizzaX.Domain.Entities
         }
 
         // Update role
-        public void UpdateUserRole(UserRole userRole, bool isVerifiedByAdmin)
+        public void UpdateUserRole(Role userRole, bool isVerifiedByAdmin)
         {
             // Rule: For security concern, the admin must approve the user to change his role
             Guard.AgainstUnauthorizedByAdmin(isVerifiedByAdmin);

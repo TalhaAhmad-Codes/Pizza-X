@@ -1,4 +1,4 @@
-﻿namespace PizzaX.Domain.Exceptions
+﻿namespace PizzaX.Domain.Common.Exceptions
 {
     public sealed class NullStringException : Exception
     {

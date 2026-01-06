@@ -1,6 +1,5 @@
-﻿using PizzaX.Domain.Exceptions;
-using PizzaX.Domain.ValueObjects;
-using System.Security.Authentication;
+﻿using PizzaX.Domain.Common.Exceptions;
+using PizzaX.Domain.ValueObjects.User;
 
 namespace PizzaX.Domain.Common
 {
@@ -18,6 +17,20 @@ namespace PizzaX.Domain.Common
             if (value < 0)
                 throw new NegativeValueException($"{name} can't be negative.");
         }
+
+        // Methods - Against negative or zero values
+        public static void AgainstZeroOrLess(decimal value, string name)
+        {
+            if (value <= 0)
+                throw new ZeroOrLessException($"{name} can't be zero or negative.");
+        }
+
+        public static void AgainstZeroOrLess(int value, string name)
+        {
+            if (value <= 0)
+                throw new ZeroOrLessException($"{name} can't be zero or negative.");
+        }
+
 
         // Method - Against null / whitespace
         public static void AgainstNullOrWhitespace(string value, string name)
