@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PizzaX.Domain.Entities;
 
 namespace PizzaX.Infrastructure.Data
 {
@@ -7,6 +8,7 @@ namespace PizzaX.Infrastructure.Data
         // Constructor
         public PizzaXDbContext(DbContextOptions<PizzaXDbContext> options) : base(options) { }
 
-        /*/ <----- DbSets -----> /*/
+        /*// <----- DbSets -----> //*/
+        public DbSet<User> Users => Set<User>();
     }
 }
