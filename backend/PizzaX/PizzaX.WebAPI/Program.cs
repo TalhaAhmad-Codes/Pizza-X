@@ -1,3 +1,6 @@
+using PizzaX.Infrastructure;
+using PizzaX.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
@@ -7,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 // MediatR
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(PizzaX.Application.AssemblyReference).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly));
 
 // Infrastructure DI
 builder.Services.AddInfrastructure(builder.Configuration);
