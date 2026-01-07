@@ -1,0 +1,45 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.2.9 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.2.9">
+  <diagram name="Page-1" id="dzWkl-1Dj0-OZJQf_8r8">
+    <mxGraphModel dx="872" dy="529" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tw73CBMTm-N9WoeC7oum-5" edge="1" parent="1" source="tw73CBMTm-N9WoeC7oum-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" target="tw73CBMTm-N9WoeC7oum-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-6" edge="1" parent="1" source="tw73CBMTm-N9WoeC7oum-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" target="tw73CBMTm-N9WoeC7oum-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;labelBackgroundColor=none;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" value="WebAPI" vertex="1">
+          <mxGeometry height="80" width="80" x="320" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;labelBackgroundColor=none;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" value="Domain" vertex="1">
+          <mxGeometry height="40" width="80" x="320" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-8" edge="1" parent="1" source="tw73CBMTm-N9WoeC7oum-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" target="tw73CBMTm-N9WoeC7oum-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-9" edge="1" parent="1" source="tw73CBMTm-N9WoeC7oum-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" target="tw73CBMTm-N9WoeC7oum-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" value="Infrastructure" vertex="1">
+          <mxGeometry height="40" width="120" x="160" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-7" edge="1" parent="1" source="tw73CBMTm-N9WoeC7oum-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#23445D;fontColor=default;" target="tw73CBMTm-N9WoeC7oum-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tw73CBMTm-N9WoeC7oum-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#182E3E;strokeColor=#FFFFFF;fontColor=#FFFFFF;" value="Application" vertex="1">
+          <mxGeometry height="40" width="120" x="440" y="200" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
