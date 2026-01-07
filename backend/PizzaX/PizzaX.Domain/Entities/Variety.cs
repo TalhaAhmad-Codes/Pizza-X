@@ -1,6 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.Exceptions;
+using PizzaX.Domain.Common.Exceptions;
 
 namespace PizzaX.Domain.Entities
 {
