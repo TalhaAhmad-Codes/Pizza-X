@@ -39,6 +39,17 @@ namespace PizzaX.Domain.Common
                 throw new NullStringException($"{name} can't be null or whitespace.");
         }
 
+        // Method - Against whitespace only
+        public static void AgainstWhitespace(string? value, string name)
+        {
+            // Return if the value is null, because it is acceptable
+            if (value is null)
+                return;
+
+            // It only checks for whitespace not null
+            AgainstNullOrWhitespace(value, name);
+        }
+
         // Methods - Against length limit
         public static void AgainstLowerLengthLimit(string value, int length, string name)
         {
