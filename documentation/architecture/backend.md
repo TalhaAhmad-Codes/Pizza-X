@@ -32,6 +32,5 @@ The backend follows **Clean Architecture**, ensuring:
 - Delegates processing to Application layer
 
 ## Dependency Rule
-Dependencies always point inward:
 
 ![backend-architecture-dependency-diagram-image](/documentation/architecture/diagrams/backend/dependency-flow/backend-architecture-dependency-flow-diagram.png)

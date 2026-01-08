@@ -47,6 +47,8 @@ The following branches are defined:
   - Contains all project documentation
   - Includes architecture, ADRs, technical notes, and user manuals
 
+![github-branches-flow](/documentation/adr/diagrams/github-branches/github-branches-merge-flow.png)
+
 ## Consequences
 
 ### Positive
@@ -62,6 +64,4 @@ The following branches are defined:
 - Developers must be careful to work in the correct branch
 
 ## Notes
-This strategy supports the long-term goal of evolving Pizza X as a
-maintainable, scalable POS & CRM system while keeping development workflows
-structured and predictable.
+> This strategy supports the long-term goal of evolving Pizza X as a maintainable, scalable POS & CRM system while keeping development workflows structured and predictable.

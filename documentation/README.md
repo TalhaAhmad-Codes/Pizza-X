@@ -19,7 +19,7 @@ It consists of:
 | user-manual | End-user documentation |
 
 ## How to Read This Documentation
-- Start with **architecture/overview.md**
-- Review **ADRs** to understand key decisions
-- Use **technical-notes** for implementation details
-- Refer to **user-manual** for user workflows
+- Start with [**architecture/overview.md**](/documentation/architecture/overview.md)
+- Review [**ADRs**](/documentation/adr/) to understand key decisions
+- Use [**technical-notes**](/documentation/technical-notes/) for implementation details
+- Refer to [**user-manual**](/documentation/user-manual/README.md) for user workflows
