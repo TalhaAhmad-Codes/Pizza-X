@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="PizzaX.Application/PizzaX.Application.csproj" />
+  <Project Path="PizzaX.Domain/PizzaX.Domain.csproj" />
+  <Project Path="PizzaX.Infrastructure/PizzaX.Infrastructure.csproj" />
+  <Project Path="PizzaX.WebAPI/PizzaX.WebAPI.csproj" />
+</Solution>
