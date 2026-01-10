@@ -159,14 +159,13 @@ All documentation is maintained in the `documentation` branch, including:
 
 ## 📄 License
 
-This project is currently **private**.
-Licensing details will be defined later.
+This project is licensed under [MIT](/LICENSE).
 
 ---
 
 ## ✨ Status
 
 🚧 **Active Development**
-Architecture & foundations are being finalized.
+Architecture & foundations for backend are being finalized.
 
 ---
