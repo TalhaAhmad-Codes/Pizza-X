@@ -25,7 +25,19 @@ namespace PizzaX.Domain.Entities
         public static PizzaVariety Create(string name)
             => new(name);
 
-        // Method - Add pizza
+        /*****************************************************/
+        /* Methods to change properties of the pizza variety */
+        /*****************************************************/
+
+        // Update variety name
+        public void UpdateName(string name)
+        {
+            Guard.AgainstNullOrWhitespace(name, nameof(PizzaVariety);
+
+            Name = name;
+        }
+
+        // Add pizza
         public void AddPizza(Pizza pizza)
         {
             // If the pizza already exists
@@ -36,7 +48,7 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        // Method - Remove pizza
+        // Remove pizza
         public void RemovePizza(Pizza pizza)
         {
             // If the pizza doesn't exist

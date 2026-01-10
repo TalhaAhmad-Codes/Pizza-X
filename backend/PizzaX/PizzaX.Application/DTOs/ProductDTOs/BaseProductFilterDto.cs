@@ -1,11 +1,13 @@
-﻿namespace PizzaX.Application.DTOs.ProductDTOs
+﻿using PizzaX.Application.DTOs.Common;
+
+namespace PizzaX.Application.DTOs.ProductDTOs
 {
-    public abstract class BaseProductFilterDto
+    public abstract class BaseProductFilterDto : BaseFilterDto
     {
         // Data fields
-        public decimal MinPrice { get; init; }
-        public decimal MaxPrice { get; init; }
-        public int MinQuantity { get; init; }
-        public int MaxQuantity { get; init; }
+        public decimal? MinPrice { get; init; }
+        public decimal? MaxPrice { get; init; }
+        public int? MinQuantity { get; init; }
+        public int? MaxQuantity { get; init; }
     }
 }
