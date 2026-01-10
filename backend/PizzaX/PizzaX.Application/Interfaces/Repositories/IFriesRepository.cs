@@ -12,7 +12,7 @@ namespace PizzaX.Application.Interfaces.Repositories
         // Update methods
         Task<Fries?> UpdateImageAsync(FriesUpdateImageDto imageDto);
         Task<Fries?> UpdatePriceAsync(FriesUpdatePriceDto priceDto);
-        Task<Fries?> UpdateQualityAsync(FriesUpdateQuantityDto qualityDto);
+        Task<Fries?> UpdateQuantityAsync(FriesUpdateQuantityDto qualityDto);
         Task<Fries?> UpdateDescriptionAsync(FriesUpdateDescriptionDto descriptionDto);
     }
 }

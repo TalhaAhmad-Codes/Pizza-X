@@ -46,7 +46,7 @@ namespace PizzaX.Infrastructure.Repositories
         }
 
         // Get paged result items
-        public async Task<List<Entity>> GetPagedResultItemsAsync(IQueryable<Entity> query, int pageNumber, int pageSize)
+        protected async Task<List<Entity>> GetPagedResultItemsAsync(IQueryable<Entity> query, int pageNumber, int pageSize)
         {
             return await query
                 .Skip((pageNumber - 1) * pageSize)

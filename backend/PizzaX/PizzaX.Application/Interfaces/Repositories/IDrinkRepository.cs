@@ -14,6 +14,7 @@ namespace PizzaX.Application.Interfaces.Repositories
         Task<Drink?> UpdatePriceAsync(DrinkUpdatePriceDto priceDto);
         Task<Drink?> UpdateQuantityAsync(DrinkUpdateQuantityDto quantityDto);
         Task<Drink?> UpdateDescriptionAsync(DrinkUpdateDescriptionDto descriptionDto);
-        Task<Drink?> UpdateDetailsAsync(DrinkUpdateDetailsDto detailsDto);
+        Task<Drink?> UpdateDetailsCompanyNameAsync(DrinkUpdateDetailsCompanyNameDto companyNameDto);
+        Task<Drink?> UpdateDetailsRetailerContactNumberAsync(DrinkUpdateDetailsRetailerContactNumber numberDto);
     }
 }

@@ -16,9 +16,13 @@ namespace PizzaX.Application.DTOs.DrinkDTOs.DrinkUpdateDtos
     public sealed class DrinkUpdateDescriptionDto : BaseProductUpdateDescriptionDto { }
 
     // Update drink details
-    public sealed class DrinkUpdateDetailsDto : BaseDto
+    public sealed class DrinkUpdateDetailsCompanyNameDto : BaseDto
     {
         public string CompanyName { get; init; }
+    }
+
+    public sealed class DrinkUpdateDetailsRetailerContactNumber : BaseDto
+    {
         public string? RetailerContactNumber { get; init; }
     }
 }
