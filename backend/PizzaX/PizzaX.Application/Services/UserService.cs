@@ -4,6 +4,7 @@ using PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
+using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Services
 {
@@ -13,6 +14,26 @@ namespace PizzaX.Application.Services
 
         public UserService(IUserRepository repository)
             => this.repository = repository;
+
+        public async Task<UserDto> CreateAsync(CreateUserDto dto)
+        {
+            var user = User.Create(
+                username: dto.Username,
+                email: dto.Email,
+                password: dto.Password,
+                userRole: dto.Role
+            );
+
+            await repository.AddAsync(user);
+            return UserMapper.ToDto(user);
+        }
+
+        public async Task<UserDto?> GetByIdAsync(Guid id)
+        {
+            var user = await repository.GetByIdAsync(id);
+
+            return user is null ? null : UserMapper.ToDto(user);
+        }
 
         public async Task<PagedResultDto<UserDto>> GetAllAsync(UserFilterDto filterDto)
         {
@@ -30,6 +51,16 @@ namespace PizzaX.Application.Services
             var user = await repository.GetByEmailAsync(email);
 
             return user is null ? null : UserMapper.ToDto(user);
+        }
+
+        public async Task<bool> RemoveAsync(Guid id)
+        {
+            var user = await repository.GetByIdAsync(id);
+
+            if (user is null) return false;
+
+            await repository.RemoveAsync(user);
+            return true;
         }
 
         public async Task<bool> UpdateEmailAsync(UserUpdateEmailDto dto)

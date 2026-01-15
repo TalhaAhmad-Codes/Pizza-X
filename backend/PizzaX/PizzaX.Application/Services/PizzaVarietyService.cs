@@ -4,6 +4,7 @@ using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
+using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Services
 {
@@ -14,6 +15,16 @@ namespace PizzaX.Application.Services
         public PizzaVarietyService(IPizzaVarietyRepository repository)
             => this.repository = repository;
 
+        public async Task<PizzaVarietyDto> CreateAsync(CreatePizzaVarietyDto dto)
+        {
+            var variety = PizzaVariety.Create(
+                name: dto.Name
+            );
+
+            await repository.AddAsync(variety);
+            return PizzaVarietyMapper.ToDto(variety);
+        }
+
         public async Task<PagedResultDto<PizzaVarietyDto>> GetAllAsync(PizzaVarietyFilterDto filterDto)
         {
             var result = await repository.GetAllAsync(filterDto);
@@ -23,6 +34,23 @@ namespace PizzaX.Application.Services
                 Items = result.Items.Select(PizzaVarietyMapper.ToDto).ToList(),
                 TotalCount = result.TotalCount
             };
+        }
+
+        public async Task<PizzaVarietyDto?> GetByIdAsync(Guid id)
+        {
+            var variety = await repository.GetByIdAsync(id);
+
+            return variety is null ? null : PizzaVarietyMapper.ToDto(variety);
+        }
+
+        public async Task<bool> RemoveAsync(Guid id)
+        {
+            var variety = await repository.GetByIdAsync(id);
+
+            if (variety is null) return false;
+
+            await repository.RemoveAsync(variety);
+            return true;
         }
 
         public async Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto)

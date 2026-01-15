@@ -28,12 +28,8 @@ namespace PizzaX.Infrastructure.Repositories
         }
 
         // Delete an entity from the database
-        public async Task DeleteAsync(Guid id)
+        public async Task RemoveAsync(Entity entity)
         {
-            var entity = await GetByIdAsync(id);
-            if (entity is null)
-                throw new DomainException($"The entity of Id: {id} not found.");
-
             dbSet.Remove(entity);
             await dbContext.SaveChangesAsync();
         }

@@ -8,6 +8,11 @@ namespace PizzaX.Application.Interfaces.Services
     {
         Task<PagedResultDto<PizzaVarietyDto>> GetAllAsync(PizzaVarietyFilterDto filterDto);
 
+        // Basic methods
+        Task<PizzaVarietyDto?> GetByIdAsync(Guid id);
+        Task<PizzaVarietyDto> CreateAsync(CreatePizzaVarietyDto dto);
+        Task<bool> RemoveAsync(Guid id);
+
         // Update method
         Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto);
     }
