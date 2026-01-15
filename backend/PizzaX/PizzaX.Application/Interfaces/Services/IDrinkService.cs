@@ -4,12 +4,12 @@ using PizzaX.Application.DTOs.DrinkDTOs.DrinkUpdateDtos;
 
 namespace PizzaX.Application.Interfaces.Services
 {
-    public interface IDrinkService : IProductUpdateService<DrinkDto>
+    public interface IDrinkService : IProductUpdateService
     {
         Task<PagedResultDto<DrinkDto>> GetAllAsync(DrinkFilterDto filterDto);
 
         // Update methods
-        Task<DrinkDto?> UpdateCompanyDetailsAsync(DrinkUpdateDetailsCompanyNameDto dto);
-        Task<DrinkDto?> UpdateRetailerNumberAsync(DrinkUpdateDetailsRetailerContactNumber dto);
+        Task<bool> UpdateCompanyDetailsAsync(DrinkUpdateDetailsCompanyNameDto dto);
+        Task<bool> UpdateRetailerNumberAsync(DrinkUpdateDetailsRetailerContactNumber dto);
     }
 }

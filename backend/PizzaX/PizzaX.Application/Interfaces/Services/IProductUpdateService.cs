@@ -2,11 +2,11 @@
 
 namespace PizzaX.Application.Interfaces.Services
 {
-    public interface IProductUpdateService<TDto> where TDto : class
+    public interface IProductUpdateService
     {
-        Task<TDto?> UpdateImageAsync(ProductUpdateImageDto dto);
-        Task<TDto?> UpdatePriceAsync(ProductUpdatePriceDto dto);
-        Task<TDto?> UpdateQuantityAsync(ProductUpdateQuantityDto dto);
-        Task<TDto?> UpdateDescriptionAsync(ProductUpdateDescriptionDto dto);
+        Task<bool> UpdateImageAsync(ProductUpdateImageDto dto);
+        Task<bool> UpdatePriceAsync(ProductUpdatePriceDto dto);
+        Task<bool> UpdateQuantityAsync(ProductUpdateQuantityDto dto);
+        Task<bool> UpdateDescriptionAsync(ProductUpdateDescriptionDto dto);
     }
 }

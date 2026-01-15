@@ -9,6 +9,6 @@ namespace PizzaX.Application.Interfaces.Services
         Task<PagedResultDto<PizzaVarietyDto>> GetAllAsync(PizzaVarietyFilterDto filterDto);
 
         // Update method
-        Task<PizzaVarietyDto?> UpdateNameAsync(PizzaVarietyNameUpdateDto nameDto);
+        Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto);
     }
 }
