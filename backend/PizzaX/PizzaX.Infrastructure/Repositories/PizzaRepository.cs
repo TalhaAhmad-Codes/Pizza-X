@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.PizzaDTOs;
-using PizzaX.Application.DTOs.PizzaDTOs.PizzaUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
@@ -44,26 +43,6 @@ namespace PizzaX.Infrastructure.Repositories
                 Items = items,
                 TotalCount = totalCount
             };
-        }
-
-        public Task<Pizza?> UpdateDescriptionAsync(PizzaUpdateDescriptionDto descriptionDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdateImageAsync(PizzaUpdateImageDto imageDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdatePriceAsync(PizzaUpdatePriceDto priceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdateQuantityAsync(PizzaUpdateQuantityDto quantityDto)
-        {
-            throw new NotImplementedException();
         }
     }
 }

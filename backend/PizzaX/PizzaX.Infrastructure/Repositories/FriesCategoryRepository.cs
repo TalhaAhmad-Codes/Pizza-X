@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.FriesCetagoryDTOs;
-using PizzaX.Application.DTOs.FriesCetagoryDTOs.FriesCetagoryUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
@@ -29,19 +28,6 @@ namespace PizzaX.Infrastructure.Repositories
                 Items = items,
                 TotalCount = totalCount
             };
-        }
-
-        public async Task<FriesCategory?> UpdateNameAsync(FriesCetagoryUpdateNameDto nameDto)
-        {
-            var friesCategory = await GetByIdAsync(nameDto.Id);
-
-            if (friesCategory != null)
-            {
-                friesCategory.UpdateName(nameDto.Name);
-                await UpdateAsync(friesCategory);
-            }
-
-            return friesCategory;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.Interfaces.Repositories;
-using PizzaX.Domain.Common.Exceptions;
+using PizzaX.Domain.Common;
 using PizzaX.Infrastructure.Data;
 
 namespace PizzaX.Infrastructure.Repositories
@@ -32,7 +32,7 @@ namespace PizzaX.Infrastructure.Repositories
         {
             var entity = await GetByIdAsync(id);
             if (entity is null)
-                throw new EntityNotFoundException($"The entity of Id: {id} not found.");
+                throw new DomainException($"The entity of Id: {id} not found.");
 
             dbSet.Remove(entity);
             await dbContext.SaveChangesAsync();

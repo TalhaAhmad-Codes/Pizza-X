@@ -22,7 +22,7 @@ namespace PizzaX.Domain.Entities
             // Guard against invalid values
             Guard.AgainstNullOrWhitespace(username, nameof(Username));
             Guard.AgainstNullOrWhitespace(password, nameof(Password));
-            Guard.AgainstLowerLengthLimit(password, 8, nameof(Password));
+            Guard.AgainstMinStringLength(password, 8, nameof(Password));
 
             // Asigning values
             Username = username;
@@ -68,8 +68,12 @@ namespace PizzaX.Domain.Entities
         }
 
         // Update password
-        public void UpdatePassword(string oldPassword, string newPassword)
+        public void UpdatePassword(string oldPassword, string newPassword, string confirmPassword)
         {
+            // Rule: The user must confirm new password to make changes to old one.
+            if (newPassword != confirmPassword)
+                throw new DomainException("New password didn't match for confirmation.");
+
             // Rule: For security concern, the user must enter old password to change his current password.
             Guard.AgainstPasswordMismatch(oldPassword, Password.Hash);
 

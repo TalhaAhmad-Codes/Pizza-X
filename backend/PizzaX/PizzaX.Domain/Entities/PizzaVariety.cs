@@ -1,6 +1,5 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.Common.Exceptions;
 
 namespace PizzaX.Domain.Entities
 {
@@ -32,7 +31,7 @@ namespace PizzaX.Domain.Entities
         // Update variety name
         public void UpdateName(string name)
         {
-            Guard.AgainstNullOrWhitespace(name, nameof(PizzaVariety);
+            Guard.AgainstNullOrWhitespace(name, nameof(PizzaVariety));
 
             Name = name;
         }
@@ -42,7 +41,7 @@ namespace PizzaX.Domain.Entities
         {
             // If the pizza already exists
             if (_pizzas.Any(p => p.Id == pizza.Id))
-                throw new DuplicateEntityException("The given pizza not found in the list.");
+                throw new DomainException($"The given pizza of id({pizza.Id}) not found in the list.");
 
             _pizzas.Add(pizza);
             MarkUpdated();
@@ -53,7 +52,7 @@ namespace PizzaX.Domain.Entities
         {
             // If the pizza doesn't exist
             if (!_pizzas.Remove(pizza))
-                throw new EntityNotFoundException("The given pizza not found.");
+                throw new DomainException("The given pizza not found.");
             
             MarkUpdated();
         }

@@ -1,5 +1,4 @@
-﻿using PizzaX.Domain.Common.Exceptions;
-using PizzaX.Domain.ValueObjects.User;
+﻿using PizzaX.Domain.ValueObjects.User;
 
 namespace PizzaX.Domain.Common
 {
@@ -9,26 +8,26 @@ namespace PizzaX.Domain.Common
         public static void AgainstNegativeValue(decimal value, string name)
         {
             if (value < 0)
-                throw new NegativeValueException($"{name} can't be negative.");
+                throw new DomainException($"{name} can't be negative.");
         }
 
         public static void AgainstNegativeValue(int value, string name)
         {
             if (value < 0)
-                throw new NegativeValueException($"{name} can't be negative.");
+                throw new DomainException($"{name} can't be negative.");
         }
 
         // Methods - Against negative or zero values
         public static void AgainstZeroOrLess(decimal value, string name)
         {
             if (value <= 0)
-                throw new ZeroOrLessException($"{name} can't be zero or negative.");
+                throw new DomainException($"{name} can't be zero or negative.");
         }
 
         public static void AgainstZeroOrLess(int value, string name)
         {
             if (value <= 0)
-                throw new ZeroOrLessException($"{name} can't be zero or negative.");
+                throw new DomainException($"{name} can't be zero or negative.");
         }
 
 
@@ -36,7 +35,7 @@ namespace PizzaX.Domain.Common
         public static void AgainstNullOrWhitespace(string value, string name)
         {
             if (String.IsNullOrEmpty(value))
-                throw new NullStringException($"{name} can't be null or whitespace.");
+                throw new DomainException($"{name} can't be null or whitespace.");
         }
 
         // Method - Against whitespace only
@@ -51,23 +50,23 @@ namespace PizzaX.Domain.Common
         }
 
         // Methods - Against length limit
-        public static void AgainstLowerLengthLimit(string value, int length, string name)
+        public static void AgainstMinStringLength(string value, int length, string name)
         {
             if (value.Length < length)
-                throw new InvalidLengthException($"{name} must have at least length of {length}.");
+                throw new DomainException($"{name} must have at least length of {length}.");
         }
 
-        public static void AgainstGreaterLengthLimit(string value, int length, string name)
+        public static void AgainstMaxStringLength(string value, int length, string name)
         {
             if (value.Length > length)
-                throw new InvalidLengthException($"{name} can't have length greater than {length}.");
+                throw new DomainException($"{name} can't have length greater than {length}.");
         }
 
         // Method - Against password mismatch
         public static void AgainstPasswordMismatch(string password, string hash)
         {
             if (!Password.Verify(password, hash))
-                throw new InvalidCredentialsException("Password didn't match.");
+                throw new DomainException("Password didn't match.");
         }
 
         // Method - Against unauth... by admin

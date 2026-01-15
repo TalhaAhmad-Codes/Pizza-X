@@ -10,8 +10,8 @@ namespace PizzaX.Application.Interfaces.Services
         Task<PagedResultDto<UserDto>> GetAllAsync(UserFilterDto filterDto);
 
         // Update methods
-        Task<UserDto?> UpdateUsernameAsync(UserUpdateUsernameDto usernameDto);
-        Task<UserDto?> UpdatePasswordAsync(UserUpdatePasswordDto passwordDto);
-        Task<UserDto?> UpdateEmailAsync(UserUpdateEmailDto emailDto);
+        Task<bool> UpdateUsernameAsync(UserUpdateUsernameDto dto);
+        Task<bool> UpdatePasswordAsync(UserUpdatePasswordDto dto);
+        Task<bool> UpdateEmailAsync(UserUpdateEmailDto dto);
     }
 }

@@ -7,14 +7,14 @@ namespace PizzaX.Domain.ValueObjects.User
         // Attributes
         public int Length { get; }
         public string Hash { get; }
-        public readonly int LengthLimit = 8;
+        public readonly int MinLengthLimit = 8;
 
         // Constructor
         private Password(string password)
         {
             // Guard against invalid values
             Guard.AgainstNullOrWhitespace(password, nameof(Password));
-            Guard.AgainstLowerLengthLimit(password, LengthLimit, nameof(Password));
+            Guard.AgainstMinStringLength(password, MinLengthLimit, nameof(Password));
 
             // Assigning values
             Length = password.Length;
