@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.UserDTOs;
-using PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
-using PizzaX.Domain.Common.Exceptions;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
 
@@ -39,49 +37,6 @@ namespace PizzaX.Infrastructure.Repositories
                 Items = items,
                 TotalCount = totalCount
             };
-        }
-
-        // Update methods
-        public async Task<User?> UpdateUsernameAsync(UserUpdateUsernameDto usernameDto)
-        {
-            var user = await GetByIdAsync(usernameDto.Id);
-            
-            if (user != null)
-            {
-                user.UpdateUsername(usernameDto.Username);
-                await UpdateAsync(user);
-            }
-            
-            return user;
-        }
-
-        public async Task<User?> UpdateEmailAsync(UserUpdateEmailDto emailDto)
-        {
-            var user = await GetByIdAsync(emailDto.Id);
-            
-            if (user != null)
-            {
-                user.UpdateEmail(emailDto.Password, emailDto.Email);
-                await UpdateAsync(user);
-            }
-
-            return user;
-        }
-
-        public async Task<User?> UpdatePasswordAsync(UserUpdatePasswordDto passwordDto)
-        {
-            var user = await GetByIdAsync(passwordDto.Id);
-
-            if (user != null)
-            {
-                if (passwordDto.NewPassword != passwordDto.ConfirmPassword)
-                    throw new InvalidCredentialsException("The new password didn't match the credentials.");
-
-                user.UpdatePassword(passwordDto.OldPassword, passwordDto.NewPassword);
-                await UpdateAsync(user);
-            }
-
-            return user;
         }
     }
 }

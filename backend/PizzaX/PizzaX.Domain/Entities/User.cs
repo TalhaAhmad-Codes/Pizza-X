@@ -22,7 +22,7 @@ namespace PizzaX.Domain.Entities
             // Guard against invalid values
             Guard.AgainstNullOrWhitespace(username, nameof(Username));
             Guard.AgainstNullOrWhitespace(password, nameof(Password));
-            Guard.AgainstLowerLengthLimit(password, 8, nameof(Password));
+            Guard.AgainstMinStringLength(password, 8, nameof(Password));
 
             // Asigning values
             Username = username;

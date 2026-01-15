@@ -30,18 +30,5 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount 
             };
         }
-
-        public async Task<PizzaVariety?> UpdateNameAsync(PizzaVarietyNameUpdateDto nameDto)
-        {
-            var variety = await GetByIdAsync(nameDto.Id);
-
-            if (variety != null)
-            {
-                variety.UpdateName(nameDto.Name);
-                await UpdateAsync(variety);
-            }
-
-            return variety;
-        }
     }
 }

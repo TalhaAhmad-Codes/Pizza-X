@@ -3,28 +3,28 @@
 namespace PizzaX.Application.DTOs.ProductDTOs.BaseProductUpdateDtos
 {
     // Update image
-    public abstract class BaseProductUpdateImageDto : BaseDto
+    public class ProductUpdateImageDto : BaseDto
     {
         // Data field
         public byte[]? Image { get; init; }
     }
 
     // Update price
-    public abstract class BaseProductUpdatePriceDto : BaseDto
+    public class ProductUpdatePriceDto : BaseDto
     {
         // Data field
         public decimal Price { get; init; }
     }
 
     // Update quantity
-    public abstract class BaseProductUpdateQuantityDto : BaseDto
+    public class ProductUpdateQuantityDto : BaseDto
     {
         // Data field
         public int Quantity { get; init; }
     }
 
     // Update description
-    public abstract class BaseProductUpdateDescriptionDto : BaseDto
+    public class ProductUpdateDescriptionDto : BaseDto
     {
         // Data field
         public string? Description { get; init; }

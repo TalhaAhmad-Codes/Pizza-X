@@ -45,25 +45,5 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount
             };
         }
-
-        public Task<Pizza?> UpdateDescriptionAsync(PizzaUpdateDescriptionDto descriptionDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdateImageAsync(PizzaUpdateImageDto imageDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdatePriceAsync(PizzaUpdatePriceDto priceDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Pizza?> UpdateQuantityAsync(PizzaUpdateQuantityDto quantityDto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
