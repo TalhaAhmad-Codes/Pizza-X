@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PizzaX.Application.DTOs.UserDTOs;
 using PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos;
 using PizzaX.Application.Interfaces.Services;
@@ -65,13 +64,20 @@ namespace PizzaX.WebAPI.Controllers
             return result ? Ok("User has been removed successfully.") : NotFound();
         }
 
-        [HttpPatch("/update/username")]
+        [HttpPatch("update/profile-pic")]
+        public async Task<IActionResult> UpdateProfilePicAsync(UserUpdateProfilePicDto dto)
+        {
+            var result = await service.UpdateProfilePic(dto);
+            return result ? Ok($"Profile picture of the user has been updated successfully") : NotFound();
+        }
+
+        [HttpPatch("update/username")]
         public async Task<IActionResult> UpdateUsernameAsync(UserUpdateUsernameDto dto)
         {
             try
             {
                 var result = await service.UpdateUsernameAsync(dto);
-                return result ? Ok($"Username of the user {dto.Id} has been updated successfully.") : NotFound();
+                return result ? Ok($"Username of the user has been updated successfully.") : NotFound();
             }
             catch (DomainException e)
             {
@@ -79,13 +85,13 @@ namespace PizzaX.WebAPI.Controllers
             }
         }
 
-        [HttpPatch("/update/email")]
+        [HttpPatch("update/email")]
         public async Task<IActionResult> UpdateEmailAsync(UserUpdateEmailDto dto)
         {
             try
             {
                 var result = await service.UpdateEmailAsync(dto);
-                return result ? Ok($"Email of the user {dto.Id} has been updated successfully.") : NotFound();
+                return result ? Ok($"Email of the user has been updated successfully.") : NotFound();
             }
             catch (DomainException e)
             {
@@ -93,13 +99,13 @@ namespace PizzaX.WebAPI.Controllers
             }
         }
 
-        [HttpPatch("/update/password")]
+        [HttpPatch("update/password")]
         public async Task<IActionResult> UpdateProfilePicAsync(UserUpdatePasswordDto dto)
         {
             try
             {
                 var result = await service.UpdatePasswordAsync(dto);
-                return result ? Ok($"Password of the user {dto.Id} has been updated successfully.") : NotFound();
+                return result ? Ok($"Password of the user has been updated successfully.") : NotFound();
             }
             catch (DomainException e)
             {

@@ -20,10 +20,10 @@ namespace PizzaX.Infrastructure.Repositories
                 query = query.Where(d => d.DrinkType == filterDto.DrinkType);
 
             if (filterDto.CompanyName != null)
-                query = query.Where(d => d.DrinkDetails.Company.ToLower() == filterDto.CompanyName.ToLower());
+                query = query.Where(d => d.DrinkDetails.Company.ToLower() == filterDto.CompanyName.ToLower().Trim());
 
             if (filterDto.RetailerContactNumber != null)
-                query = query.Where(d => d.DrinkDetails.RetailerContactNumber!.ToLower() == filterDto.RetailerContactNumber.ToLower());
+                query = query.Where(d => d.DrinkDetails.RetailerContactNumber == filterDto.RetailerContactNumber.Trim());
 
             if (filterDto.MinPrice.HasValue)
                 query = query.Where(d => d.Price.UnitPrice >= filterDto.MinPrice);
@@ -36,6 +36,9 @@ namespace PizzaX.Infrastructure.Repositories
 
             if (filterDto.MaxQuantity.HasValue)
                 query = query.Where(d => d.Quantity.Value <= filterDto.MaxQuantity);
+
+            if (filterDto.StockStatus.HasValue)
+                query = query.Where(d => d.StockStatus == filterDto.StockStatus);
 
             // Getting paged result
             var totalCount = await query.CountAsync();

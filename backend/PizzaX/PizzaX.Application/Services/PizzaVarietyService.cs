@@ -18,7 +18,7 @@ namespace PizzaX.Application.Services
         public async Task<PizzaVarietyDto> CreateAsync(CreatePizzaVarietyDto dto)
         {
             var variety = PizzaVariety.Create(
-                name: dto.Name.Trim()
+                name: dto.Name.Trim().ToLower()
             );
 
             await repository.AddAsync(variety);

@@ -15,6 +15,7 @@ namespace PizzaX.Application.Interfaces.Services
         Task<bool> RemoveAsync(Guid id);
 
         // Update methods
+        Task<bool> UpdateProfilePic(UserUpdateProfilePicDto dto);
         Task<bool> UpdateUsernameAsync(UserUpdateUsernameDto dto);
         Task<bool> UpdatePasswordAsync(UserUpdatePasswordDto dto);
         Task<bool> UpdateEmailAsync(UserUpdateEmailDto dto);

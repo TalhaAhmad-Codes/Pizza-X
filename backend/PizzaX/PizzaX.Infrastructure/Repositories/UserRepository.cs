@@ -20,10 +20,10 @@ namespace PizzaX.Infrastructure.Repositories
 
             // Applying filters
             if (filterDto.Username is not null)
-                query = query.Where(u => u.Username == filterDto.Username);
+                query = query.Where(u => u.Username == filterDto.Username.Trim());
 
             if (filterDto.Email is not null)
-                query = query.Where(u => u.Email.Value == filterDto.Email);
+                query = query.Where(u => u.Email.Value == filterDto.Email.Trim());
 
             if (filterDto.Role.HasValue)
                 query = query.Where(u => u.UserRole == filterDto.Role);

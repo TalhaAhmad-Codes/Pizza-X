@@ -22,7 +22,7 @@ namespace PizzaX.Application.Services
                 unitPrice: dto.UnitPrice,
                 quantity: dto.Quantity,
                 description: dto.Description!.Trim(),
-                category: dto.Category.Trim()
+                category: dto.Category.Trim().ToLower()
             );
 
             await repository.AddAsync(fries);

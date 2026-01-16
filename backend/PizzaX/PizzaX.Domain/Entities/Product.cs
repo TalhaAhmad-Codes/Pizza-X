@@ -1,6 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.Enums.Pizza;
+using PizzaX.Domain.Enums.Product;
 using PizzaX.Domain.ValueObjects.Pizza;
 using PizzaX.Domain.ValueObjects.Product;
 
@@ -13,8 +13,7 @@ namespace PizzaX.Domain.Entities
         public Price Price { get; protected set; }
         public Quantity Quantity { get; protected set; }
         public string? Description { get; protected set; }
-        public Status Status
-            => (Quantity.Value > 0) ? Status.InStock : Status.OutOfStock;
+        public Status StockStatus { get; protected set; }
         public decimal TotalPrice => Price.TotalPrice(Quantity);
 
         // Constructors
@@ -27,8 +26,13 @@ namespace PizzaX.Domain.Entities
             Image = image;
             Price = Price.Create(unitPrice);
             Quantity = Quantity.Create(quantity);
+            StockStatus = GetStockStatus();
             Description = description;
         }
+
+        // Method - SetStockStatus
+        protected Status GetStockStatus()
+            => Quantity.Value > 0 ? Status.InStock : Status.OutOfStock;
 
         /***********************************************/
         /* Methods to change properties of the product */
@@ -40,6 +44,7 @@ namespace PizzaX.Domain.Entities
             Guard.AgainstZeroOrLess(quantity, nameof(Quantity));
 
             Quantity = Quantity.Create(quantity);
+            StockStatus = GetStockStatus();
 
             MarkUpdated();
         }

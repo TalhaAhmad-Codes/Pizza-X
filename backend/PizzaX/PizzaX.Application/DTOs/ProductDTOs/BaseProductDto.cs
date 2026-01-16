@@ -1,4 +1,5 @@
 ﻿using PizzaX.Application.DTOs.Common;
+using PizzaX.Domain.Enums.Product;
 
 namespace PizzaX.Application.DTOs.ProductDTOs
 {
@@ -9,6 +10,7 @@ namespace PizzaX.Application.DTOs.ProductDTOs
         public decimal UnitPrice { get; init; }
         public decimal TotalPrice { get; init; }
         public int Quantity { get; init; }
+        public Status StockStatus { get; init; }
         public string? Description { get; init; }
     }
 }

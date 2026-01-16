@@ -4,6 +4,7 @@ using PizzaX.Application.DTOs.ProductDTOs.BaseProductUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
+using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Services
@@ -17,11 +18,15 @@ namespace PizzaX.Application.Services
 
         public async Task<PizzaDto> CreateAsync(CreatePizzaDto dto)
         {
+            // Rule: Pizzas of both same size and variety can't co-exist
+            if (await repository.ExistsBySizeAndVariety(dto.Size, dto.VarietyId))
+                throw new DomainException("The pizza of same size and variety already exists.");
+
             var pizza = Pizza.Create(
                 image: dto.Image,
                 unitPrice: dto.UnitPrice,
                 quantity: dto.Quantity,
-                description: dto.Description!.Trim(),
+                description: dto.Description?.Trim(),
                 size: dto.Size,
                 varietyId: dto.VarietyId
             );

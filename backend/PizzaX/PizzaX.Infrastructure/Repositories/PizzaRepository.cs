@@ -3,6 +3,7 @@ using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.PizzaDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
+using PizzaX.Domain.Enums.Pizza;
 using PizzaX.Infrastructure.Data;
 
 namespace PizzaX.Infrastructure.Repositories
@@ -10,6 +11,16 @@ namespace PizzaX.Infrastructure.Repositories
     public sealed class PizzaRepository : GeneralRepository<Pizza>, IPizzaRepository
     {
         public PizzaRepository(PizzaXDbContext dbContext) : base(dbContext) { }
+
+        public async Task<bool> ExistsBySizeAndVariety(Size size, Guid varietyId)
+        {
+            var result = await GetAllAsync(new()
+            {
+                Size = size, VarietyId = varietyId
+            });
+
+            return result.TotalCount > 0;
+        }
 
         public async Task<PagedResultDto<Pizza>> GetAllAsync(PizzaFilterDto filterDto)
         {
@@ -33,6 +44,9 @@ namespace PizzaX.Infrastructure.Repositories
 
             if (filterDto.MaxQuantity.HasValue)
                 query = query.Where(p => p.Quantity.Value <= filterDto.MaxQuantity);
+
+            if (filterDto.StockStatus.HasValue)
+                query = query.Where(p => p.StockStatus == filterDto.StockStatus);
 
             // Getting pages result
             var totalCount = await query.CountAsync();

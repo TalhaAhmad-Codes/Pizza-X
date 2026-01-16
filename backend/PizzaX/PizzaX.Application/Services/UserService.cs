@@ -95,5 +95,16 @@ namespace PizzaX.Application.Services
             await repository.UpdateAsync(user);
             return true;
         }
+
+        public async Task<bool> UpdateProfilePic(UserUpdateProfilePicDto dto)
+        {
+            var user = await repository.GetByIdAsync(dto.Id);
+
+            if (user is null) return false;
+
+            user.UpdateProfilePic(dto.Image);
+            await repository.UpdateAsync(user);
+            return true;
+        }
     }
 }

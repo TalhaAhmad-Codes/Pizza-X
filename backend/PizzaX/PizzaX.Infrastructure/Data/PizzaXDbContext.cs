@@ -83,6 +83,10 @@ namespace PizzaX.Infrastructure.Data
                             .HasColumnName("Quantity")
                             .IsRequired();
                 });
+
+                builder.Property(p => p.StockStatus)
+                       .HasColumnName("StockStatus")
+                       .IsRequired();
             });
 
             /*/ <----- Pizza Vareity - Configuration -----> /*/
@@ -96,6 +100,9 @@ namespace PizzaX.Infrastructure.Data
                 // Name property
                 builder.Property(v => v.Name)
                        .IsRequired();
+                
+                builder.HasIndex(v => v.Name)
+                       .IsUnique();
             });
 
             /*/ <----- Fries - Configuration -----> /*/
@@ -104,6 +111,9 @@ namespace PizzaX.Infrastructure.Data
                 // Category property
                 builder.Property(f => f.Category)
                        .IsRequired();
+
+                builder.HasIndex(f => f.Category)
+                       .IsUnique();
 
                 // Product configs
                 builder.OwnsOne(p => p.Price, price =>
@@ -119,6 +129,10 @@ namespace PizzaX.Infrastructure.Data
                             .HasColumnName("Quantity")
                             .IsRequired();
                 });
+
+                builder.Property(p => p.StockStatus)
+                       .HasColumnName("StockStatus")
+                       .IsRequired();
             });
 
             /*/ <----- Drink - Configurations -----> /*/
@@ -157,6 +171,10 @@ namespace PizzaX.Infrastructure.Data
                             .HasColumnName("Quantity")
                             .IsRequired();
                 });
+
+                builder.Property(p => p.StockStatus)
+                       .HasColumnName("StockStatus")
+                       .IsRequired();
             });
 
             base.OnModelCreating(modelBuilder);

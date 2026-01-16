@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaX.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using PizzaX.Infrastructure.Data;
 namespace PizzaX.Infrastructure.Migrations
 {
     [DbContext(typeof(PizzaXDbContext))]
-    partial class PizzaXDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260116125549_MadeFriesAndPizzaCategoryNamesUnique")]
+    partial class MadeFriesAndPizzaCategoryNamesUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +44,6 @@ namespace PizzaX.Infrastructure.Migrations
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("StockStatus")
-                        .HasColumnType("int")
-                        .HasColumnName("StockStatus");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -71,10 +70,6 @@ namespace PizzaX.Infrastructure.Migrations
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("StockStatus")
-                        .HasColumnType("int")
-                        .HasColumnName("StockStatus");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -105,10 +100,6 @@ namespace PizzaX.Infrastructure.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int")
                         .HasColumnName("Size");
-
-                    b.Property<int>("StockStatus")
-                        .HasColumnType("int")
-                        .HasColumnName("StockStatus");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");

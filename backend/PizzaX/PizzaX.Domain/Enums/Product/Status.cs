@@ -1,8 +1,8 @@
-﻿namespace PizzaX.Domain.Enums.Pizza
+﻿namespace PizzaX.Domain.Enums.Product
 {
     public enum Status
     {
-        InStock = 1,
-        OutOfStock = 2
+        OutOfStock = 0,
+        InStock = 1
     }
 }
