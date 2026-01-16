@@ -1,0 +1,110 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PizzaX.Application.DTOs.UserDTOs;
+using PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos;
+using PizzaX.Application.Interfaces.Services;
+using PizzaX.Domain.Common;
+
+namespace PizzaX.WebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public sealed class UserController : ControllerBase
+    {
+        private readonly IUserService service;
+
+        public UserController(IUserService service)
+            => this.service = service;
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync([FromQuery] UserFilterDto dto)
+        {
+            try
+            {
+                var result = await service.GetAllAsync(dto);
+                return Ok(result);
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var user = await service.GetByIdAsync(id);
+                return user is null ? NotFound() : Ok(user);
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(CreateUserDto dto)
+        {
+            try
+            {
+                var user = await service.CreateAsync(dto);
+                return Ok(user);
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveAsync(Guid id)
+        {
+            var result = await service.RemoveAsync(id);
+            return result ? Ok("User has been removed successfully.") : NotFound();
+        }
+
+        [HttpPatch("/update/username")]
+        public async Task<IActionResult> UpdateUsernameAsync(UserUpdateUsernameDto dto)
+        {
+            try
+            {
+                var result = await service.UpdateUsernameAsync(dto);
+                return result ? Ok($"Username of the user {dto.Id} has been updated successfully.") : NotFound();
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPatch("/update/email")]
+        public async Task<IActionResult> UpdateEmailAsync(UserUpdateEmailDto dto)
+        {
+            try
+            {
+                var result = await service.UpdateEmailAsync(dto);
+                return result ? Ok($"Email of the user {dto.Id} has been updated successfully.") : NotFound();
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPatch("/update/password")]
+        public async Task<IActionResult> UpdateProfilePicAsync(UserUpdatePasswordDto dto)
+        {
+            try
+            {
+                var result = await service.UpdatePasswordAsync(dto);
+                return result ? Ok($"Password of the user {dto.Id} has been updated successfully.") : NotFound();
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+    }
+}
