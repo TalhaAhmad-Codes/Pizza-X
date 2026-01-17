@@ -51,7 +51,7 @@ namespace PizzaX.WebAPI.Controllers
             }
             catch (DbUpdateException e)
             {
-                return BadRequest($"This pizza variety already exists.");
+                return BadRequest($"This pizza variety already exists. Details:\n{e.Message}");
             }
         }
 
