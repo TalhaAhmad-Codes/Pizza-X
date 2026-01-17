@@ -78,7 +78,7 @@ namespace PizzaX.WebAPI.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPatch("update/quantity")]
         public async Task<IActionResult> UpdateQuantityAsync(ProductUpdateQuantityDto dto)
         {
             try
@@ -92,7 +92,7 @@ namespace PizzaX.WebAPI.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPatch("update/description")]
         public async Task<IActionResult> UpdateDescriptionAsync(ProductUpdateDescriptionDto dto)
         {
             try

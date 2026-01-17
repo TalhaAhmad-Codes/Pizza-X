@@ -1,6 +1,0 @@
-@PizzaX.WebAPI_HostAddress = http://localhost:5136
-
-GET {{PizzaX.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
