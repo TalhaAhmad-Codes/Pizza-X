@@ -16,7 +16,7 @@ namespace PizzaX.Application.Mappers
                 DrinkType = drink.DrinkType,
                 StockStatus = drink.StockStatus,
                 CompanyName = drink.DrinkDetails.Company,
-                RetailerContactNumber = drink.DrinkDetails.RetailerContactNumber,
+                RetailerContactNumber = drink.DrinkDetails.RetailerContactNumber!.Value,
                 CreatedAt = drink.CreatedAt,
                 UpdatedAt = drink.UpdatedAt
             };

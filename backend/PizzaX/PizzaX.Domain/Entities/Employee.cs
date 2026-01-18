@@ -10,10 +10,12 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public Guid UserId { get; private set; }
         public Name Name { get; private set; }
-        public Role JobRole { get; private set; }
-        public Salary Salary { get; private set; }
+        public CNIC CNIC { get; private set; }
         public Address Address { get; private set; }
         public Contact Contact { get; private set; }
+        public Role JobRole { get; private set; }
+        public Salary Salary { get; private set; }
+        public Shift Shift { get; private set; }
         public DateOnly JoiningDate { get; private set; }
         public DateOnly? LeftDate { get; private set; }
 

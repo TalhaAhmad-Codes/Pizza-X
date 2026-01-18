@@ -43,6 +43,13 @@ namespace PizzaX.Application.Services
             return variety is null ? null : PizzaVarietyMapper.ToDto(variety);
         }
 
+        public async Task<PizzaVarietyNameUpdateDto?> GetUpdateNameDtoValues(Guid id)
+        {
+            var variety = await repository.GetByIdAsync(id);
+
+            return variety is null ? null : PizzaVarietyMapper.ToUpdateNameDto(variety.Name);
+        }
+
         public async Task<bool> RemoveAsync(Guid id)
         {
             var variety = await repository.GetByIdAsync(id);
@@ -53,9 +60,9 @@ namespace PizzaX.Application.Services
             return true;
         }
 
-        public async Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto)
+        public async Task<bool> UpdateNameAsync(Guid id, PizzaVarietyNameUpdateDto dto)
         {
-            var variety = await repository.GetByIdAsync(dto.Id);
+            var variety = await repository.GetByIdAsync(id);
 
             if (variety is null) return false;
 

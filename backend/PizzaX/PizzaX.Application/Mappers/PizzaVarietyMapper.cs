@@ -1,4 +1,5 @@
 ﻿using PizzaX.Application.DTOs.PizzaVarietyDTOs;
+using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
 using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Mappers
@@ -14,5 +15,10 @@ namespace PizzaX.Application.Mappers
                 UpdatedAt = variety.UpdatedAt
             };
 
+        public static PizzaVarietyNameUpdateDto ToUpdateNameDto(string name)
+            => new()
+            {
+                Name = name,
+            };
     }
 }

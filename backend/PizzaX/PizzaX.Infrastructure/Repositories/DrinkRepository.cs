@@ -23,7 +23,7 @@ namespace PizzaX.Infrastructure.Repositories
                 query = query.Where(d => d.DrinkDetails.Company == filterDto.CompanyName.Trim().ToLower());
 
             if (filterDto.RetailerContactNumber != null)
-                query = query.Where(d => d.DrinkDetails.RetailerContactNumber == filterDto.RetailerContactNumber.Trim());
+                query = query.Where(d => d.DrinkDetails.RetailerContactNumber!.Value == filterDto.RetailerContactNumber.Trim());
 
             if (filterDto.MinPrice.HasValue)
                 query = query.Where(d => d.Price.UnitPrice >= filterDto.MinPrice);
