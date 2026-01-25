@@ -12,6 +12,13 @@
             Value = value;
         }
 
+        // Comparision operator
+        public static bool operator ==(CNIC cnic, string other)
+            => cnic.Value == other;
+
+        public static bool operator !=(CNIC cnic, string other)
+            => cnic.Value != other;
+
         // Method - Create new object
         public static CNIC Create(string cnic)
             => new(cnic);

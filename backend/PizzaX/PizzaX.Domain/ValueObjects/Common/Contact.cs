@@ -36,6 +36,13 @@ namespace PizzaX.Domain.ValueObjects.Common
                 throw new DomainException("The given contact number is not valid.");
         }
 
+        // Methods - Comparision
+        public static bool operator ==(Contact contact, string other)
+            => contact.Value == other;
+
+        public static bool operator !=(Contact contact, string other)
+            => contact.Value != other;
+
         // Method - To string
         public override string ToString()
             => Value;

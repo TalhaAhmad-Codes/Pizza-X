@@ -18,6 +18,7 @@ namespace PizzaX.Domain.Entities
         public EmployeeShift Shift { get; private set; }
         public DateTime JoiningDate { get; private set; }
         public DateTime? LeftDate { get; private set; }
+        public bool HasLeft => LeftDate != null;
 
         // Navigation
         public User User { get; private set; }

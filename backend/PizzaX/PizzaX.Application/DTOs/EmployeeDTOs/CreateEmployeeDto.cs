@@ -18,7 +18,6 @@ namespace PizzaX.Application.DTOs.EmployeeDTOs
         public EmployeeJobRole JobRole { get; init; }
         public EmployeeShift Shift { get; init; }
         public DateTime JoiningDate { get; init; }
-        public DateTime? LeftDate { get; init; }
 
         // Address fields
         public string House { get; init; }
