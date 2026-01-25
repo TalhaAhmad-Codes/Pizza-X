@@ -13,22 +13,9 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        /* Db Context */
+        /* Db Context - Connection */
         services.AddDbContext<PizzaXDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
-        /*
-         services.AddDbContext<PizzaXDbContext>(options =>
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection"))); 
-         * 
-         options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
-                npgsqlOptions =>
-                {
-                    npgsqlOptions.EnableRetryOnFailure();
-                })
-         */
 
         /* Repositories */
         services.AddScoped<IUserRepository, UserRepository>();
