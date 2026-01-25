@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PizzaX.Infrastructure.Data;
 
 #nullable disable
@@ -12,8 +12,8 @@ using PizzaX.Infrastructure.Data;
 namespace PizzaX.Infrastructure.Migrations
 {
     [DbContext(typeof(PizzaXDbContext))]
-    [Migration("20260116125549_MadeFriesAndPizzaCategoryNamesUnique")]
-    partial class MadeFriesAndPizzaCategoryNamesUnique
+    [Migration("20260125063405_Cloud_PG_Init")]
+    partial class Cloud_PG_Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,31 +21,35 @@ namespace PizzaX.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("PizzaX.Domain.Entities.Drink", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("DrinkType")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("Type");
 
                     b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("StockStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("StockStatus");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -56,23 +60,27 @@ namespace PizzaX.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("StockStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("StockStatus");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -86,26 +94,30 @@ namespace PizzaX.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("bytea");
 
                     b.Property<int>("Size")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("Size");
 
+                    b.Property<int>("StockStatus")
+                        .HasColumnType("integer")
+                        .HasColumnName("StockStatus");
+
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("VarietyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -118,17 +130,17 @@ namespace PizzaX.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -142,26 +154,26 @@ namespace PizzaX.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<byte[]>("ProfilePic")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("bytea");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserRole")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasDefaultValue(2)
                         .HasColumnName("Role");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -176,10 +188,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Pizza.Price", "Price", b1 =>
                         {
                             b1.Property<Guid>("DrinkId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<decimal>("UnitPrice")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("numeric")
                                 .HasColumnName("Price");
 
                             b1.HasKey("DrinkId");
@@ -193,10 +205,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Product.Quantity", "Quantity", b1 =>
                         {
                             b1.Property<Guid>("DrinkId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<int>("Value")
-                                .HasColumnType("int")
+                                .HasColumnType("integer")
                                 .HasColumnName("Quantity");
 
                             b1.HasKey("DrinkId");
@@ -210,27 +222,42 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Drink.DrinkDetails", "DrinkDetails", b1 =>
                         {
                             b1.Property<Guid>("DrinkId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Company")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("text")
                                 .HasColumnName("Company");
 
-                            b1.Property<string>("RetailerContactNumber")
-                                .HasColumnType("nvarchar(450)")
-                                .HasColumnName("Contact");
-
                             b1.HasKey("DrinkId");
-
-                            b1.HasIndex("RetailerContactNumber")
-                                .IsUnique()
-                                .HasFilter("[Contact] IS NOT NULL");
 
                             b1.ToTable("Drinks");
 
                             b1.WithOwner()
                                 .HasForeignKey("DrinkId");
+
+                            b1.OwnsOne("PizzaX.Domain.ValueObjects.Common.Contact", "RetailerContactNumber", b2 =>
+                                {
+                                    b2.Property<Guid>("DrinkDetailsDrinkId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<string>("Value")
+                                        .IsRequired()
+                                        .HasColumnType("text")
+                                        .HasColumnName("Contact");
+
+                                    b2.HasKey("DrinkDetailsDrinkId");
+
+                                    b2.HasIndex("Value")
+                                        .IsUnique();
+
+                                    b2.ToTable("Drinks");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("DrinkDetailsDrinkId");
+                                });
+
+                            b1.Navigation("RetailerContactNumber");
                         });
 
                     b.Navigation("DrinkDetails")
@@ -248,10 +275,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Pizza.Price", "Price", b1 =>
                         {
                             b1.Property<Guid>("FriesId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<decimal>("UnitPrice")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("numeric")
                                 .HasColumnName("Price");
 
                             b1.HasKey("FriesId");
@@ -265,10 +292,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Product.Quantity", "Quantity", b1 =>
                         {
                             b1.Property<Guid>("FriesId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<int>("Value")
-                                .HasColumnType("int")
+                                .HasColumnType("integer")
                                 .HasColumnName("Quantity");
 
                             b1.HasKey("FriesId");
@@ -297,10 +324,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Pizza.Price", "Price", b1 =>
                         {
                             b1.Property<Guid>("PizzaId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<decimal>("UnitPrice")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("numeric")
                                 .HasColumnName("Price");
 
                             b1.HasKey("PizzaId");
@@ -314,10 +341,10 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.Product.Quantity", "Quantity", b1 =>
                         {
                             b1.Property<Guid>("PizzaId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<int>("Value")
-                                .HasColumnType("int")
+                                .HasColumnType("integer")
                                 .HasColumnName("Quantity");
 
                             b1.HasKey("PizzaId");
@@ -342,11 +369,11 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.User.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(450)")
+                                .HasColumnType("text")
                                 .HasColumnName("Email");
 
                             b1.HasKey("UserId");
@@ -363,11 +390,11 @@ namespace PizzaX.Infrastructure.Migrations
                     b.OwnsOne("PizzaX.Domain.ValueObjects.User.Password", "Password", b1 =>
                         {
                             b1.Property<Guid>("UserId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Hash")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("text")
                                 .HasColumnName("Password");
 
                             b1.HasKey("UserId");
