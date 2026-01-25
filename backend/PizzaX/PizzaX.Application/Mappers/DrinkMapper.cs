@@ -14,8 +14,9 @@ namespace PizzaX.Application.Mappers
                 TotalPrice = drink.TotalPrice,
                 Quantity = drink.Quantity.Value,
                 DrinkType = drink.DrinkType,
+                StockStatus = drink.StockStatus,
                 CompanyName = drink.DrinkDetails.Company,
-                RetailerContactNumber = drink.DrinkDetails.RetailerContactNumber,
+                RetailerContactNumber = drink.DrinkDetails.RetailerContactNumber!.Value,
                 CreatedAt = drink.CreatedAt,
                 UpdatedAt = drink.UpdatedAt
             };

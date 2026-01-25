@@ -12,7 +12,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly));
 
-// Infrastructure DI
+// Application DI - Services
+builder.Services.AddApplication();
+
+// Infrastructure DI - DbContext & Repositories
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
@@ -20,6 +23,7 @@ var app = builder.Build();
 // Pipeline
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

@@ -4,6 +4,6 @@ namespace PizzaX.Application.DTOs.FriesDTOs
 {
     public sealed class FriesDto : BaseProductDto
     {
-        public Guid FriesCategoryId { get; init; }
+        public string Category { get; init; }
     }
 }

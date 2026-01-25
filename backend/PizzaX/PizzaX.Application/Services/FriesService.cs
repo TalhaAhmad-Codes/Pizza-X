@@ -4,6 +4,7 @@ using PizzaX.Application.DTOs.ProductDTOs.BaseProductUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
+using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Services
 {
@@ -14,6 +15,20 @@ namespace PizzaX.Application.Services
         public FriesService(IFriesRepository repository) 
             => this.repository = repository;
 
+        public async Task<FriesDto> CreateAsync(CreateFriesDto dto)
+        {
+            var fries = Fries.Create(
+                image: dto.Image,
+                unitPrice: dto.UnitPrice,
+                quantity: dto.Quantity,
+                description: dto.Description,
+                category: dto.Category
+            );
+
+            await repository.AddAsync(fries);
+            return FriesMapper.ToDto(fries);
+        }
+
         public async Task<PagedResultDto<FriesDto>> GetAllAsync(FriesFilterDto filterDto)
         {
             var result = await repository.GetAllAsync(filterDto);
@@ -23,6 +38,23 @@ namespace PizzaX.Application.Services
                 Items = result.Items.Select(FriesMapper.ToDto).ToList(),
                 TotalCount = result.TotalCount
             };
+        }
+
+        public async Task<FriesDto?> GetByIdAsync(Guid id)
+        {
+            var fries = await repository.GetByIdAsync(id);
+
+            return fries is null ? null : FriesMapper.ToDto(fries);
+        }
+
+        public async Task<bool> RemoveAsync(Guid id)
+        {
+            var fries = await repository.GetByIdAsync(id);
+
+            if (fries is null) return false;
+
+            await repository.RemoveAsync(fries);
+            return true;
         }
 
         public async Task<bool> UpdateDescriptionAsync(ProductUpdateDescriptionDto dto)

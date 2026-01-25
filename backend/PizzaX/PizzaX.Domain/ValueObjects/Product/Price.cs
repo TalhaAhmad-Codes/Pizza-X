@@ -10,7 +10,8 @@ namespace PizzaX.Domain.ValueObjects.Pizza
         public decimal TotalPrice(Quantity quantity)
             => UnitPrice * quantity.Value;
 
-        // Constructor
+        // Constructors
+        private Price() { }
         private Price(decimal unitPrice)
         {
             // Guard invalid data

@@ -1,6 +1,6 @@
 ﻿namespace PizzaX.Domain.Enums.Pizza
 {
-    public enum Size
+    public enum PizzaSize
     {
         Small = 1,
         Medium = 2,

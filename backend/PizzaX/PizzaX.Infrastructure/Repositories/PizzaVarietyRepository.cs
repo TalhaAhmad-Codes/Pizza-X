@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.PizzaVarietyDTOs;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
@@ -18,7 +17,7 @@ namespace PizzaX.Infrastructure.Repositories
 
             // Applying filter
             if (filterDto.Name != null)
-                query = query.Where(v => v.Name.ToLower() == filterDto.Name.ToLower());
+                query = query.Where(v => v.Name == filterDto.Name.Trim().ToLower());
 
             // Getting paged result
             var totalCount = await query.CountAsync();

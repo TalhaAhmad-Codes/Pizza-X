@@ -1,4 +1,5 @@
 ﻿using PizzaX.Domain.Common;
+using PizzaX.Domain.ValueObjects.Common;
 
 namespace PizzaX.Domain.ValueObjects.Drink
 {
@@ -6,16 +7,16 @@ namespace PizzaX.Domain.ValueObjects.Drink
     {
         // Attributes
         public string Company { get; }
-        public string? RetailerContactNumber { get; }
+        public Contact? RetailerContactNumber { get; }
 
-        // Constructor
+        // Constructors
+        private DrinkDetails() { }
         private DrinkDetails(string company, string? reatilerContactNumber)
         {
             Guard.AgainstNullOrWhitespace(company, nameof(Company));
-            Guard.AgainstWhitespace(reatilerContactNumber, nameof(RetailerContactNumber));
 
-            Company = company;
-            RetailerContactNumber = reatilerContactNumber;
+            Company = company.Trim().ToLower();
+            RetailerContactNumber = Contact.Create(reatilerContactNumber!);
         }
 
         // Method - Create a new object

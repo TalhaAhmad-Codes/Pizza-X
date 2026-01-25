@@ -4,7 +4,7 @@
     {
         Task<Entity?> GetByIdAsync(Guid id);
         Task AddAsync(Entity entity);
-        Task DeleteAsync(Guid id);
+        Task RemoveAsync(Entity entity);
         Task UpdateAsync(Entity entity);
     }
 }

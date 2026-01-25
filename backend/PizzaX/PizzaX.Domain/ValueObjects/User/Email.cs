@@ -8,14 +8,15 @@ namespace PizzaX.Domain.ValueObjects.User
         // Attribute
         public string Value { get; }
 
-        // Constructor
+        // Constructors
+        private Email() { }
         private Email(string email)
         {
             // Guard against invalid value
             Guard.AgainstNullOrWhitespace(email, "Email");
             VerifyFormat(email);
 
-            Value = email;
+            Value = email.Trim();
         }
 
         // Method - Create a new object

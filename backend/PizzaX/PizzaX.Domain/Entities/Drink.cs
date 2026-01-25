@@ -12,21 +12,21 @@ namespace PizzaX.Domain.Entities
         // Constructors
         private Drink() : base() { }
 
-        private Drink(byte[]? image, decimal unitPrice, int quantity, string? description, DrinkType drinkType, DrinkDetails drinkDetails)
+        private Drink(byte[]? image, decimal unitPrice, int quantity, string? description, DrinkType drinkType, string companyName, string? retailerContactNumber)
             : base(image, unitPrice, quantity, description)
         {
             DrinkType = drinkType;
-            DrinkDetails = drinkDetails;
+            DrinkDetails = DrinkDetails.Create(companyName, retailerContactNumber);
         }
 
         // Method - Create new object
-        public static Drink Create(byte[]? image, decimal unitPrice, int quantity, string? description, DrinkType drinkType, DrinkDetails drinkDetails)
-            => new(image, unitPrice, quantity, description, drinkType, drinkDetails);
+        public static Drink Create(byte[]? image, decimal unitPrice, int quantity, string? description, DrinkType drinkType, string companyName, string? retailerContactNumber)
+            => new(image, unitPrice, quantity, description, drinkType, companyName, retailerContactNumber);
 
         // Methods - Update drink details
         public void UpdateDrinkDetailsCompanyName(string companyName)
         {
-            DrinkDetails = DrinkDetails.Create(companyName, DrinkDetails.RetailerContactNumber);
+            DrinkDetails = DrinkDetails.Create(companyName, DrinkDetails.RetailerContactNumber?.Value);
 
             MarkUpdated();
         }

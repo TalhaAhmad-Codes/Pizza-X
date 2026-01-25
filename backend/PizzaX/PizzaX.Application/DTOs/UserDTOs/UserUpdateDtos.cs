@@ -2,6 +2,12 @@
 
 namespace PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos
 {
+    // Update profile pic
+    public sealed class UserUpdateProfilePicDto : BaseDto
+    { 
+        public byte[]? Image { get; init; }
+    }
+
     // Update username
     public sealed class UserUpdateUsernameDto : BaseDto
     {

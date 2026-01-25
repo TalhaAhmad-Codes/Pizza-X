@@ -6,7 +6,7 @@ namespace PizzaX.Application.DTOs.PizzaDTOs
     public sealed class PizzaFilterDto : BaseProductFilterDto
     {
         // Data fields
-        public Size? Size { get; init; }
+        public PizzaSize? Size { get; init; }
         public Guid? VarietyId { get; init; }
     }
 }

@@ -7,7 +7,8 @@ namespace PizzaX.Domain.ValueObjects.Product
         // Attribute
         public int Value { get; }
 
-        // Constructor
+        // Constructors
+        private Quantity() { }
         private Quantity(int value)
         {
             Guard.AgainstNegativeValue(value, nameof(Value));

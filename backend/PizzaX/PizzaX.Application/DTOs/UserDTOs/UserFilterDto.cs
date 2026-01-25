@@ -8,6 +8,6 @@ namespace PizzaX.Application.DTOs.UserDTOs
         // Data fields
         public string? Username { get; init; }
         public string? Email { get; init; }
-        public Role? Role { get; init; }
+        public UserRole? Role { get; init; }
     }
 }

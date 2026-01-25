@@ -14,6 +14,7 @@ namespace PizzaX.Application.Mappers
                 UnitPrice = pizza.Price.UnitPrice,
                 TotalPrice = pizza.TotalPrice,
                 Quantity = pizza.Quantity.Value,
+                StockStatus = pizza.StockStatus,
                 Size = pizza.Size,
                 Description = pizza.Description,
                 CreatedAt = pizza.CreatedAt,
