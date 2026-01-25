@@ -1,4 +1,5 @@
-﻿using PizzaX.Application.DTOs.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.EmployeeDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
@@ -10,7 +11,7 @@ namespace PizzaX.Infrastructure.Repositories
     {
         public EmployeeRepository(PizzaXDbContext context) : base(context) { }
 
-        public Task<PagedResultDto<Employee>> GetAllAsync(EmployeeFilterDto filterDto)
+        public async Task<PagedResultDto<Employee>> GetAllAsync(EmployeeFilterDto filterDto)
         {
             var query = dbSet.AsQueryable();
 
@@ -45,7 +46,44 @@ namespace PizzaX.Infrastructure.Repositories
             if (filterDto.HaveLeft.HasValue)
                 query = query.Where(e => e.HasLeft == filterDto.HaveLeft);
 
+            if (filterDto.FirstName != null)
+                query = query.Where(e => e.Name.FirstName == filterDto.FirstName.Trim().ToLower());
 
+            if (filterDto.MidName != null)
+                query = query.Where(e => e.Name.MidName == filterDto.MidName.Trim().ToLower());
+
+            if (filterDto.LastName != null)
+                query = query.Where(e => e.Name.LastName == filterDto.LastName.Trim().ToLower());
+
+            if (filterDto.FatherName != null)
+                query = query.Where(e => e.Name.FatherName == filterDto.FatherName.Trim().ToLower());
+
+            if (filterDto.House != null)
+                query = query.Where(e => e.Address.House == filterDto.House.Trim().ToLower());
+
+            if (filterDto.Area != null)
+                query = query.Where(e => e.Address.Area == filterDto.Area.Trim().ToLower());
+
+            if (filterDto.Street != null)
+                query = query.Where(e => e.Address.Street == filterDto.Street.Trim().ToLower());
+
+            if (filterDto.City != null)
+                query = query.Where(e => e.Address.City == filterDto.City.Trim().ToLower());
+
+            if (filterDto.Province != null)
+                query = query.Where(e => e.Address.Province == filterDto.Province.Trim().ToLower());
+
+            if (filterDto.Country != null)
+                query = query.Where(e => e.Address.Country == filterDto.Country.Trim().ToLower());
+
+            var totalCount = await query.CountAsync();
+            var items = await GetPagedResultItemsAsync(query, filterDto.PageNumber, filterDto.PageSize);
+
+            return new PagedResultDto<Employee>
+            {
+                Items = items,
+                TotalCount = totalCount
+            };
         }
     }
 }

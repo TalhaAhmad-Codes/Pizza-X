@@ -26,19 +26,23 @@ namespace PizzaX.Domain.Entities
         // Constructors
         private Employee() { }
 
-        private Employee(Guid userId, EmployeeJobRole jobRole, Salary salary, Name name, DateTime joiningDate, DateTime? leftDate)
+        private Employee(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateTime joiningDate, DateTime? leftDate)
         {
             UserId = userId;
             JobRole = jobRole;
+            Shift = employeeShift;
             Salary = salary;
             Name = name;
             JoiningDate = joiningDate;
             LeftDate = leftDate;
+            Address = address;
+            Contact = contact;
+            CNIC = cnic;
         }
 
         // Method - Create a new employee
-        public static Employee Create(Guid userId, Name name, EmployeeJobRole jobRole, Salary salary, DateTime joiningDate)
-            => new(userId, jobRole, salary, name, joiningDate, null);
+        public static Employee Create(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateTime joiningDate, DateTime? leftDate = null)
+            => new(userId, address, cnic, contact, jobRole, employeeShift, salary, name, joiningDate, leftDate);
 
         /*******************************/
         /* Methods - Update Properties */
