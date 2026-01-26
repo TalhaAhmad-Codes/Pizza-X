@@ -14,6 +14,9 @@ namespace PizzaX.Domain.Entities
         public Password Password { get; private set; }
         public UserRole UserRole { get; private set; }
 
+        // Navigation
+        public readonly Employee Employee;
+
         // Constructors
         private User() { }
 

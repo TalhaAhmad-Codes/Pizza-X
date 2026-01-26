@@ -15,9 +15,9 @@ namespace PizzaX.Application.DTOs.EmployeeDTOs.EmployeeUpdateDtos
     {
         public string House { get; init; }
         public string Area { get; init; }
-        public string Street { get; init; }
+        public string? Street { get; init; }
         public string City { get; init; }
-        public string Province { get; init; }
+        public string? Province { get; init; }
         public string? Country { get; init; }
     }
 
@@ -44,5 +44,10 @@ namespace PizzaX.Application.DTOs.EmployeeDTOs.EmployeeUpdateDtos
     public sealed class EmployeeUpdateShiftDto : BaseDto
     {
         public EmployeeShift Shift { get; init; }
+    }
+
+    public sealed class EmployeeMarkLeftDateDto : BaseDto
+    {
+        public DateOnly LeftDate { get; init; }
     }
 }

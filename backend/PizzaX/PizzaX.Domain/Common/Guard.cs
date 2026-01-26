@@ -71,5 +71,14 @@ namespace PizzaX.Domain.Common
             if (!isAuthorized)
                 throw new UnauthorizedAccessException("This action is unauthorized by admin");
         }
+
+        // Method - Against invalid date ranges
+        public static void AgainstInvalidDateRange(DateOnly dateA, DateOnly? dateB)
+        {
+            if (!dateB.HasValue) return;
+
+            if (dateB <= dateA)
+                throw new DomainException($"{dateB} can't be set before/at {dateA}.");
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace PizzaX.Infrastructure.Data
     {
         /*// <----- DbSets -----> //*/
         public DbSet<User> Users => Set<User>();
+        public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<Pizza> Pizzas => Set<Pizza>();
         public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
         public DbSet<Fries> Fries => Set<Fries>();
@@ -53,6 +54,113 @@ namespace PizzaX.Infrastructure.Data
                        .HasColumnName("Role")
                        .HasDefaultValue(UserRole.Customer)
                        .IsRequired();
+
+                // One-to-One relation with the Employee
+                builder.HasOne(u => u.Employee)
+                       .WithOne(e => e.User)
+                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            /*/ <----- Employee - Configuration -----> /*/
+            modelBuilder.Entity<Employee>(builder =>
+            {
+                // One-to-One relation with the User
+                builder.HasOne(e => e.User)
+                       .WithOne(u => u.Employee)
+                       .HasForeignKey<Employee>(e => e.UserId)
+                       .OnDelete(DeleteBehavior.Restrict);
+
+                // Normal Properties - Configuration
+                builder.Property(e => e.JobRole)
+                       .HasColumnName("JobRole")
+                       .IsRequired();
+
+                builder.Property(e => e.Shift)
+                       .HasColumnName("Shift")
+                       .IsRequired();
+
+                builder.Property(e => e.JoiningDate)
+                       .HasColumnName("JoiningDate")
+                       .IsRequired();
+
+                builder.Property(e => e.LeftDate)
+                       .HasColumnName("LeftDate");
+
+                // Ones some value-objects //
+
+                // Name - Configuration
+                builder.OwnsOne(e => e.Name, name =>
+                {
+                    name.Property(n => n.FirstName)
+                        .HasColumnName("FirstName")
+                        .IsRequired();
+
+                    name.Property(n => n.MidName)
+                        .HasColumnName("MiddleName");
+
+                    name.Property(n => n.LastName)
+                        .HasColumnName("LastName")
+                        .IsRequired();
+
+                    name.Property(n => n.FatherName)
+                        .HasColumnName("FatherName")
+                        .IsRequired();
+                });
+
+                // CNIC - Configuration
+                builder.OwnsOne(e => e.CNIC, cnic =>
+                {
+                    cnic.Property(c => c.Value)
+                        .HasColumnName("CNIC")
+                        .IsRequired();
+
+                    cnic.HasIndex(c => c.Value)
+                        .IsUnique();
+                });
+
+                // Address - Configuration
+                builder.OwnsOne(e => e.Address, address =>
+                {
+                    address.Property(a => a.House)
+                           .HasColumnName("AddressHouse")
+                           .IsRequired();
+
+                    address.Property(a => a.Area)
+                           .HasColumnName("AddressArea")
+                           .IsRequired();
+
+                    address.Property(a => a.Street)
+                           .HasColumnName("AddressStreet");
+
+                    address.Property(a => a.City)
+                           .HasColumnName("AddressCity")
+                           .IsRequired();
+
+                    address.Property(a => a.Province)
+                           .HasColumnName("AddressProvince");
+
+                    address.Property(a => a.Country)
+                           .HasColumnName("AddressCountry");
+                });
+
+                // Contact - Configuration
+                builder.OwnsOne(e => e.Contact, contact =>
+                {
+                    contact.Property(c => c.Value)
+                           .HasColumnName("Contact")
+                           .IsRequired();
+
+                    contact.HasIndex(c => c.Value)
+                           .IsUnique();
+                });
+
+                // Salary - Configuration
+                builder.OwnsOne(e => e.Salary, salary =>
+                {
+                    salary.Property(s => s.Value)
+                          .HasColumnName("Salary")
+                          .IsRequired();
+                });
             });
 
             /*/ <----- Pizza - Configuration -----> /*/

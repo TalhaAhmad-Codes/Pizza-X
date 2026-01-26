@@ -54,6 +54,17 @@ namespace PizzaX.Application.Services
             return employee is null ? null : EmployeeMapper.ToDto(employee);
         }
 
+        public async Task<bool> MarkLeftDateAsync(EmployeeMarkLeftDateDto dto)
+        {
+            var employee = await repository.GetByIdAsync(dto.Id);
+
+            if (employee is null) return false;
+
+            employee.MarkJobLeaved(dto.LeftDate);
+            await repository.UpdateAsync(employee);
+            return true;
+        }
+
         public async Task<bool> RemoveAsync(Guid id)
         {
             var employee = await repository.GetByIdAsync(id);

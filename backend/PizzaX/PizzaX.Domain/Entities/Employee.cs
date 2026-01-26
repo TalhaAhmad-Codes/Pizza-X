@@ -1,4 +1,5 @@
-﻿using PizzaX.Domain.Common.Entities;
+﻿using PizzaX.Domain.Common;
+using PizzaX.Domain.Common.Entities;
 using PizzaX.Domain.Enums.Employee;
 using PizzaX.Domain.ValueObjects.Common;
 using PizzaX.Domain.ValueObjects.Employee;
@@ -16,8 +17,8 @@ namespace PizzaX.Domain.Entities
         public EmployeeJobRole JobRole { get; private set; }
         public Salary Salary { get; private set; }
         public EmployeeShift Shift { get; private set; }
-        public DateTime JoiningDate { get; private set; }
-        public DateTime? LeftDate { get; private set; }
+        public DateOnly JoiningDate { get; private set; }
+        public DateOnly? LeftDate { get; private set; }
         public bool HasLeft => LeftDate != null;
 
         // Navigation
@@ -26,8 +27,10 @@ namespace PizzaX.Domain.Entities
         // Constructors
         private Employee() { }
 
-        private Employee(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateTime joiningDate, DateTime? leftDate)
+        private Employee(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateOnly joiningDate, DateOnly? leftDate)
         {
+            Guard.AgainstInvalidDateRange(joiningDate, leftDate);
+
             UserId = userId;
             JobRole = jobRole;
             Shift = employeeShift;
@@ -41,7 +44,7 @@ namespace PizzaX.Domain.Entities
         }
 
         // Method - Create a new employee
-        public static Employee Create(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateTime joiningDate, DateTime? leftDate = null)
+        public static Employee Create(Guid userId, Address address, CNIC cnic, Contact contact, EmployeeJobRole jobRole, EmployeeShift employeeShift, Salary salary, Name name, DateOnly joiningDate, DateOnly? leftDate = null)
             => new(userId, address, cnic, contact, jobRole, employeeShift, salary, name, joiningDate, leftDate);
 
         /*******************************/
@@ -97,9 +100,11 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void MarkJobLeaved()
+        public void MarkJobLeaved(DateOnly date)
         {
-            LeftDate = DateTime.Now;
+            Guard.AgainstInvalidDateRange(JoiningDate, date);
+
+            LeftDate = date;
 
             MarkUpdated();
         }

@@ -19,8 +19,8 @@ namespace PizzaX.Application.DTOs.EmployeeDTOs
         public decimal? MaxSalary { get; init; }
         public EmployeeJobRole? JobRole { get; init; }
         public EmployeeShift? Shift { get; init; }
-        public DateTime? JoiningDate { get; init; }
-        public DateTime? LeftDate { get; init; }
+        public DateOnly? JoiningDate { get; init; }
+        public DateOnly? LeftDate { get; init; }
         public bool? HaveLeft { get; init; }
 
         // Address fields

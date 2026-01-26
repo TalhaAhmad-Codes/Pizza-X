@@ -21,5 +21,6 @@ namespace PizzaX.Application.Interfaces.Services
         Task<bool> UpdateJobRoleAsync(EmployeeUpdateJobRoleDto dto);
         Task<bool> UpdateContactAsync(EmployeeUpdateContactDto dto);
         Task<bool> UpdateShiftAsync(EmployeeUpdateShiftDto dto);
+        Task<bool> MarkLeftDateAsync(EmployeeMarkLeftDateDto dto);
     }
 }

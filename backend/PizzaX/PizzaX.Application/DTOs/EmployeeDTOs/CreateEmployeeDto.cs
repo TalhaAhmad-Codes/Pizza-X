@@ -17,14 +17,14 @@ namespace PizzaX.Application.DTOs.EmployeeDTOs
         public decimal Salary { get; init; }
         public EmployeeJobRole JobRole { get; init; }
         public EmployeeShift Shift { get; init; }
-        public DateTime JoiningDate { get; init; }
+        public DateOnly JoiningDate { get; init; }
 
         // Address fields
         public string House { get; init; }
         public string Area { get; init; }
-        public string Street { get; init; }
+        public string? Street { get; init; }
         public string City { get; init; }
-        public string Province { get; init; }
+        public string? Province { get; init; }
         public string? Country { get; init; }
     }
 }
