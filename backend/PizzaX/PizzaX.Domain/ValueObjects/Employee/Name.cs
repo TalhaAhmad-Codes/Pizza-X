@@ -18,10 +18,10 @@ namespace PizzaX.Domain.ValueObjects.Employee
             Guard.AgainstWhitespace(midName, nameof(MidName));
             Guard.AgainstNullOrWhitespace(lastName, nameof(LastName));
 
-            FirstName = firstName.Trim().ToLower();
-            MidName = midName?.Trim().ToLower();
-            LastName = lastName.Trim().ToLower();
-            FatherName = fatherName.Trim().ToLower();
+            FirstName = firstName.Trim();
+            MidName = midName?.Trim();
+            LastName = lastName.Trim();
+            FatherName = fatherName.Trim();
         }
 
         // Method - Create a new object

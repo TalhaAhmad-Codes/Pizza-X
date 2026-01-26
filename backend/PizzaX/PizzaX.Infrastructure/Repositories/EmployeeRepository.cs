@@ -48,34 +48,34 @@ namespace PizzaX.Infrastructure.Repositories
                 query = query.Where(e => e.HasLeft == filterDto.HaveLeft);
 
             if (filterDto.FirstName != null)
-                query = query.Where(e => e.Name.FirstName == filterDto.FirstName.Trim().ToLower());
+                query = query.Where(e => e.Name.FirstName.ToLower() == filterDto.FirstName.Trim().ToLower());
 
             if (filterDto.MidName != null)
-                query = query.Where(e => e.Name.MidName == filterDto.MidName.Trim().ToLower());
+                query = query.Where(e => e.Name.MidName!.ToLower() == filterDto.MidName.Trim().ToLower());
 
             if (filterDto.LastName != null)
-                query = query.Where(e => e.Name.LastName == filterDto.LastName.Trim().ToLower());
+                query = query.Where(e => e.Name.LastName.ToLower() == filterDto.LastName.Trim().ToLower());
 
             if (filterDto.FatherName != null)
-                query = query.Where(e => e.Name.FatherName == filterDto.FatherName.Trim().ToLower());
+                query = query.Where(e => e.Name.FatherName.ToLower() == filterDto.FatherName.Trim().ToLower());
 
             if (filterDto.House != null)
-                query = query.Where(e => e.Address.House == filterDto.House.Trim().ToLower());
+                query = query.Where(e => e.Address.House.ToLower() == filterDto.House.Trim().ToLower());
 
             if (filterDto.Area != null)
-                query = query.Where(e => e.Address.Area == filterDto.Area.Trim().ToLower());
+                query = query.Where(e => e.Address.Area.ToLower() == filterDto.Area.Trim().ToLower());
 
             if (filterDto.Street != null)
-                query = query.Where(e => e.Address.Street == filterDto.Street.Trim().ToLower());
+                query = query.Where(e => e.Address.Street!.ToLower() == filterDto.Street.Trim().ToLower());
 
             if (filterDto.City != null)
-                query = query.Where(e => e.Address.City == filterDto.City.Trim().ToLower());
+                query = query.Where(e => e.Address.City.ToLower() == filterDto.City.Trim().ToLower());
 
             if (filterDto.Province != null)
-                query = query.Where(e => e.Address.Province == filterDto.Province.Trim().ToLower());
+                query = query.Where(e => e.Address.Province!.ToLower() == filterDto.Province.Trim().ToLower());
 
             if (filterDto.Country != null)
-                query = query.Where(e => e.Address.Country == filterDto.Country.Trim().ToLower());
+                query = query.Where(e => e.Address.Country!.ToLower() == filterDto.Country.Trim().ToLower());
 
             var totalCount = await query.CountAsync();
             var items = await GetPagedResultItemsAsync(query, filterDto.PageNumber, filterDto.PageSize);

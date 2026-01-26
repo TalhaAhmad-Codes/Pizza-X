@@ -24,18 +24,11 @@ namespace PizzaX.Application.Mappers
                 LeftDate = employee.LeftDate,
 
                 // Name fields
-                FirstName = employee.Name.FirstName,
-                MidName = employee.Name.MidName,
-                LastName = employee.Name.LastName,
+                FullName = employee.Name.ToString(),
                 FatherName = employee.Name.FatherName,
 
-                // Address fields
-                House = employee.Address.House,
-                Area = employee.Address.Area,
-                Street = employee.Address.Street,
-                City = employee.Address.City,
-                Province = employee.Address.Province,
-                Country = employee.Address.Country
+                // Address field
+                Address = employee.Address.ToString()
             };
     }
 }
