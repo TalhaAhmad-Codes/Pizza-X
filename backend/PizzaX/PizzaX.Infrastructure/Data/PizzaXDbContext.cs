@@ -125,6 +125,9 @@ namespace PizzaX.Infrastructure.Data
                            .HasColumnName("AddressHouse")
                            .IsRequired();
 
+                    address.HasIndex(a => a.House)
+                           .IsUnique();
+
                     address.Property(a => a.Area)
                            .HasColumnName("AddressArea")
                            .IsRequired();
