@@ -11,6 +11,8 @@ namespace PizzaX.Infrastructure.Data
         public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<Pizza> Pizzas => Set<Pizza>();
         public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
+        public DbSet<Product> Products => Set<Product>();
+        public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
         
         // Constructor
         public PizzaXDbContext(DbContextOptions<PizzaXDbContext> options) : base(options) { }
@@ -169,7 +171,7 @@ namespace PizzaX.Infrastructure.Data
             {
                 // One-to-Many relation with the variety of pizza
                 builder.HasOne(p => p.Variety)
-                       .WithMany(v => v.Pizzas)
+                       .WithMany(v => v.Products)
                        .HasForeignKey(p => p.VarietyId)
                        .OnDelete(DeleteBehavior.Restrict);
 
@@ -193,6 +195,10 @@ namespace PizzaX.Infrastructure.Data
                             .IsRequired();
                 });
 
+                builder.Property(p => p.Description)
+                       .HasColumnName("Description")
+                       .HasMaxLength(100);
+
                 builder.Property(p => p.StockStatus)
                        .HasColumnName("StockStatus")
                        .IsRequired();
@@ -202,15 +208,74 @@ namespace PizzaX.Infrastructure.Data
             modelBuilder.Entity<PizzaVariety>(builder =>
             {
                 // Many-to-One relation with pizzas
-                builder.HasMany(v => v.Pizzas)
+                builder.HasMany(v => v.Products)
                        .WithOne(p => p.Variety)
                        .OnDelete(DeleteBehavior.Cascade);
 
                 // Name property
-                builder.Property(v => v.Name)
+                builder.Property(v => v.Value)
+                       .HasColumnName("Name")
                        .IsRequired();
                 
-                builder.HasIndex(v => v.Name)
+                builder.HasIndex(v => v.Value)
+                       .IsUnique();
+            });
+
+            /*/ <----- Product - Configuration -----> /*/
+            modelBuilder.Entity<Product>(builder =>
+            {
+                // One-to-Many relation with the category of "Product Category"
+                builder.HasOne(p => p.Category)
+                       .WithMany(c => c.Products)
+                       .HasForeignKey(p => p.CategoryId)
+                       .OnDelete(DeleteBehavior.Restrict);
+
+                // Name config
+                builder.Property(p => p.Name)
+                       .HasColumnName("Name")
+                       .IsRequired();
+
+                builder.HasIndex(p => p.Name)
+                       .IsUnique();
+
+                // Product configs
+                builder.OwnsOne(p => p.Price, price =>
+                {
+                    price.Property(r => r.UnitPrice)
+                         .HasColumnName("Price")
+                         .IsRequired();
+                });
+
+                builder.OwnsOne(p => p.Quantity, quantity =>
+                {
+                    quantity.Property(q => q.Value)
+                            .HasColumnName("Quantity")
+                            .IsRequired();
+                });
+
+                builder.Property(p => p.Description)
+                       .HasColumnName("Description")
+                       .HasMaxLength(100);
+
+                builder.Property(p => p.StockStatus)
+                       .HasColumnName("StockStatus")
+                       .IsRequired();
+            });
+
+            /*/ <----- Product Category - Configuration -----> /*/
+            modelBuilder.Entity<ProductCategory>(builder =>
+            {
+                // Many-to-One relation with products
+                builder.HasMany(v => v.Products)
+                       .WithOne(p => p.Category)
+                       .OnDelete(DeleteBehavior.Cascade);
+
+                // Name property
+                builder.Property(v => v.Value)
+                       .HasColumnName("Name")
+                       .IsRequired();
+
+                builder.HasIndex(v => v.Value)
                        .IsUnique();
             });
 

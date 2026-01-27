@@ -1,6 +1,6 @@
-﻿using PizzaX.Application.DTOs.Common;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
+﻿using PizzaX.Application.DTOs.BaseCategoryDTOs;
+using PizzaX.Application.DTOs.BaseCategoryDTOs.BaseCategoryUpdateDtos;
+using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
@@ -15,7 +15,7 @@ namespace PizzaX.Application.Services
         public PizzaVarietyService(IPizzaVarietyRepository repository)
             => this.repository = repository;
 
-        public async Task<PizzaVarietyDto> CreateAsync(CreatePizzaVarietyDto dto)
+        public async Task<BaseCategoryDto> CreateAsync(CreateBaseCategoryDto dto)
         {
             var variety = PizzaVariety.Create(
                 name: dto.Name
@@ -25,18 +25,18 @@ namespace PizzaX.Application.Services
             return PizzaVarietyMapper.ToDto(variety);
         }
 
-        public async Task<PagedResultDto<PizzaVarietyDto>> GetAllAsync(PizzaVarietyFilterDto filterDto)
+        public async Task<PagedResultDto<BaseCategoryDto>> GetAllAsync(BaseCategoryFilterDto filterDto)
         {
             var result = await repository.GetAllAsync(filterDto);
 
-            return new PagedResultDto<PizzaVarietyDto>
+            return new PagedResultDto<BaseCategoryDto>
             {
                 Items = result.Items.Select(PizzaVarietyMapper.ToDto).ToList(),
                 TotalCount = result.TotalCount
             };
         }
 
-        public async Task<PizzaVarietyDto?> GetByIdAsync(Guid id)
+        public async Task<BaseCategoryDto?> GetByIdAsync(Guid id)
         {
             var variety = await repository.GetByIdAsync(id);
 
@@ -53,7 +53,7 @@ namespace PizzaX.Application.Services
             return true;
         }
 
-        public async Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto)
+        public async Task<bool> UpdateNameAsync(BaseCategoryUpdateNameDto dto)
         {
             var variety = await repository.GetByIdAsync(dto.Id);
 

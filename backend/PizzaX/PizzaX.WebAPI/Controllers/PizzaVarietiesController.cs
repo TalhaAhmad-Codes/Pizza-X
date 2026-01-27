@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
+using PizzaX.Application.DTOs.BaseCategoryDTOs;
+using PizzaX.Application.DTOs.BaseCategoryDTOs.BaseCategoryUpdateDtos;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Domain.Common;
 
@@ -17,7 +17,7 @@ namespace PizzaX.WebAPI.Controllers
             => this.service = service;
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] PizzaVarietyFilterDto dto)
+        public async Task<IActionResult> GetAllAsync([FromQuery] BaseCategoryFilterDto dto)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace PizzaX.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreatePizzaVarietyDto dto)
+        public async Task<IActionResult> CreateAsync(CreateBaseCategoryDto dto)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace PizzaX.WebAPI.Controllers
         }
 
         [HttpPatch("{id:guid}/name")]
-        public async Task<IActionResult> UpdatePizzaVarietyNameAsync(PizzaVarietyNameUpdateDto dto)
+        public async Task<IActionResult> UpdatePizzaVarietyNameAsync(BaseCategoryUpdateNameDto dto)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PizzaX.Application.DTOs.BaseCategoryDTOs;
 using PizzaX.Application.DTOs.Common;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
@@ -11,13 +11,13 @@ namespace PizzaX.Infrastructure.Repositories
     {
         public PizzaVarietyRepository(PizzaXDbContext dbContext) : base(dbContext) { }
 
-        public async Task<PagedResultDto<PizzaVariety>> GetAllAsync(PizzaVarietyFilterDto filterDto)
+        public async Task<PagedResultDto<PizzaVariety>> GetAllAsync(BaseCategoryFilterDto filterDto)
         {
             var query = dbSet.AsQueryable();
 
             // Applying filter
             if (filterDto.Name != null)
-                query = query.Where(v => v.Name == filterDto.Name.Trim().ToLower());
+                query = query.Where(v => v.Value.ToLower() == filterDto.Name.Trim().ToLower());
 
             // Getting paged result
             var totalCount = await query.CountAsync();

@@ -1,19 +1,19 @@
-﻿using PizzaX.Application.DTOs.Common;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
+﻿using PizzaX.Application.DTOs.BaseCategoryDTOs;
+using PizzaX.Application.DTOs.BaseCategoryDTOs.BaseCategoryUpdateDtos;
+using PizzaX.Application.DTOs.Common;
 
 namespace PizzaX.Application.Interfaces.Services
 {
     public interface IPizzaVarietyService
     {
-        Task<PagedResultDto<PizzaVarietyDto>> GetAllAsync(PizzaVarietyFilterDto filterDto);
+        Task<PagedResultDto<BaseCategoryDto>> GetAllAsync(BaseCategoryFilterDto filterDto);
 
         // Basic methods
-        Task<PizzaVarietyDto?> GetByIdAsync(Guid id);
-        Task<PizzaVarietyDto> CreateAsync(CreatePizzaVarietyDto dto);
+        Task<BaseCategoryDto?> GetByIdAsync(Guid id);
+        Task<BaseCategoryDto> CreateAsync(CreateBaseCategoryDto dto);
         Task<bool> RemoveAsync(Guid id);
 
         // Update method
-        Task<bool> UpdateNameAsync(PizzaVarietyNameUpdateDto dto);
+        Task<bool> UpdateNameAsync(BaseCategoryUpdateNameDto dto);
     }
 }

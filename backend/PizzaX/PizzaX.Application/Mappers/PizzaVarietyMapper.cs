@@ -1,24 +1,17 @@
-﻿using PizzaX.Application.DTOs.PizzaVarietyDTOs;
-using PizzaX.Application.DTOs.PizzaVarietyDTOs.PizzaVarietyUpdateDtos;
+﻿using PizzaX.Application.DTOs.BaseCategoryDTOs;
 using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Mappers
 {
     public static class PizzaVarietyMapper
     {
-        public static PizzaVarietyDto ToDto(PizzaVariety variety)
+        public static BaseCategoryDto ToDto(PizzaVariety variety)
             => new()
             {
                 Id = variety.Id,
-                Name = variety.Name,
+                Name = variety.Value,
                 CreatedAt = variety.CreatedAt,
                 UpdatedAt = variety.UpdatedAt
-            };
-
-        public static PizzaVarietyNameUpdateDto ToUpdateNameDto(string name)
-            => new()
-            {
-                Name = name,
             };
     }
 }
