@@ -18,7 +18,7 @@ namespace PizzaX.Domain.Entities
         {
             Guard.AgainstNullOrWhitespace(name, nameof(Name));
 
-            Name = name;
+            Name = Function.Simplify(name, true)!;
         }
 
         // Method - Create a new object
@@ -33,7 +33,7 @@ namespace PizzaX.Domain.Entities
         {
             Guard.AgainstNullOrWhitespace(name, nameof(Name));
 
-            Name = name;
+            Name = Function.Simplify(name, true)!;
             MarkUpdated();
         }
     }

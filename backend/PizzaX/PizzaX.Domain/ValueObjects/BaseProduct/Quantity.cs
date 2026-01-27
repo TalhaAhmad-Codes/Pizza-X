@@ -20,6 +20,13 @@ namespace PizzaX.Domain.ValueObjects.BaseProduct
         public static Quantity Create(int value)
             => new(value);
 
+        // Methods - Comparision operators
+        public static bool operator >=(Quantity quantity, int other)
+            => quantity.Value >= other;
+
+        public static bool operator <=(Quantity quantity, int other)
+            => quantity.Value <= other;
+
         // Method - Convert to string
         public override string ToString()
             => $"{Value}";

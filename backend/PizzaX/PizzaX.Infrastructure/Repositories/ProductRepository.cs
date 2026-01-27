@@ -1,37 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
-using PizzaX.Application.DTOs.PizzaDTOs;
+using PizzaX.Application.DTOs.ProductDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
-using PizzaX.Domain.Enums.Pizza;
 using PizzaX.Infrastructure.Data;
 
 namespace PizzaX.Infrastructure.Repositories
 {
-    public sealed class PizzaRepository : GeneralRepository<Pizza>, IPizzaRepository
+    public sealed class ProductRepository : GeneralRepository<Product>, IProductRepository
     {
-        public PizzaRepository(PizzaXDbContext dbContext) : base(dbContext) { }
+        public ProductRepository(PizzaXDbContext context): base(context) { }
 
-        public async Task<bool> ExistsBySizeAndVariety(PizzaSize size, Guid varietyId)
-        {
-            var result = await GetAllAsync(new()
-            {
-                Size = size, VarietyId = varietyId
-            });
-
-            return result.TotalCount > 0;
-        }
-
-        public async Task<PagedResultDto<Pizza>> GetAllAsync(PizzaFilterDto filterDto)
+        public async Task<PagedResultDto<Product>> GetAllAsync(ProductFilterDto filterDto)
         {
             var query = dbSet.AsQueryable();
 
             // Applying filters
-            if (filterDto.VarietyId.HasValue)
-                query = query.Where(p => p.VarietyId == filterDto.VarietyId);
+            if (filterDto.Name != null)
+                query = query.Where(p => p.Name.ToLower() == filterDto.Name.Trim().ToLower());
 
-            if (filterDto.Size.HasValue)
-                query = query.Where(p => p.Size == filterDto.Size);
+            if (filterDto.CategoryId.HasValue)
+                query = query.Where(p => p.CategoryId == filterDto.CategoryId);
+
+            if (filterDto.StockStatus.HasValue)
+                query = query.Where(p => p.StockStatus == filterDto.StockStatus);
 
             if (filterDto.MinPrice.HasValue)
                 query = query.Where(p => p.Price >= filterDto.MinPrice.Value);
@@ -45,14 +37,10 @@ namespace PizzaX.Infrastructure.Repositories
             if (filterDto.MaxQuantity.HasValue)
                 query = query.Where(p => p.Quantity <= filterDto.MaxQuantity.Value);
 
-            if (filterDto.StockStatus.HasValue)
-                query = query.Where(p => p.StockStatus == filterDto.StockStatus);
-
-            // Getting pages result
             var totalCount = await query.CountAsync();
             var items = await GetPagedResultItemsAsync(query, filterDto.PageNumber, filterDto.PageSize);
 
-            return new PagedResultDto<Pizza>
+            return new PagedResultDto<Product>
             {
                 Items = items,
                 TotalCount = totalCount

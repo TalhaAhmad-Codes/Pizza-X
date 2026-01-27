@@ -23,12 +23,12 @@ namespace PizzaX.Domain.ValueObjects.Common
             Guard.AgainstWhitespace(province, nameof(Province));
             Guard.AgainstWhitespace(country, nameof(Country));
 
-            House = house.Trim();
-            Area = area.Trim();
-            Street = street?.Trim();
-            City = city.Trim();
-            Province = province?.Trim();
-            Country = country?.Trim();
+            House = Function.Simplify(house)!;
+            Area = Function.Simplify(area)!;
+            Street = Function.Simplify(street);
+            City = Function.Simplify(city)!;
+            Province = Function.Simplify(province);
+            Country = Function.Simplify(country);
         }
 
         // Method - Create a new object

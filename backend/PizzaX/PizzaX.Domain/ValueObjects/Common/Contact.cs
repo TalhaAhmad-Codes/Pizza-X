@@ -13,9 +13,8 @@ namespace PizzaX.Domain.ValueObjects.Common
         private Contact(string value)
         {
             AgainstInvalidContactNumber(value);
-            value = value.Trim();
 
-            Value = value;
+            Value = Function.Simplify(value)!;
         }
 
         // Method - Create new object

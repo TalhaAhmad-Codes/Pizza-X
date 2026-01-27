@@ -22,7 +22,7 @@ namespace PizzaX.Application.Services
             );
 
             await repository.AddAsync(category);
-            return BaseCategoryMapper.ProductCategoryToDto(category);
+            return CategoryMapper.ProductCategoryToDto(category);
         }
 
         public async Task<PagedResultDto<BaseCategoryDto>> GetAllAsync(BaseCategoryFilterDto filterDto)
@@ -31,7 +31,7 @@ namespace PizzaX.Application.Services
 
             return new PagedResultDto<BaseCategoryDto>
             {
-                Items = result.Items.Select(BaseCategoryMapper.ProductCategoryToDto).ToList(),
+                Items = result.Items.Select(CategoryMapper.ProductCategoryToDto).ToList(),
                 TotalCount = result.TotalCount
             };
         }
@@ -39,7 +39,7 @@ namespace PizzaX.Application.Services
         public async Task<BaseCategoryDto?> GetByIdAsync(Guid id)
         {
             var category = await repository.GetByIdAsync(id);
-            return category is null ? null : BaseCategoryMapper.ProductCategoryToDto(category);
+            return category is null ? null : CategoryMapper.ProductCategoryToDto(category);
         }
 
         public async Task<bool> RemoveAsync(Guid id)

@@ -3,7 +3,7 @@ using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Mappers
 {
-    public static class BaseCategoryMapper
+    public static class CategoryMapper
     {
         public static BaseCategoryDto PizzaVarietyToDto(PizzaVariety variety)
             => new()

@@ -58,6 +58,13 @@ namespace PizzaX.Domain.Common
                 throw new DomainException($"{name} can't have length greater than {length}.");
         }
 
+        // Method - Against not allowed / illegal string part
+        public static void AgainstIllegalStringPart(string text, string part, string property)
+        {
+            if (text.Contains(part, StringComparison.OrdinalIgnoreCase))
+                throw new DomainException($"{property} can't contain '{part}' inside it.");
+        }
+
         // Method - Against password mismatch
         public static void AgainstPasswordMismatch(string password, string hash)
         {

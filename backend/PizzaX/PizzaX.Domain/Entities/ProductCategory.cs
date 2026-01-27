@@ -1,4 +1,6 @@
-﻿namespace PizzaX.Domain.Entities
+﻿using PizzaX.Domain.Common;
+
+namespace PizzaX.Domain.Entities
 {
     public sealed class ProductCategory : BaseCategory<Product>
     {
@@ -9,6 +11,10 @@
 
         // Method - Create a new object
         public static ProductCategory Create(string category)
-            => new(category);
+        {
+            Guard.AgainstIllegalStringPart(category, "pizza", nameof(category));
+
+            return new(category);
+        }
     }
 }

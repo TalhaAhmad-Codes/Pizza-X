@@ -24,6 +24,13 @@ namespace PizzaX.Domain.ValueObjects.BaseProduct
         public static Price Create(decimal unitPrice)
             => new(unitPrice);
 
+        // Method - Comparision operators
+        public static bool operator >=(Price price, decimal other)
+            => price.UnitPrice >= other;
+
+        public static bool operator <=(Price price, decimal other)
+            => price.UnitPrice <= other;
+
         // Method - Override string
         public override string ToString()
             => $"{UnitPrice}";

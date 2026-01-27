@@ -26,7 +26,7 @@ namespace PizzaX.Domain.Entities
             Price = Price.Create(unitPrice);
             Quantity = Quantity.Create(quantity);
             StockStatus = GetStockStatus();
-            Description = description?.Trim();
+            Description = Function.Simplify(description);
         }
 
         // Method - SetStockStatus
@@ -69,7 +69,7 @@ namespace PizzaX.Domain.Entities
         {
             Guard.AgainstWhitespace(description, nameof(Description));
 
-            Description = description?.Trim();
+            Description = Function.Simplify(description);
 
             MarkUpdated();
         }

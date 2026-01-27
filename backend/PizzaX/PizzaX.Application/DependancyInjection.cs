@@ -13,6 +13,7 @@ namespace PizzaX.Application
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IPizzaService, PizzaService>();
             services.AddScoped<IPizzaVarietyService, PizzaVarietyService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
             return services;

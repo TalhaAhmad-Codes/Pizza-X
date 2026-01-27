@@ -18,7 +18,7 @@ namespace PizzaX.Domain.Entities
         {
             Guard.AgainstNullOrWhitespace(category, nameof(category));
 
-            Value = category.Trim();
+            Value = Function.Simplify(category, true)!;
         }
 
         /*******************************/
@@ -29,7 +29,7 @@ namespace PizzaX.Domain.Entities
         {
             Guard.AgainstNullOrWhitespace(category, nameof(category));
 
-            Value = category.Trim();
+            Value = Function.Simplify(category, true)!;
             MarkUpdated();
         }
 
