@@ -32,13 +32,5 @@ namespace PizzaX.Domain.Entities
             Value = Function.Simplify(category, true)!;
             MarkUpdated();
         }
-
-        // Comparision operator
-        public override bool Equals(object? obj)
-        {
-            if (obj is null) return false;
-
-            return Value == obj.ToString();
-        }
     }
 }

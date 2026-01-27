@@ -62,7 +62,7 @@ namespace PizzaX.WebAPI.Controllers
             return result ? Ok("Pizza variety and all related pizza entities has been removed successfully.") : NotFound();
         }
 
-        [HttpPatch("{id:guid}/name")]
+        [HttpPatch("update/name")]
         public async Task<IActionResult> UpdatePizzaVarietyNameAsync(BaseCategoryUpdateNameDto dto)
         {
             try

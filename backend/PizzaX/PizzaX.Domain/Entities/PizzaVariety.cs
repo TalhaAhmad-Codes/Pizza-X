@@ -1,4 +1,6 @@
-﻿namespace PizzaX.Domain.Entities
+﻿using PizzaX.Domain.Common;
+
+namespace PizzaX.Domain.Entities
 {
     public sealed class PizzaVariety : BaseCategory<Pizza>
     {
@@ -9,6 +11,10 @@
 
         // Method - Create a new object
         public static PizzaVariety Create(string name)
-            => new(name);
+        {
+            Guard.AgainstNotContainPart(name, "pizza", "Pizza variety");
+
+            return new(name);
+        }
     }
 }

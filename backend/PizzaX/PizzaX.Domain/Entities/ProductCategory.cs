@@ -12,7 +12,7 @@ namespace PizzaX.Domain.Entities
         // Method - Create a new object
         public static ProductCategory Create(string category)
         {
-            Guard.AgainstIllegalStringPart(category, "pizza", nameof(category));
+            Guard.AgainstIllegalStringPart(category, "pizza", "Product category");
 
             return new(category);
         }

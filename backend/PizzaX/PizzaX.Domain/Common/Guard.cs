@@ -62,7 +62,13 @@ namespace PizzaX.Domain.Common
         public static void AgainstIllegalStringPart(string text, string part, string property)
         {
             if (text.Contains(part, StringComparison.OrdinalIgnoreCase))
-                throw new DomainException($"{property} can't contain '{part}' inside it.");
+                throw new DomainException($"{property} can't contain '{part}'.");
+        }
+
+        public static void AgainstNotContainPart(string text, string part, string property)
+        {
+            if (!text.Contains(part, StringComparison.OrdinalIgnoreCase))
+                throw new DomainException($"{property} must contain '{part}'.");
         }
 
         // Method - Against password mismatch
