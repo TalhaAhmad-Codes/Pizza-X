@@ -1,4 +1,6 @@
-﻿namespace PizzaX.Domain.ValueObjects.Employee
+﻿using PizzaX.Domain.Common;
+
+namespace PizzaX.Domain.ValueObjects.Employee
 {
     public sealed class CNIC
     {
@@ -9,6 +11,8 @@
         private CNIC() { }
         private CNIC(string value)
         {
+            Guard.AgainstInvalidRegexPattern(RegexPattern.CNIC, value, nameof(CNIC), "It must follows this format: XXXXX-YYYYYYY-Z");
+
             Value = value;
         }
 

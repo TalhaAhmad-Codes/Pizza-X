@@ -1,4 +1,5 @@
 ﻿using PizzaX.Domain.ValueObjects.User;
+using System.Text.RegularExpressions;
 
 namespace PizzaX.Domain.Common
 {
@@ -56,6 +57,20 @@ namespace PizzaX.Domain.Common
         {
             if (value.Length > length)
                 throw new DomainException($"{name} can't have length greater than {length}.");
+        }
+
+        // Method - Against given Regex pattern
+        public static void AgainstInvalidRegexPattern(String pattern, string value, string property, string? extraMessage = null)
+        {
+            if (!Regex.IsMatch(value, pattern))
+            {
+                var message = $"The given {property} format is invalid.";
+
+                if (extraMessage != null)
+                    message += $"\n{extraMessage}";
+
+                throw new DomainException(message);
+            }
         }
 
         // Method - Against not allowed / illegal string part

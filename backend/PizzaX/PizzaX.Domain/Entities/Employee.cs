@@ -13,7 +13,7 @@ namespace PizzaX.Domain.Entities
         public Name Name { get; private set; }
         public CNIC CNIC { get; private set; }
         public Address Address { get; private set; }
-        public Contact Contact { get; private set; }
+        public Contact? Contact { get; private set; }
         public EmployeeJobRole JobRole { get; private set; }
         public Salary Salary { get; private set; }
         public EmployeeShift Shift { get; private set; }

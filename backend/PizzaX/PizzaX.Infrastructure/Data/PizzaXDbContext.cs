@@ -150,8 +150,7 @@ namespace PizzaX.Infrastructure.Data
                 builder.OwnsOne(e => e.Contact, contact =>
                 {
                     contact.Property(c => c.Value)
-                           .HasColumnName("Contact")
-                           .IsRequired();
+                           .HasColumnName("Contact");
 
                     contact.HasIndex(c => c.Value)
                            .IsUnique();
