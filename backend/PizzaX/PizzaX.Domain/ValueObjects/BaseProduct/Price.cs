@@ -1,4 +1,5 @@
 ﻿using PizzaX.Domain.Common;
+using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Domain.ValueObjects.BaseProduct
 {

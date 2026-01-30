@@ -1,6 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 
-namespace PizzaX.Domain.ValueObjects.BaseProduct
+namespace PizzaX.Domain.ValueObjects.Deal
 {
     public sealed class Quantity
     {

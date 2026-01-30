@@ -1,5 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
+using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Domain.Entities
 {
@@ -8,24 +9,25 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        public ICollection<Guid> Products { get; private set; }
+        public ICollection<DealItem> Items { get; private set; }
 
         // Constructors
         private Deal() { }
 
-        private Deal(string name, string? description, ICollection<Guid> products)
+        private Deal(string name, string? description, ICollection<DealItem> items)
         {
-            Guard.AgainstNullOrWhitespace(name, nameof(Deal));
+            name = Function.Simplify(name, true)!;
+            Guard.AgainstInvalidRegexPattern(RegexPattern.DealName, name, nameof(Deal));
             Guard.AgainstWhitespace(description, nameof(Description));
 
             Name = name;
-            Description = description;
-            Products = products;
+            Description = Function.Simplify(description);
+            Items = items;
         }
 
         // Method - Create a new object
-        public static Deal Create(string name, string? description, ICollection<Guid> products)
-            => new(name, description, products);
+        public static Deal Create(string name, string? description, ICollection<DealItem> items)
+            => new(name, description, items);
 
         /*******************************/
         /* Methods - Update Properties */
@@ -33,7 +35,8 @@ namespace PizzaX.Domain.Entities
 
         public void UpdateName(string name)
         {
-            Guard.AgainstNullOrWhitespace(name, nameof(Deal));
+            name = Function.Simplify(name, true)!;
+            Guard.AgainstInvalidRegexPattern(RegexPattern.DealName, name, nameof(Deal));
 
             Name = name;
             MarkUpdated();
@@ -47,15 +50,15 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void AddProduct(Guid productId)
+        public void AddProduct(DealItem item)
         {
-            Products.Add(productId);
+            Items.Add(item);
             MarkUpdated();
         }
 
-        public void RemoveProduct(Guid productId)
+        public void RemoveProduct(DealItem item)
         {
-            Products.Remove(productId);
+            Items.Remove(item);
             MarkUpdated();
         }
     }

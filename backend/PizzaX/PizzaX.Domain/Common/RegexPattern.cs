@@ -32,6 +32,10 @@
 
         public static Pattern CategoryName => FullName;
         public static Pattern ProductName => FullName;
+        public static Pattern DealName => new(
+            @"^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$",
+            "It can only contain alphabets and digits and also single whitespace between them."
+        );
     }
 
     public struct Pattern
