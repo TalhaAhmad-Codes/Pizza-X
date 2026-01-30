@@ -5,9 +5,9 @@ namespace PizzaX.Domain.ValueObjects.Deal
     public sealed class DealItem
     {
         // Attributes
-        public Guid ProductId { get; private set; }
-        public string Name { get; private set; }
-        public Quantity Quantity { get; private set; }
+        public Guid ProductId { get; }
+        public string Name { get; }
+        public Quantity Quantity { get; }
 
         // Constructors
         private DealItem() { }
