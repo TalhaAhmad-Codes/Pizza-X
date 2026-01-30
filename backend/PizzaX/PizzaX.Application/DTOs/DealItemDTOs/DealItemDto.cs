@@ -1,4 +1,4 @@
-﻿namespace PizzaX.Application.DTOs.DealDTOs
+﻿namespace PizzaX.Application.DTOs.DealItemDTOs
 {
     public class DealItemDto
     {

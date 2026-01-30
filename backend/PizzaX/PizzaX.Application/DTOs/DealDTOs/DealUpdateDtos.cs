@@ -1,4 +1,5 @@
 ﻿using PizzaX.Application.DTOs.Common;
+using PizzaX.Application.DTOs.DealItemDTOs;
 
 namespace PizzaX.Application.DTOs.DealDTOs.DealUpdateDtos
 {

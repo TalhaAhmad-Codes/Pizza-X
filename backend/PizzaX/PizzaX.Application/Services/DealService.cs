@@ -31,7 +31,7 @@ namespace PizzaX.Application.Services
                 if (await repository.GetDealItemAsync(deal, item) != null)
                     continue;
 
-                deal.AddDealItem(
+                deal.AddDealProductItem(
                     productId: item.ProductId,
                     name: item.Name,
                     quantity: item.Quantity

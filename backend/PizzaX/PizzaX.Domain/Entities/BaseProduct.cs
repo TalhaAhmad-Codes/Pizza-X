@@ -2,6 +2,7 @@
 using PizzaX.Domain.Common.Entities;
 using PizzaX.Domain.Enums.BaseProduct;
 using PizzaX.Domain.ValueObjects.BaseProduct;
+using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Domain.Entities
 {
@@ -12,6 +13,9 @@ namespace PizzaX.Domain.Entities
         public Price Price { get; protected set; }
         public string? Description { get; protected set; }
         public ProductStockStatus StockStatus { get; protected set; }
+        
+        // Navigation
+        public DealItem DealItem { get; protected set; }
 
         // Constructors
         protected BaseProduct() { }

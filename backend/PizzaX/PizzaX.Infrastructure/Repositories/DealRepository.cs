@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.DealDTOs;
+using PizzaX.Application.DTOs.DealItemDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
@@ -35,11 +36,5 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount
             };
         }
-
-        public async Task<DealItem?> GetDealItemAsync(Deal deal, DealItemDto dto)
-            => deal.Items.FirstOrDefault(i =>
-                   i.ProductId == dto.ProductId
-                && i.Name.ToLower() == Function.Simplify(dto.Name, true)
-                && i.Quantity == dto.Quantity);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PizzaX.Domain.Common;
+using PizzaX.Domain.Entities;
 
 namespace PizzaX.Domain.ValueObjects.Deal
 {
@@ -8,6 +9,10 @@ namespace PizzaX.Domain.ValueObjects.Deal
         public Guid ProductId { get; }
         public string Name { get; }
         public Quantity Quantity { get; }
+
+        // Navigation
+        public Product Product { get; }
+        public Pizza Pizza { get; }
 
         // Constructors
         private DealItem() { }
@@ -21,12 +26,7 @@ namespace PizzaX.Domain.ValueObjects.Deal
             Quantity = Quantity.Create(quantity);
         }
 
-        // Methods - Create a new object
         public static DealItem Create(Guid productId, string name, int quantity)
             => new(productId, name, quantity);
-
-        // Method - Convert to string
-        public override string ToString()
-            => $"{Quantity} {Name}";
     }
 }

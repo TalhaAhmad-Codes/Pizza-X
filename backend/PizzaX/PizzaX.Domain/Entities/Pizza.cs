@@ -9,7 +9,7 @@ namespace PizzaX.Domain.Entities
         public PizzaSize Size { get; private set; }
         public Guid VarietyId { get; private set; }
 
-        // Navigation property
+        // Navigation properties
         public PizzaVariety Variety { get; private set; }
 
         // Constructors

@@ -10,7 +10,7 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        public ICollection<DealItem> Items { get; private set; } = [];
+        public ICollection<DealItem> Items { get; private set; }
         public Price Price { get; private set; }
 
         // Constructors
@@ -58,18 +58,27 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void AddDealItem(Guid productId, string name, int quantity)
+        public void AddDealProductItem(Guid productId, string name, int quantity)
         {
-            var item = DealItem.Create(
-                productId, name, quantity
-            );
-            Items.Add(item);
+            Items.AddDealProductItem(productId, name, quantity);
             MarkUpdated();
         }
 
-        public void RemoveDealItem(DealItem item)
+        public void AddDealPizzaItem(Guid productId, string name, int quantity)
         {
-            Items.Remove(item);
+            Items.AddDealPizzaItem(productId, name, quantity);
+            MarkUpdated();
+        }
+
+        public void RemoveDealProductItem(DealProductItem item)
+        {
+            Items.RemoveDealProductItem(item);
+            MarkUpdated();
+        }
+
+        public void RemoveDealPizzaItem(DealPizzaItem item)
+        {
+            Items.RemoveDealPizzaItem(item);
             MarkUpdated();
         }
     }

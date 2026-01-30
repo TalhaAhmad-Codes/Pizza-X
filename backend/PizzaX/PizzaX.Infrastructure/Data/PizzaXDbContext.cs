@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Domain.Entities;
 using PizzaX.Domain.Enums.User;
+using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Infrastructure.Data
 {
@@ -228,6 +229,7 @@ namespace PizzaX.Infrastructure.Data
                 // Name config
                 builder.Property(p => p.Name)
                        .HasColumnName("Name")
+                       .HasMaxLength(50)
                        .IsRequired();
 
                 builder.HasIndex(p => p.Name)
@@ -282,7 +284,7 @@ namespace PizzaX.Infrastructure.Data
 
                 // Description property
                 builder.Property(d => d.Description)
-                       .HasMaxLength(50);
+                       .HasMaxLength(75);
 
                 // Price property
                 builder.OwnsOne(d => d.Price, price =>
@@ -295,9 +297,34 @@ namespace PizzaX.Infrastructure.Data
                 // Deal Items property
                 builder.OwnsMany(d => d.Items, items =>
                 {
-                    //items.HasOne(i => i.ProductId)
-                    //     .
-                         
+                    // Name property
+                    items.Property(i => i.Name)
+                         .HasColumnName("ItemName")
+                         .HasMaxLength(20)
+                         .IsRequired();
+
+                    // Quantity property
+                    items.Property(i => i.Quantity)
+                         .HasColumnName("ItemQuantity")
+                         .IsRequired();
+
+                    // Product Id property
+                    items.Property(i => i.ProductId)
+                         .HasColumnName("ItemProductId")
+                         .IsRequired();
+
+                    items.HasIndex(i => i.ProductId)
+                         .IsUnique();
+
+                    // One-to-One relations with product
+                    items.HasOne(i => i.Product)
+                         .WithOne(p => p.DealItem)
+                         .OnDelete(DeleteBehavior.Restrict);
+
+                    items.HasOne(i => i.Pizza)
+                         .WithOne(p => p.DealItem)
+                         .OnDelete(DeleteBehavior.Restrict);
+
                 });
             });
 
