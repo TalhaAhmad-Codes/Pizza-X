@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        services.AddScoped<IDealRepository, DealRepository>();
 
         return services;
     }

@@ -10,13 +10,13 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        public ICollection<DealItem> Items { get; private set; }
+        public ICollection<DealItem> Items { get; private set; } = [];
         public Price Price { get; private set; }
 
         // Constructors
         private Deal() { }
 
-        private Deal(string name, string? description, ICollection<DealItem> items, decimal price)
+        private Deal(string name, string? description, decimal price)
         {
             name = Function.Simplify(name, true)!;
             Guard.AgainstInvalidRegexPattern(RegexPattern.DealName, name, nameof(Deal));
@@ -24,13 +24,12 @@ namespace PizzaX.Domain.Entities
 
             Name = name;
             Description = Function.Simplify(description);
-            Items = items;
             Price = Price.Create(price);
         }
 
         // Method - Create a new object
-        public static Deal Create(string name, string? description, ICollection<DealItem> items, decimal price)
-            => new(name, description, items, price);
+        public static Deal Create(string name, string? description, decimal price)
+            => new(name, description, price);
 
         /*******************************/
         /* Methods - Update Properties */
@@ -59,8 +58,11 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void AddDealItem(DealItem item)
+        public void AddDealItem(Guid productId, string name, int quantity)
         {
+            var item = DealItem.Create(
+                productId, name, quantity
+            );
             Items.Add(item);
             MarkUpdated();
         }

@@ -27,6 +27,12 @@ namespace PizzaX.Domain.ValueObjects.Deal
         public static bool operator <=(Quantity quantity, int other)
             => quantity.Value <= other;
 
+        public static bool operator ==(Quantity quantity, int other)
+            => quantity.Value == other;
+
+        public static bool operator !=(Quantity quantity, int other)
+            => quantity.Value != other;
+
         // Method - Convert to string
         public override string ToString()
             => $"{Value}";

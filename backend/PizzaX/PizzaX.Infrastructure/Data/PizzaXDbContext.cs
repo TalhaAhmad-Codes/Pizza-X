@@ -13,6 +13,7 @@ namespace PizzaX.Infrastructure.Data
         public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
+        public DbSet<Deal> Deals => Set<Deal>();
         
         // Constructor
         public PizzaXDbContext(DbContextOptions<PizzaXDbContext> options) : base(options) { }
@@ -265,6 +266,39 @@ namespace PizzaX.Infrastructure.Data
 
                 builder.HasIndex(v => v.Value)
                        .IsUnique();
+            });
+
+            /*/ <----- Deal - Configuration -----> /*/
+            modelBuilder.Entity<Deal>(builder =>
+            {
+                // Name Property
+                builder.Property(d => d.Name)
+                       .HasColumnName("DealName")
+                       .HasMaxLength(10)
+                       .IsRequired();
+
+                builder.HasIndex(d => d.Name)
+                       .IsUnique();
+
+                // Description property
+                builder.Property(d => d.Description)
+                       .HasMaxLength(50);
+
+                // Price property
+                builder.OwnsOne(d => d.Price, price =>
+                {
+                    price.Property(p => p.UnitPrice)
+                         .HasColumnName("Price")
+                         .IsRequired();
+                });
+
+                // Deal Items property
+                builder.OwnsMany(d => d.Items, items =>
+                {
+                    //items.HasOne(i => i.ProductId)
+                    //     .
+                         
+                });
             });
 
             base.OnModelCreating(modelBuilder);

@@ -28,5 +28,12 @@ namespace PizzaX.Application.Mappers
                 Name = dealItem.Name,
                 Quantity = dealItem.Quantity.Value
             };
+
+        public static DealItem ToEntity(DealItemDto dto)
+            => DealItem.Create(
+                productId: dto.ProductId,
+                name: dto.Name,
+                quantity: dto.Quantity
+            );
     }
 }
