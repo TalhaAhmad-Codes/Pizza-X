@@ -6,7 +6,6 @@ using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
 using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
-using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Application.Services
 {
@@ -17,7 +16,7 @@ namespace PizzaX.Application.Services
         public DealService(IDealRepository repository)
             => this.repository = repository;
 
-        public async Task<bool> AddDealItemAsync(DealAddDealItemDto dto)
+        public async Task<bool> AddDealPizzaItemAsync(DealAddDealItemsDto dto)
         {
             var deal = await repository.GetByIdAsync(dto.Id);
 
@@ -26,17 +25,31 @@ namespace PizzaX.Application.Services
             for (int i = 0; i < dto.Items.Count; i++)
             {
                 var item = dto.Items[i];
+                var pizza = await repository.GetPizzaByIdAsync(item.ProductId)
+                    ?? throw new DomainException($"There's no pizza exists of Id {item.ProductId}.");
 
-                // If duplicate item found
-                if (await repository.GetDealItemAsync(deal, item) != null)
-                    continue;
-
-                deal.AddDealProductItem(
-                    productId: item.ProductId,
-                    name: item.Name,
-                    quantity: item.Quantity
-                );
+                deal.AddDealItem(item.ProductId, item.Name, item.Quantity);
             }
+
+            await repository.UpdateAsync(deal);
+            return true;
+        }
+
+        public async Task<bool> AddDealProductItemAsync(DealAddDealItemsDto dto)
+        {
+            var deal = await repository.GetByIdAsync(dto.Id);
+
+            if (deal is null) return false;
+
+            for (int i = 0; i < dto.Items.Count; i++)
+            {
+                var item = dto.Items[i];
+                var product = await repository.GetProductByIdAsync(item.ProductId)
+                    ?? throw new DomainException($"There's no product exists of Id {item.ProductId}.");
+
+                deal.AddDealItem(item.ProductId, item.Name, item.Quantity);
+            }
+
             await repository.UpdateAsync(deal);
             return true;
         }
@@ -79,19 +92,30 @@ namespace PizzaX.Application.Services
             return true;
         }
 
-        public async Task<bool> RemoveDealItemAsync(DealRemoveDealItemDto dto)
+        public async Task<bool> RemoveDealPizzaItemAsync(DealRemoveDealItemDto dto)
         {
-            // Getting deal object
             var deal = await repository.GetByIdAsync(dto.Id);
 
             if (deal is null) return false;
-            
-            // Getting deal item object
-            var item = await repository.GetDealItemAsync(deal, dto.Item);
-            
-            if (item is null) return false;
 
-            deal.RemoveDealItem(item);
+            var pizza = await repository.GetPizzaByIdAsync(dto.Item.ProductId)
+                ?? throw new DomainException($"There's no product exists of Id {dto.Item.ProductId}.");
+
+            deal.RemoveDealItem(DealItemMapper.ToEntity(dto.Item));
+            await repository.UpdateAsync(deal);
+            return true;
+        }
+
+        public async Task<bool> RemoveDealProductItemAsync(DealRemoveDealItemDto dto)
+        {
+            var deal = await repository.GetByIdAsync(dto.Id);
+
+            if (deal is null) return false;
+
+            var product = await repository.GetProductByIdAsync(dto.Item.ProductId)
+                ?? throw new DomainException($"There's no product exists of Id {dto.Item.ProductId}.");
+
+            deal.RemoveDealItem(DealItemMapper.ToEntity(dto.Item));
             await repository.UpdateAsync(deal);
             return true;
         }
@@ -114,6 +138,17 @@ namespace PizzaX.Application.Services
             if (deal is null) return false;
 
             deal.UpdateName(dto.Name);
+            await repository.UpdateAsync(deal);
+            return true;
+        }
+
+        public async Task<bool> UpdatePriceAsync(DealUpdatePriceDto dto)
+        {
+            var deal = await repository.GetByIdAsync(dto.Id);
+
+            if (deal is null) return false;
+
+            deal.UpdatePrice(dto.Price);
             await repository.UpdateAsync(deal);
             return true;
         }

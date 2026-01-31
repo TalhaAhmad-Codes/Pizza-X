@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.DealDTOs;
-using PizzaX.Application.DTOs.DealItemDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
-using PizzaX.Domain.ValueObjects.Deal;
 using PizzaX.Infrastructure.Data;
 
 namespace PizzaX.Infrastructure.Repositories
@@ -36,5 +34,11 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount
             };
         }
+
+        public async Task<Pizza?> GetPizzaByIdAsync(Guid id)
+            => await dbContext.Pizzas.FindAsync(id);
+
+        public async Task<Product?> GetProductByIdAsync(Guid id)
+            => await dbContext.Products.FindAsync(id);
     }
 }

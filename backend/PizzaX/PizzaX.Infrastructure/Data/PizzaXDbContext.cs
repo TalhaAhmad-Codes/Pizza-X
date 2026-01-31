@@ -177,6 +177,11 @@ namespace PizzaX.Infrastructure.Data
                        .HasForeignKey(p => p.VarietyId)
                        .OnDelete(DeleteBehavior.Restrict);
 
+                // One-to-One relation with deal
+                builder.HasOne(p => p.DealItem)
+                       .WithOne(d => d.Pizza)
+                       .OnDelete(DeleteBehavior.Cascade);
+
                 // Size config
                 builder.Property(p => p.Size)
                        .HasColumnName("Size")
@@ -225,6 +230,11 @@ namespace PizzaX.Infrastructure.Data
                        .WithMany(c => c.Products)
                        .HasForeignKey(p => p.CategoryId)
                        .OnDelete(DeleteBehavior.Restrict);
+
+                // One-to-One relation with deal
+                builder.HasOne(p => p.DealItem)
+                       .WithOne(d => d.Product)
+                       .OnDelete(DeleteBehavior.Cascade);
 
                 // Name config
                 builder.Property(p => p.Name)
@@ -319,10 +329,12 @@ namespace PizzaX.Infrastructure.Data
                     // One-to-One relations with product
                     items.HasOne(i => i.Product)
                          .WithOne(p => p.DealItem)
+                         .HasForeignKey<DealItem>(i => i.ProductId)
                          .OnDelete(DeleteBehavior.Restrict);
 
                     items.HasOne(i => i.Pizza)
                          .WithOne(p => p.DealItem)
+                         .HasForeignKey<DealItem>(i => i.ProductId)
                          .OnDelete(DeleteBehavior.Restrict);
 
                 });

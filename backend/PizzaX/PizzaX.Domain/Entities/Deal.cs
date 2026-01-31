@@ -58,27 +58,16 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void AddDealProductItem(Guid productId, string name, int quantity)
+        public void AddDealItem(Guid productId, string name, int quantity)
         {
-            Items.AddDealProductItem(productId, name, quantity);
+            var item = DealItem.Create(productId, name, quantity);
+            Items.Add(item);
             MarkUpdated();
         }
 
-        public void AddDealPizzaItem(Guid productId, string name, int quantity)
+        public void RemoveDealItem(DealItem item)
         {
-            Items.AddDealPizzaItem(productId, name, quantity);
-            MarkUpdated();
-        }
-
-        public void RemoveDealProductItem(DealProductItem item)
-        {
-            Items.RemoveDealProductItem(item);
-            MarkUpdated();
-        }
-
-        public void RemoveDealPizzaItem(DealPizzaItem item)
-        {
-            Items.RemoveDealPizzaItem(item);
+            Items.Remove(item);
             MarkUpdated();
         }
     }
