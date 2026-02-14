@@ -45,7 +45,7 @@
 
         public Pattern(String value, string? message = null)
         {
-            if (string.IsNullOrWhiteSpace(message))
+            if (string.IsNullOrWhiteSpace(message) && message != null)
                 throw new DomainException("Regex pattern message can't be empty / whitespace.");
 
             if (String.IsNullOrWhiteSpace(value))
