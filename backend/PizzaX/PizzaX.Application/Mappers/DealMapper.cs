@@ -25,7 +25,7 @@ namespace PizzaX.Application.Mappers
         public static DealItemDto ToDto(DealItem dealItem)
             => new()
             {
-                ProductId = dealItem.ProductId,
+                //ProductId = dealItem.ProductId,
                 Name = dealItem.Name,
                 Quantity = dealItem.Quantity.Value
             };

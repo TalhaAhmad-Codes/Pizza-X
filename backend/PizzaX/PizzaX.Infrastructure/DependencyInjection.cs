@@ -15,7 +15,7 @@ public static class DependencyInjection
     {
         /* Db Context - Connection */
         services.AddDbContext<PizzaXDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         /* Repositories */
         services.AddScoped<IUserRepository, UserRepository>();
@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
-        services.AddScoped<IDealRepository, DealRepository>();
+        //services.AddScoped<IDealRepository, DealRepository>();
 
         return services;
     }

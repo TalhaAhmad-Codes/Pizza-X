@@ -6,13 +6,13 @@ namespace PizzaX.Domain.ValueObjects.Deal
     public sealed class DealItem
     {
         // Attributes
-        public Guid ProductId { get; }
+        //public Guid ProductId { get; }
         public string Name { get; }
         public Quantity Quantity { get; }
 
         // Navigation
-        public Product Product { get; }
-        public Pizza Pizza { get; }
+        //public Product Product { get; }
+        //public Pizza Pizza { get; }
 
         // Constructors
         private DealItem() { }
@@ -21,7 +21,7 @@ namespace PizzaX.Domain.ValueObjects.Deal
             name = Function.Simplify(name)!;
             Guard.AgainstInvalidRegexPattern(RegexPattern.ProductName, name, nameof(Name));
 
-            ProductId = productId;
+            //ProductId = productId;
             Name = name;
             Quantity = Quantity.Create(quantity);
         }

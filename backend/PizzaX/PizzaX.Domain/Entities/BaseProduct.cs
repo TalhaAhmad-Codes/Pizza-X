@@ -15,7 +15,7 @@ namespace PizzaX.Domain.Entities
         public ProductStockStatus StockStatus { get; protected set; }
         
         // Navigation
-        public DealItem DealItem { get; protected set; }
+        //public DealItem DealItem { get; protected set; }
 
         // Constructors
         protected BaseProduct() { }
