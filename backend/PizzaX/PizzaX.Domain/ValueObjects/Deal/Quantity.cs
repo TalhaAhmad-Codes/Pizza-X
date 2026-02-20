@@ -11,7 +11,7 @@ namespace PizzaX.Domain.ValueObjects.Deal
         private Quantity() { }
         private Quantity(int value)
         {
-            Guard.AgainstNegativeValue(value, nameof(Value));
+            Guard.AgainstZeroOrLess(value, nameof(Value));
 
             Value = value;
         }
