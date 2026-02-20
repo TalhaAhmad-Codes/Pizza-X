@@ -1,5 +1,4 @@
 ﻿using PizzaX.Application.DTOs.Common;
-using PizzaX.Application.DTOs.DealItemDTOs;
 
 namespace PizzaX.Application.DTOs.DealDTOs.DealUpdateDtos
 {
@@ -20,11 +19,11 @@ namespace PizzaX.Application.DTOs.DealDTOs.DealUpdateDtos
 
     public sealed class DealAddDealItemsDto : BaseDto
     {
-        public List<DealItemDto> Items { get; init; }
+        public List<DealItemForDealDto> DealItemItems { get; init; }
     }
 
     public sealed class DealRemoveDealItemDto : BaseDto
     {
-        public DealItemDto Item { get; init; }
+        public Guid DealItemId { get; init; }
     }
 }

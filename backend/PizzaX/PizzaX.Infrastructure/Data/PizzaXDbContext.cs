@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaX.Domain.Entities;
 using PizzaX.Domain.Enums.User;
-using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Infrastructure.Data
 {
@@ -14,8 +13,9 @@ namespace PizzaX.Infrastructure.Data
         public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
-        //public DbSet<Deal> Deals => Set<Deal>();
-        
+        public DbSet<DealItem> DealItems => Set<DealItem>();
+        public DbSet<Deal> Deals => Set<Deal>();
+
         // Constructor
         public PizzaXDbContext(DbContextOptions<PizzaXDbContext> options) : base(options) { }
 
@@ -168,6 +168,13 @@ namespace PizzaX.Infrastructure.Data
                 });
             });
 
+            /*/ <----- Base Product - Configuration -----> /*/
+            modelBuilder.Entity<BaseProduct>()
+                .UseTphMappingStrategy()
+                .HasDiscriminator<string>("ProductType")
+                .HasValue<Pizza>("Pizza")
+                .HasValue<Product>("Product");
+
             /*/ <----- Pizza - Configuration -----> /*/
             modelBuilder.Entity<Pizza>(builder =>
             {
@@ -176,11 +183,6 @@ namespace PizzaX.Infrastructure.Data
                        .WithMany(v => v.Products)
                        .HasForeignKey(p => p.VarietyId)
                        .OnDelete(DeleteBehavior.Restrict);
-
-                // One-to-One relation with deal
-                //builder.HasOne(p => p.DealItem)
-                //       .WithOne(d => d.Pizza)
-                //       .OnDelete(DeleteBehavior.Cascade);
 
                 // Size config
                 builder.Property(p => p.Size)
@@ -231,11 +233,6 @@ namespace PizzaX.Infrastructure.Data
                        .HasForeignKey(p => p.CategoryId)
                        .OnDelete(DeleteBehavior.Restrict);
 
-                // One-to-One relation with deal
-                //builder.HasOne(p => p.DealItem)
-                //       .WithOne(d => d.Product)
-                //       .OnDelete(DeleteBehavior.Cascade);
-
                 // Name config
                 builder.Property(p => p.Name)
                        .HasColumnName("Name")
@@ -280,65 +277,60 @@ namespace PizzaX.Infrastructure.Data
                        .IsUnique();
             });
 
+            /*/ <----- Deal Item - Configuration -----> /*/
+            modelBuilder.Entity<DealItem>(builder =>
+            {
+                // Product Relation
+                builder.HasOne(i => i.Product)
+                       .WithMany()
+                       .HasForeignKey(i => i.ProductId)
+                       .OnDelete(DeleteBehavior.Restrict);
+
+                // Deal Relation
+                builder.HasOne(i => i.Deal)
+                       .WithMany(d => d.DealItems)
+                       .HasForeignKey(i => i.DealId)
+                       .OnDelete(DeleteBehavior.Cascade);
+
+                // Quantity
+                builder.OwnsOne(i => i.Quantity, quantity =>
+                {
+                    quantity.Property(q => q.Value)
+                            .HasColumnName("Quantity")
+                            .IsRequired();
+                });
+            });
+
             /*/ <----- Deal - Configuration -----> /*/
-            //modelBuilder.Entity<Deal>(builder =>
-            //{
-            //    // Name Property
-            //    builder.Property(d => d.Name)
-            //           .HasColumnName("DealName")
-            //           .HasMaxLength(10)
-            //           .IsRequired();
+            modelBuilder.Entity<Deal>(builder =>
+            {
+                // Name Property
+                builder.Property(d => d.Name)
+                       .HasColumnName("DealName")
+                       .HasMaxLength(10)
+                       .IsRequired();
 
-            //    builder.HasIndex(d => d.Name)
-            //           .IsUnique();
+                builder.HasIndex(d => d.Name)
+                       .IsUnique();
 
-            //    // Description property
-            //    builder.Property(d => d.Description)
-            //           .HasMaxLength(75);
+                // Description property
+                builder.Property(d => d.Description)
+                       .HasMaxLength(75);
 
-            //    // Price property
-            //    builder.OwnsOne(d => d.Price, price =>
-            //    {
-            //        price.Property(p => p.UnitPrice)
-            //             .HasColumnName("Price")
-            //             .IsRequired();
-            //    });
+                // Price property
+                builder.OwnsOne(d => d.Price, price =>
+                {
+                    price.Property(p => p.UnitPrice)
+                         .HasColumnName("Price")
+                         .IsRequired();
+                });
 
-            //    // Deal Items property
-            //    builder.OwnsMany(d => d.Items, items =>
-            //    {
-            //        // Name property
-            //        items.Property(i => i.Name)
-            //             .HasColumnName("ItemName")
-            //             .HasMaxLength(20)
-            //             .IsRequired();
-
-            //        // Quantity property
-            //        items.Property(i => i.Quantity)
-            //             .HasColumnName("ItemQuantity")
-            //             .IsRequired();
-
-            //        // Product Id property
-            //        items.Property(i => i.ProductId)
-            //             .HasColumnName("ItemProductId")
-            //             .IsRequired();
-
-            //        items.HasIndex(i => i.ProductId)
-            //             .IsUnique();
-
-            //        // One-to-One relations with product
-            //        items.HasOne(i => i.Product)
-            //             .WithOne(p => p.DealItem)
-            //             .HasForeignKey<DealItem>(i => i.ProductId)
-            //             .OnDelete(DeleteBehavior.Restrict);
-
-            //        items.HasOne(i => i.Pizza)
-            //             .WithOne(p => p.DealItem)
-            //             .HasForeignKey<DealItem>(i => i.ProductId)
-            //             .OnDelete(DeleteBehavior.Restrict);
-
-            //    });
-            //});
+                // Deal Items property
+                builder.HasMany(d => d.DealItems)
+                       .WithOne(i => i.Deal)
+                       .HasForeignKey(i => i.DealId)
+                       .OnDelete(DeleteBehavior.Cascade);
+            });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,7 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
 using PizzaX.Domain.ValueObjects.BaseProduct;
-using PizzaX.Domain.ValueObjects.Deal;
 
 namespace PizzaX.Domain.Entities
 {
@@ -10,7 +9,8 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        public ICollection<DealItem> Items { get; private set; }
+        private List<DealItem> dealItems = new();
+        public IReadOnlyList<DealItem> DealItems => dealItems;
         public Price Price { get; private set; }
 
         // Constructors
@@ -58,16 +58,16 @@ namespace PizzaX.Domain.Entities
             MarkUpdated();
         }
 
-        public void AddDealItem(Guid productId, string name, int quantity)
+        public void AddDealItem(Guid productId, int quantity)
         {
-            var item = DealItem.Create(productId, name, quantity);
-            Items.Add(item);
+            var item = DealItem.Create(productId, quantity, Id);
+            dealItems.Add(item);
             MarkUpdated();
         }
 
         public void RemoveDealItem(DealItem item)
         {
-            Items.Remove(item);
+            dealItems.Remove(item);
             MarkUpdated();
         }
     }
