@@ -6,7 +6,6 @@ namespace PizzaX.Application.DTOs.DealDTOs
     {
         public string Name { get; init; }
         public string? Description { get; init; }
-        public List<DealItemForDealDto> Items { get; init; }
         public decimal Price { get; init; }
     }
 }

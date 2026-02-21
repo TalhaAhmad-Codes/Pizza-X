@@ -7,7 +7,5 @@ namespace PizzaX.Application.Interfaces.Repositories
     public interface IDealRepository : IGeneralRepository<Deal>
     {
         Task<PagedResultDto<Deal>> GetAllAsync(DealFilterDto filterDto);
-        Task<Pizza?> GetPizzaByIdAsync(Guid id);
-        Task<Product?> GetProductByIdAsync(Guid id);
     }
 }

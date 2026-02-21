@@ -9,8 +9,8 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        private List<DealItem> dealItems = new();
-        public IReadOnlyList<DealItem> DealItems => dealItems;
+        //private List<DealItem> dealItems = new();
+        public ICollection<DealItem> DealItems;
         public Price Price { get; private set; }
 
         // Constructors
@@ -55,19 +55,6 @@ namespace PizzaX.Domain.Entities
         public void UpdatePrice(decimal price)
         {
             Price = Price.Create(price);
-            MarkUpdated();
-        }
-
-        public void AddDealItem(Guid productId, int quantity)
-        {
-            var item = DealItem.Create(productId, quantity, Id);
-            dealItems.Add(item);
-            MarkUpdated();
-        }
-
-        public void RemoveDealItem(DealItem item)
-        {
-            dealItems.Remove(item);
             MarkUpdated();
         }
     }

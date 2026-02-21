@@ -16,11 +16,5 @@ namespace PizzaX.Application.Interfaces.Services
         Task<bool> UpdateNameAsync(DealUpdateNameDto dto);
         Task<bool> UpdateDescriptionAsync(DealUpdateDescriptionDto dto);
         Task<bool> UpdatePriceAsync(DealUpdatePriceDto dto);
-        
-        Task<bool> AddDealProductItemAsync(DealAddDealItemsDto dto);
-        Task<bool> RemoveDealProductItemAsync(DealRemoveDealItemDto dto);
-
-        Task<bool> AddDealPizzaItemAsync(DealAddDealItemsDto dto);
-        Task<bool> RemoveDealPizzaItemAsync(DealRemoveDealItemDto dto);
     }
 }

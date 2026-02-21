@@ -16,7 +16,7 @@ namespace PizzaX.Application
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<IDealItemService, DealItemService>();
-            //services.AddScoped<IDealService, DealService>();
+            services.AddScoped<IDealService, DealService>();
 
             return services;
         }

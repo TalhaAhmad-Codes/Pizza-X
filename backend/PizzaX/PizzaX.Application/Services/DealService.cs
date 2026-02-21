@@ -4,7 +4,6 @@ using PizzaX.Application.DTOs.DealDTOs.DealUpdateDtos;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
-using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Services
@@ -15,44 +14,6 @@ namespace PizzaX.Application.Services
 
         public DealService(IDealRepository repository)
             => this.repository = repository;
-
-        public async Task<bool> AddDealPizzaItemAsync(DealAddDealItemsDto dto)
-        {
-            var deal = await repository.GetByIdAsync(dto.Id);
-
-            if (deal is null) return false;
-
-            for (int i = 0; i < dto.Items.Count; i++)
-            {
-                var item = dto.Items[i];
-                var pizza = await repository.GetPizzaByIdAsync(item.ProductId)
-                    ?? throw new DomainException($"There's no pizza exists of Id {item.ProductId}.");
-
-                deal.AddDealItem(item.ProductId, item.Name, item.Quantity);
-            }
-
-            await repository.UpdateAsync(deal);
-            return true;
-        }
-
-        public async Task<bool> AddDealProductItemAsync(DealAddDealItemsDto dto)
-        {
-            var deal = await repository.GetByIdAsync(dto.Id);
-
-            if (deal is null) return false;
-
-            for (int i = 0; i < dto.Items.Count; i++)
-            {
-                var item = dto.Items[i];
-                var product = await repository.GetProductByIdAsync(item.ProductId)
-                    ?? throw new DomainException($"There's no product exists of Id {item.ProductId}.");
-
-                deal.AddDealItem(item.ProductId, item.Name, item.Quantity);
-            }
-
-            await repository.UpdateAsync(deal);
-            return true;
-        }
 
         public async Task<DealDto> CreateAsync(CreateDealDto dto)
         {
@@ -89,34 +50,6 @@ namespace PizzaX.Application.Services
             if (deal is null) return false;
 
             await repository.RemoveAsync(deal);
-            return true;
-        }
-
-        public async Task<bool> RemoveDealPizzaItemAsync(DealRemoveDealItemDto dto)
-        {
-            var deal = await repository.GetByIdAsync(dto.Id);
-
-            if (deal is null) return false;
-
-            var pizza = await repository.GetPizzaByIdAsync(dto.Item.ProductId)
-                ?? throw new DomainException($"There's no product exists of Id {dto.Item.ProductId}.");
-
-            deal.RemoveDealItem(DealItemMapper.ToEntity(dto.Item));
-            await repository.UpdateAsync(deal);
-            return true;
-        }
-
-        public async Task<bool> RemoveDealProductItemAsync(DealRemoveDealItemDto dto)
-        {
-            var deal = await repository.GetByIdAsync(dto.Id);
-
-            if (deal is null) return false;
-
-            var product = await repository.GetProductByIdAsync(dto.Item.ProductId)
-                ?? throw new DomainException($"There's no product exists of Id {dto.Item.ProductId}.");
-
-            deal.RemoveDealItem(DealItemMapper.ToEntity(dto.Item));
-            await repository.UpdateAsync(deal);
             return true;
         }
 

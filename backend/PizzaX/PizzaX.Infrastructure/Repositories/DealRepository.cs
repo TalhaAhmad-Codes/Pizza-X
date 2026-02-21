@@ -16,6 +16,9 @@ namespace PizzaX.Infrastructure.Repositories
         {
             var query = dbSet.AsQueryable();
 
+            if (filterDto.DealItemId.HasValue)
+                query = query.Where(d => d.DealItems.Any(i => i.Id == filterDto.DealItemId));
+
             if (filterDto.Name != null)
                 query = query.Where(d => d.Name == Function.Simplify(filterDto.Name, true));
 
@@ -34,11 +37,5 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount
             };
         }
-
-        public async Task<Pizza?> GetPizzaByIdAsync(Guid id)
-            => await dbContext.Pizzas.FindAsync(id);
-
-        public async Task<Product?> GetProductByIdAsync(Guid id)
-            => await dbContext.Products.FindAsync(id);
     }
 }

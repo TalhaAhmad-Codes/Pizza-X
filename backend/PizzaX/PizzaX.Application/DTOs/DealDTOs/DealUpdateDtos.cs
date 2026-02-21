@@ -16,14 +16,4 @@ namespace PizzaX.Application.DTOs.DealDTOs.DealUpdateDtos
     {
         public decimal Price { get; init; }
     }
-
-    public sealed class DealAddDealItemsDto : BaseDto
-    {
-        public List<DealItemForDealDto> DealItemItems { get; init; }
-    }
-
-    public sealed class DealRemoveDealItemDto : BaseDto
-    {
-        public Guid DealItemId { get; init; }
-    }
 }
