@@ -1,11 +1,12 @@
 ﻿using PizzaX.Application.DTOs.PizzaDTOs;
+using PizzaX.Application.DTOs.ProductDTOs.Common;
 using PizzaX.Domain.Entities;
 
 namespace PizzaX.Application.Mappers
 {
     public static class PizzaMapper
     {
-        public static PizzaDto ToDto(Pizza pizza, Product product)
+        public static PizzaDto ToDto(Pizza pizza, BaseProductDto product)
             => new()
             {
                 // Pizza
@@ -16,7 +17,7 @@ namespace PizzaX.Application.Mappers
 
                 // Product
                 Image = product.Image,
-                Price = product.Price.UnitPrice,
+                Price = product.Price,
                 Description = product.Description,
                 StockStatus = product.StockStatus,
                 

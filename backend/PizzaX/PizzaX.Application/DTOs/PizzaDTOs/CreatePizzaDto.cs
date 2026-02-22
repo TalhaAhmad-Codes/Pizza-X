@@ -9,6 +9,6 @@ namespace PizzaX.Application.DTOs.PizzaDTOs
         public Guid VarietyId { get; init; }
         public PizzaSize Size { get; init; }
 
-        public BaseCreateProductDto? ProductDto { get; init; }
+        public BaseCreateProductDto? ProductDto { get; init; } = null;
     }
 }

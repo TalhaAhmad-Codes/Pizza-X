@@ -19,10 +19,11 @@ namespace PizzaX.Domain.Entities
         // Constructors
         private Product() { }
 
-        private Product(byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
+        private Product(Guid id, byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
         {
             Guard.AgainstWhitespace(description, nameof(Description));
 
+            Id = id;
             Image = image;
             Price = Price.Create(price);
             StockStatus = stockStatus;
@@ -31,7 +32,9 @@ namespace PizzaX.Domain.Entities
         }
 
         public static Product Create(byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
-            => new(image, price, description, stockStatus, productType);
+            => new(Guid.NewGuid(), image, price, description, stockStatus, productType);
+        public static Product Create(Guid id, byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
+            => new(id, image, price, description, stockStatus, productType);
 
         /***********************************************/
         /* Methods to change properties of the product */
