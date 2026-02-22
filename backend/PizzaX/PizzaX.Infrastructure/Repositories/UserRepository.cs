@@ -2,6 +2,7 @@
 using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.UserDTOs;
 using PizzaX.Application.Interfaces.Repositories;
+using PizzaX.Domain.Common;
 using PizzaX.Domain.Entities;
 using PizzaX.Infrastructure.Data;
 
@@ -12,7 +13,7 @@ namespace PizzaX.Infrastructure.Repositories
         public UserRepository(PizzaXDbContext dbContext) : base(dbContext) { }
 
         public async Task<User?> GetByEmailAsync(string email)
-            => await dbSet.FirstOrDefaultAsync(u => u.Email.Value == email);
+            => await dbSet.FirstOrDefaultAsync(u => u.Email.Value == Function.Simplify(email));
 
         public async Task<PagedResultDto<User>> GetAllAsync(UserFilterDto filterDto)
         {
@@ -20,10 +21,10 @@ namespace PizzaX.Infrastructure.Repositories
 
             // Applying filters
             if (filterDto.Username is not null)
-                query = query.Where(u => u.Username == filterDto.Username.Trim());
+                query = query.Where(u => u.Username == Function.Simplify(filterDto.Username, true));
 
             if (filterDto.Email is not null)
-                query = query.Where(u => u.Email.Value == filterDto.Email.Trim());
+                query = query.Where(u => u.Email.Value == Function.Simplify(filterDto.Email));
 
             if (filterDto.Role.HasValue)
                 query = query.Where(u => u.UserRole == filterDto.Role);

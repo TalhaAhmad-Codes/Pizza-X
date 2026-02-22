@@ -13,29 +13,16 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        /* Db Context */
+        /* Db Context - Connection */
         services.AddDbContext<PizzaXDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
-        /*
-         services.AddDbContext<PizzaXDbContext>(options =>
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection"))); 
-         * 
-         options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
-                npgsqlOptions =>
-                {
-                    npgsqlOptions.EnableRetryOnFailure();
-                })
-         */
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         /* Repositories */
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IPizzaRepository, PizzaRepository>();
-        services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
-        services.AddScoped<IFriesRepository, FriesRepository>();
-        services.AddScoped<IDrinkRepository, DrinkRepository>();
+        //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        //services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
+        //services.AddScoped<IDealItemRepository, DealItemRepository>();
+        //services.AddScoped<IDealRepository, DealRepository>();
 
         return services;
     }

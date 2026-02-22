@@ -11,7 +11,6 @@ namespace PizzaX.Application.Mappers
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email.Value,
-                Password = user.Password.Hash,
                 Role = user.UserRole,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt

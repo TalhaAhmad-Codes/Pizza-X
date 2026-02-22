@@ -1,5 +1,4 @@
 ﻿using PizzaX.Domain.Common;
-using PizzaX.Domain.ValueObjects.Common;
 
 namespace PizzaX.Domain.ValueObjects.Employee
 {
@@ -18,11 +17,16 @@ namespace PizzaX.Domain.ValueObjects.Employee
             Guard.AgainstNullOrWhitespace(firstName, nameof(FirstName));
             Guard.AgainstWhitespace(midName, nameof(MidName));
             Guard.AgainstNullOrWhitespace(lastName, nameof(LastName));
+            
+            Guard.AgainstInvalidRegexPattern(RegexPattern.SingleName, firstName, nameof(FirstName));
+            Guard.AgainstInvalidRegexPattern(RegexPattern.SingleName, midName!, nameof(MidName));
+            Guard.AgainstInvalidRegexPattern(RegexPattern.SingleName, lastName, nameof(LastName));
+            Guard.AgainstInvalidRegexPattern(RegexPattern.FullName, fatherName, nameof(FatherName));
 
-            FirstName = firstName.Trim().ToLower();
-            MidName = midName?.Trim().ToLower();
-            LastName = lastName.Trim().ToLower();
-            FatherName = fatherName.Trim().ToLower();
+            FirstName = Function.Simplify(firstName)!;
+            MidName = Function.Simplify(midName);
+            LastName = Function.Simplify(lastName)!;
+            FatherName = Function.Simplify(fatherName)!;
         }
 
         // Method - Create a new object

@@ -1,4 +1,5 @@
 ﻿using PizzaX.Domain.ValueObjects.User;
+using System.Text.RegularExpressions;
 
 namespace PizzaX.Domain.Common
 {
@@ -58,6 +59,33 @@ namespace PizzaX.Domain.Common
                 throw new DomainException($"{name} can't have length greater than {length}.");
         }
 
+        // Method - Against given Regex pattern
+        public static void AgainstInvalidRegexPattern(Pattern pattern, string value, string property)
+        {
+            if (!Regex.IsMatch(value, pattern.Value))
+            {
+                var message = $"The given {property} format is invalid.";
+
+                if (pattern.Message != null)
+                    message += $"\n{pattern.Message}";
+
+                throw new DomainException(message);
+            }
+        }
+
+        // Method - Against not allowed / illegal string part
+        public static void AgainstIllegalStringPart(string text, string part, string property)
+        {
+            if (text.Contains(part, StringComparison.OrdinalIgnoreCase))
+                throw new DomainException($"{property} can't contain '{part}'.");
+        }
+
+        public static void AgainstNotContainPart(string text, string part, string property)
+        {
+            if (!text.Contains(part, StringComparison.OrdinalIgnoreCase))
+                throw new DomainException($"{property} must contain '{part}'.");
+        }
+
         // Method - Against password mismatch
         public static void AgainstPasswordMismatch(string password, string hash)
         {
@@ -70,6 +98,15 @@ namespace PizzaX.Domain.Common
         {
             if (!isAuthorized)
                 throw new UnauthorizedAccessException("This action is unauthorized by admin");
+        }
+
+        // Method - Against invalid date ranges
+        public static void AgainstInvalidDateRange(DateOnly dateA, DateOnly? dateB)
+        {
+            if (!dateB.HasValue) return;
+
+            if (dateB <= dateA)
+                throw new DomainException($"{dateB} can't be set before/at {dateA}.");
         }
     }
 }

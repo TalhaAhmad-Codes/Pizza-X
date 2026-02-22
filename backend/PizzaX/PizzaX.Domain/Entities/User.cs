@@ -14,6 +14,9 @@ namespace PizzaX.Domain.Entities
         public Password Password { get; private set; }
         public UserRole UserRole { get; private set; }
 
+        // Navigation
+        public readonly Employee Employee;
+
         // Constructors
         private User() { }
 
@@ -21,11 +24,12 @@ namespace PizzaX.Domain.Entities
         {
             // Guard against invalid values
             Guard.AgainstNullOrWhitespace(username, nameof(Username));
+            Guard.AgainstInvalidRegexPattern(RegexPattern.Username, username, nameof(username));
             Guard.AgainstNullOrWhitespace(password, nameof(Password));
             Guard.AgainstMinStringLength(password, 8, nameof(Password));
 
             // Asigning values
-            Username = username.Trim();
+            Username = Function.Simplify(username)!;
             Email = Email.Create(email);
             Password = Password.Create(password);
             UserRole = userRole;
@@ -61,8 +65,9 @@ namespace PizzaX.Domain.Entities
         public void UpdateUsername(string username)
         {
             Guard.AgainstNullOrWhitespace(username, nameof(Username));
+            Guard.AgainstInvalidRegexPattern(RegexPattern.Username, username, nameof(username));
 
-            Username = username.Trim();
+            Username = Function.Simplify(username)!;
 
             MarkUpdated();
         }

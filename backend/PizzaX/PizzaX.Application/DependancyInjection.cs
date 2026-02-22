@@ -10,10 +10,10 @@ namespace PizzaX.Application
         {
             /* Services */
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IPizzaService, PizzaService>();
-            services.AddScoped<IPizzaVarietyService, PizzaVarietyService>();
-            services.AddScoped<IFriesService, FriesService>();
-            services.AddScoped<IDrinkService, DrinkService>();
+            //services.AddScoped<IEmployeeService, EmployeeService>();
+            //services.AddScoped<IPizzaVarietyService, PizzaVarietyService>();
+            //services.AddScoped<IDealItemService, DealItemService>();
+            //services.AddScoped<IDealService, DealService>();
 
             return services;
         }

@@ -20,6 +20,13 @@ namespace PizzaX.Domain.ValueObjects.Employee
         public static Salary Create(decimal salary)
             => new(salary);
 
+        // Methods - Comparision operators
+        public static bool operator >=(Salary salary, decimal other)
+            => salary.Value >= other;
+
+        public static bool operator <=(Salary salary, decimal other)
+            => salary.Value <= other;
+
         // Method - Convert to string
         public override string ToString()
             => Value.ToString();

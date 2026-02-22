@@ -7,32 +7,57 @@ namespace PizzaX.Domain.ValueObjects.Common
         // Attributes
         public string House { get; }
         public string Area { get; }
-        public string Street { get; }
+        public string? Street { get; }
         public string City { get; }
-        public string Province { get; }
+        public string? Province { get; }
         public string? Country { get; }
 
         // Constructors
         private Address() { }
-        private Address(string house, string area, string street, string city, string province, string? country)
+        private Address(string house, string area, string? street, string city, string? province, string? country)
         {
             Guard.AgainstNullOrWhitespace(house, nameof(House));
             Guard.AgainstNullOrWhitespace(area, nameof(Area));
-            Guard.AgainstNullOrWhitespace(street, nameof(Street));
+            Guard.AgainstWhitespace(street, nameof(Street));
             Guard.AgainstNullOrWhitespace(city, nameof(City));
-            Guard.AgainstNullOrWhitespace(province, nameof(Province));
+            Guard.AgainstWhitespace(province, nameof(Province));
             Guard.AgainstWhitespace(country, nameof(Country));
 
-            House = house.Trim().ToLower();
-            Area = area.Trim().ToLower();
-            Street = street.Trim().ToLower();
-            City = city.Trim().ToLower();
-            Province = province.Trim().ToLower();
-            Country = country?.Trim().ToLower();
+            House = Function.Simplify(house)!;
+            Area = Function.Simplify(area)!;
+            Street = Function.Simplify(street);
+            City = Function.Simplify(city)!;
+            Province = Function.Simplify(province);
+            Country = Function.Simplify(country);
         }
 
         // Method - Create a new object
-        public static Address Create(string house, string area, string street, string city, string province, string? country)
+        public static Address Create(string house, string area, string? street, string city, string? province, string? country)
             => new(house, area, street, city, province, country);
+
+        // Method - Convert to string
+        public override string ToString()
+        {
+            var address = "";
+
+            // Adding house and area
+            address += $"{House} {Area}";
+
+            // Adding street
+            if (Street != null)
+                address += $", {Street}";
+
+            // Adding city
+            address += $", {City}";
+
+            // Adding province and country
+            if (Province != null)
+                address += $", {Province}";
+
+            if (Country != null)
+                address += $", {Country}";
+
+            return address;
+        }
     }
 }
