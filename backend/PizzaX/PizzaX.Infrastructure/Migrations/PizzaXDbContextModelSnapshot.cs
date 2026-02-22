@@ -58,7 +58,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                     b.HasIndex("DealId");
 
-                    b.ToTable("BaseProduct");
+                    b.ToTable("BaseProduct", (string)null);
 
                     b.HasDiscriminator<string>("ProductType").HasValue("BaseProduct");
 
@@ -92,7 +92,7 @@ namespace PizzaX.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Deals");
+                    b.ToTable("Deals", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.DealItem", b =>
@@ -119,7 +119,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("DealItems");
+                    b.ToTable("DealItems", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.Employee", b =>
@@ -158,7 +158,7 @@ namespace PizzaX.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.PizzaVariety", b =>
@@ -184,7 +184,7 @@ namespace PizzaX.Infrastructure.Migrations
                     b.HasIndex("Value")
                         .IsUnique();
 
-                    b.ToTable("PizzaVarieties");
+                    b.ToTable("PizzaVarieties", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.ProductCategory", b =>
@@ -210,7 +210,7 @@ namespace PizzaX.Infrastructure.Migrations
                     b.HasIndex("Value")
                         .IsUnique();
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("ProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.User", b =>
@@ -244,7 +244,7 @@ namespace PizzaX.Infrastructure.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PizzaX.Domain.Entities.Pizza", b =>
@@ -309,7 +309,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("DealId");
 
-                            b1.ToTable("Deals");
+                            b1.ToTable("Deals", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DealId");
@@ -344,7 +344,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("DealItemId");
 
-                            b1.ToTable("DealItems");
+                            b1.ToTable("DealItems", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DealItemId");
@@ -403,7 +403,28 @@ namespace PizzaX.Infrastructure.Migrations
                             b1.HasIndex("House")
                                 .IsUnique();
 
-                            b1.ToTable("Employees");
+                            b1.ToTable("Employees", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeId");
+                        });
+
+                    b.OwnsOne("PizzaX.Domain.ValueObjects.Employee.CNIC", "CNIC", b1 =>
+                        {
+                            b1.Property<Guid>("EmployeeId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(450)")
+                                .HasColumnName("CNIC");
+
+                            b1.HasKey("EmployeeId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
+
+                            b1.ToTable("Employees", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -425,28 +446,7 @@ namespace PizzaX.Infrastructure.Migrations
                                 .IsUnique()
                                 .HasFilter("[Contact] IS NOT NULL");
 
-                            b1.ToTable("Employees");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EmployeeId");
-                        });
-
-                    b.OwnsOne("PizzaX.Domain.ValueObjects.Employee.CNIC", "CNIC", b1 =>
-                        {
-                            b1.Property<Guid>("EmployeeId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(450)")
-                                .HasColumnName("CNIC");
-
-                            b1.HasKey("EmployeeId");
-
-                            b1.HasIndex("Value")
-                                .IsUnique();
-
-                            b1.ToTable("Employees");
+                            b1.ToTable("Employees", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -478,7 +478,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees");
+                            b1.ToTable("Employees", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -495,7 +495,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("EmployeeId");
 
-                            b1.ToTable("Employees");
+                            b1.ToTable("Employees", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
@@ -535,7 +535,7 @@ namespace PizzaX.Infrastructure.Migrations
                             b1.HasIndex("Value")
                                 .IsUnique();
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -553,7 +553,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -586,7 +586,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("PizzaId");
 
-                            b1.ToTable("BaseProduct");
+                            b1.ToTable("BaseProduct", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PizzaId");
@@ -618,7 +618,7 @@ namespace PizzaX.Infrastructure.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("BaseProduct");
+                            b1.ToTable("BaseProduct", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
