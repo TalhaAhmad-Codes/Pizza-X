@@ -2,12 +2,12 @@
 
 namespace PizzaX.Domain.Entities
 {
-    public sealed class PizzaVariety : BaseCategory<Pizza>
+    public sealed class PizzaVariety
     {
         // Constructors
-        private PizzaVariety() : base() { }
+        private PizzaVariety() { }
 
-        private PizzaVariety(string variety) : base(variety) { }
+        private PizzaVariety(string variety) { }
 
         // Method - Create a new object
         public static PizzaVariety Create(string name)

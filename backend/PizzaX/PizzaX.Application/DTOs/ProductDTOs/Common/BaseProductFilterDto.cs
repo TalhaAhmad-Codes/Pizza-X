@@ -1,13 +1,12 @@
 ﻿using PizzaX.Application.DTOs.Common;
-using PizzaX.Domain.Enums.BaseProduct;
+using PizzaX.Domain.Enums.Product;
 
-namespace PizzaX.Application.DTOs.BaseProductDTOs
+namespace PizzaX.Application.DTOs.ProductDTOs.Common
 {
     public abstract class BaseProductFilterDto : BaseFilterDto
     {
-        // Data fields
         public decimal? MinPrice { get; init; }
         public decimal? MaxPrice { get; init; }
-        public ProductStockStatus? StockStatus { get; init; }
+        public StockStatus? StockStatus { get; init; }
     }
 }

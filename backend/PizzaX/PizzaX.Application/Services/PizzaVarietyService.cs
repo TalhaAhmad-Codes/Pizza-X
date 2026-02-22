@@ -1,6 +1,4 @@
-﻿using PizzaX.Application.DTOs.BaseCategoryDTOs;
-using PizzaX.Application.DTOs.BaseCategoryDTOs.BaseCategoryUpdateDtos;
-using PizzaX.Application.DTOs.Common;
+﻿using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Application.Interfaces.Services;
 using PizzaX.Application.Mappers;
@@ -15,53 +13,53 @@ namespace PizzaX.Application.Services
         public PizzaVarietyService(IPizzaVarietyRepository repository)
             => this.repository = repository;
 
-        public async Task<BaseCategoryDto> CreateAsync(CreateBaseCategoryDto dto)
-        {
-            var variety = PizzaVariety.Create(
-                name: dto.Name
-            );
+        //public async Task<BaseCategoryDto> CreateAsync(CreateBaseCategoryDto dto)
+        //{
+        //    var variety = PizzaVariety.Create(
+        //        name: dto.Name
+        //    );
 
-            await repository.AddAsync(variety);
-            return CategoryMapper.PizzaVarietyToDto(variety);
-        }
+        //    await repository.AddAsync(variety);
+        //    return CategoryMapper.PizzaVarietyToDto(variety);
+        //}
 
-        public async Task<PagedResultDto<BaseCategoryDto>> GetAllAsync(BaseCategoryFilterDto filterDto)
-        {
-            var result = await repository.GetAllAsync(filterDto);
+        //public async Task<PagedResultDto<BaseCategoryDto>> GetAllAsync(BaseCategoryFilterDto filterDto)
+        //{
+        //    var result = await repository.GetAllAsync(filterDto);
 
-            return new PagedResultDto<BaseCategoryDto>
-            {
-                Items = result.Items.Select(CategoryMapper.PizzaVarietyToDto).ToList(),
-                TotalCount = result.TotalCount
-            };
-        }
+        //    return new PagedResultDto<BaseCategoryDto>
+        //    {
+        //        Items = result.Items.Select(CategoryMapper.PizzaVarietyToDto).ToList(),
+        //        TotalCount = result.TotalCount
+        //    };
+        //}
 
-        public async Task<BaseCategoryDto?> GetByIdAsync(Guid id)
-        {
-            var variety = await repository.GetByIdAsync(id);
+        //public async Task<BaseCategoryDto?> GetByIdAsync(Guid id)
+        //{
+        //    var variety = await repository.GetByIdAsync(id);
 
-            return variety is null ? null : CategoryMapper.PizzaVarietyToDto(variety);
-        }
+        //    return variety is null ? null : CategoryMapper.PizzaVarietyToDto(variety);
+        //}
 
-        public async Task<bool> RemoveAsync(Guid id)
-        {
-            var variety = await repository.GetByIdAsync(id);
+        //public async Task<bool> RemoveAsync(Guid id)
+        //{
+        //    var variety = await repository.GetByIdAsync(id);
 
-            if (variety is null) return false;
+        //    if (variety is null) return false;
 
-            await repository.RemoveAsync(variety);
-            return true;
-        }
+        //    await repository.RemoveAsync(variety);
+        //    return true;
+        //}
 
-        public async Task<bool> UpdateNameAsync(BaseCategoryUpdateNameDto dto)
-        {
-            var variety = await repository.GetByIdAsync(dto.Id);
+        //public async Task<bool> UpdateNameAsync(BaseCategoryUpdateNameDto dto)
+        //{
+        //    var variety = await repository.GetByIdAsync(dto.Id);
 
-            if (variety is null) return false;
+        //    if (variety is null) return false;
 
-            variety.UpdateName(dto.Name);
-            await repository.UpdateAsync(variety);
-            return true;
-        }
+        //    variety.UpdateName(dto.Name);
+        //    await repository.UpdateAsync(variety);
+        //    return true;
+        //}
     }
 }

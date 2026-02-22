@@ -7,7 +7,7 @@ namespace PizzaX.Domain.Entities
     {
         // Attributes
         public Guid ProductId { get; private set; }
-        public BaseProduct Product { get; private set; }
+        public Product Product { get; private set; }
         public Quantity Quantity { get; private set; }
 
         // Relation

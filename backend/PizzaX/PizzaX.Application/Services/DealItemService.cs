@@ -48,7 +48,7 @@ namespace PizzaX.Application.Services
 
         public async Task<PagedResultDto<DealItemDto>> GetDealItemAsync(DealItemFilterDto filterDto)
         {
-            var result = await repository.GetAllDealItemsAsync(filterDto);
+            var result = await repository.GetAllAsync(filterDto);
 
             return new PagedResultDto<DealItemDto>()
             {

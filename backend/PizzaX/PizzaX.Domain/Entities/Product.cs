@@ -1,24 +1,25 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.Enums.BaseProduct;
-using PizzaX.Domain.ValueObjects.BaseProduct;
+using PizzaX.Domain.Enums.Product;
+using PizzaX.Domain.ValueObjects.Product;
 
 namespace PizzaX.Domain.Entities
 {
-    public abstract class BaseProduct : AuditableEntity
+    public sealed class Product : AuditableEntity
     {
         // Attributes
         public byte[]? Image { get; protected set; }
         public Price Price { get; protected set; }
         public string? Description { get; protected set; }
-        public ProductStockStatus StockStatus { get; protected set; }
+        public StockStatus StockStatus { get; protected set; }
+        public ProductType ProductType { get; protected set; }
 
-        public Deal Deal { get; protected set; }
+        // Navigation
 
         // Constructors
-        protected BaseProduct() { }
+        protected Product() { }
 
-        protected BaseProduct(byte[]? image, decimal unitPrice, string? description, ProductStockStatus stockStatus)
+        protected Product(byte[]? image, decimal unitPrice, string? description, StockStatus stockStatus, ProductType productType)
         {
             Guard.AgainstWhitespace(description, nameof(Description));
 
@@ -26,6 +27,7 @@ namespace PizzaX.Domain.Entities
             Price = Price.Create(unitPrice);
             StockStatus = stockStatus;
             Description = Function.Simplify(description);
+            ProductType = productType;
         }
 
         /***********************************************/
@@ -33,7 +35,7 @@ namespace PizzaX.Domain.Entities
         /***********************************************/
 
         // Update stock status of the product
-        public void UpdateStockStatus(ProductStockStatus stockStatus)
+        public void UpdateStockStatus(StockStatus stockStatus)
         {
             StockStatus = stockStatus;
 

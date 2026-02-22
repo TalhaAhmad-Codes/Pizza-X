@@ -1,6 +1,6 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.Common.Entities;
-using PizzaX.Domain.ValueObjects.BaseProduct;
+using PizzaX.Domain.ValueObjects.Product;
 
 namespace PizzaX.Domain.Entities
 {
@@ -9,7 +9,6 @@ namespace PizzaX.Domain.Entities
         // Attributes
         public string Name { get; private set; }
         public string? Description { get; private set; }
-        //private List<DealItem> dealItems = new();
         public ICollection<DealItem> DealItems;
         public Price Price { get; private set; }
 

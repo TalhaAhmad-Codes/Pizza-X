@@ -1,21 +1,21 @@
 ﻿using PizzaX.Domain.Common;
 using PizzaX.Domain.ValueObjects.Deal;
 
-namespace PizzaX.Domain.ValueObjects.BaseProduct
+namespace PizzaX.Domain.ValueObjects.Product
 {
     public sealed class Price
     {
         // Attributes
         public decimal UnitPrice { get; }
-        public decimal TotalPrice(Quantity quantity)
-            => UnitPrice * quantity.Value;
+        public static decimal TotalPrice(decimal price, Quantity quantity)
+            => price * quantity.Value;
 
         // Constructors
         private Price() { }
         private Price(decimal unitPrice)
         {
             // Guard invalid data
-            Guard.AgainstNegativeValue(unitPrice, nameof(Price));
+            Guard.AgainstZeroOrLess(unitPrice, nameof(Price));
 
             // Assigning value
             UnitPrice = unitPrice;

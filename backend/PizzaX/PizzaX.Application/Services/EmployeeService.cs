@@ -21,9 +21,9 @@ namespace PizzaX.Application.Services
         public async Task<EmployeeDto> AddAsync(CreateEmployeeDto dto)
         {
             // Only users of role either "Employee" or "Admin" can create employee profile.
-            var eligible = await repository.IsEligibleAsync(dto.UserId);
-            if (!eligible)
-                throw new DomainException("The particular user is not eligible. The user must has a role of employee.");
+            //var eligible = await repository.IsEligibleAsync(dto.UserId);
+            //if (!eligible)
+            //    throw new DomainException("The particular user is not eligible. The user must has a role of employee.");
 
             // Creating employee profile
             var employee = Employee.Create(
