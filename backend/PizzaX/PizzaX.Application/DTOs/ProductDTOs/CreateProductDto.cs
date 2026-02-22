@@ -4,7 +4,6 @@ namespace PizzaX.Application.DTOs.ProductDTOs
 {
     public sealed class CreateProductDto
     {
-        public Guid Id { get; init; }
         public byte[]? Image { get; init; }
         public decimal Price { get; init; }
         public string? Description { get; init; }
