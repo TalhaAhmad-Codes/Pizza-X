@@ -29,7 +29,7 @@ namespace PizzaX.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{id:uuid}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
             var dealItem = await service.GetByIdAsync(id);
