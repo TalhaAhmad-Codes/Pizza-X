@@ -9,10 +9,7 @@ namespace PizzaX.Infrastructure.Data
         /*// <----- DbSets -----> //*/
         public DbSet<User> Users => Set<User>();
         public DbSet<Employee> Employees => Set<Employee>();
-        public DbSet<Pizza> Pizzas => Set<Pizza>();
         public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
-        public DbSet<Product> Products => Set<Product>();
-        public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
         public DbSet<DealItem> DealItems => Set<DealItem>();
         public DbSet<Deal> Deals => Set<Deal>();
 
@@ -167,45 +164,7 @@ namespace PizzaX.Infrastructure.Data
                           .IsRequired();
                 });
             });
-
-            /*/ <----- Base Product - Configuration -----> /*/
-            modelBuilder.Entity<BaseProduct>()
-                .UseTphMappingStrategy()
-                .HasDiscriminator<string>("ProductType")
-                .HasValue<Pizza>("Pizza")
-                .HasValue<Product>("Product");
-
-            /*/ <----- Pizza - Configuration -----> /*/
-            modelBuilder.Entity<Pizza>(builder =>
-            {
-                // One-to-Many relation with the variety of pizza
-                builder.HasOne(p => p.Variety)
-                       .WithMany(v => v.Products)
-                       .HasForeignKey(p => p.VarietyId)
-                       .OnDelete(DeleteBehavior.Restrict);
-
-                // Size config
-                builder.Property(p => p.Size)
-                       .HasColumnName("Size")
-                       .IsRequired();
-
-                // Product configs
-                builder.OwnsOne(p => p.Price, price =>
-                {
-                    price.Property(r => r.UnitPrice)
-                         .HasColumnName("Price")
-                         .IsRequired();
-                });
-
-                builder.Property(p => p.Description)
-                       .HasColumnName("Description")
-                       .HasMaxLength(100);
-
-                builder.Property(p => p.StockStatus)
-                       .HasColumnName("StockStatus")
-                       .IsRequired();
-            });
-
+            
             /*/ <----- Pizza Vareity - Configuration -----> /*/
             modelBuilder.Entity<PizzaVariety>(builder =>
             {
@@ -220,59 +179,6 @@ namespace PizzaX.Infrastructure.Data
                        .HasMaxLength(50)
                        .IsRequired();
                 
-                builder.HasIndex(v => v.Value)
-                       .IsUnique();
-            });
-
-            /*/ <----- Product - Configuration -----> /*/
-            modelBuilder.Entity<Product>(builder =>
-            {
-                // One-to-Many relation with the category of "Product Category"
-                builder.HasOne(p => p.Category)
-                       .WithMany(c => c.Products)
-                       .HasForeignKey(p => p.CategoryId)
-                       .OnDelete(DeleteBehavior.Restrict);
-
-                // Name config
-                builder.Property(p => p.Name)
-                       .HasColumnName("Name")
-                       .HasMaxLength(50)
-                       .IsRequired();
-
-                builder.HasIndex(p => p.Name)
-                       .IsUnique();
-
-                // Product configs
-                builder.OwnsOne(p => p.Price, price =>
-                {
-                    price.Property(r => r.UnitPrice)
-                         .HasColumnName("Price")
-                         .IsRequired();
-                });
-
-                builder.Property(p => p.Description)
-                       .HasColumnName("Description")
-                       .HasMaxLength(100);
-
-                builder.Property(p => p.StockStatus)
-                       .HasColumnName("StockStatus")
-                       .IsRequired();
-            });
-
-            /*/ <----- Product Category - Configuration -----> /*/
-            modelBuilder.Entity<ProductCategory>(builder =>
-            {
-                // Many-to-One relation with products
-                builder.HasMany(v => v.Products)
-                       .WithOne(p => p.Category)
-                       .OnDelete(DeleteBehavior.Cascade);
-
-                // Name property
-                builder.Property(v => v.Value)
-                       .HasColumnName("Name")
-                       .HasMaxLength(50)
-                       .IsRequired();
-
                 builder.HasIndex(v => v.Value)
                        .IsUnique();
             });
