@@ -1,58 +1,33 @@
-from environment_variables import server
-import requests
+from rich import print
+from enums import UserRole
+from dtos.user_dtos import *
+from api_client import *
+from environment_variables import endpoints
 
-url = server['api'] + 'Users'
+if __name__ == '__main__':
+    client: APIClient = APIClient()
 
-"""
-[GET]
+    # dto: CreateUserDto = CreateUserDto(
+    #     username='BilalAhmad',
+    #     email='bilal@gamil.com',
+    #     password='bilal123',
+    #     role=2
+    # )
 
-response = requests.get(url, verify=False)  # verify=False for local HTTPS
+    # response = client.post(
+    #     endpoint=dto.endpoint,
+    #     data=dto.json
+    # )
+    response = client.get(
+        endpoint=endpoints['users']['normal']
+    )
 
-if response.status_code == 200:
-    data = response.json()
-    print(data)
-else:
-    print("Error:", response.status_code)
-"""
+    # if response.status_code != 200:
+    #     print(response.text)
+    #     exit()
+    #
+    print(response.json())
 
-"""
-
-[POST]
-
-response = requests.post(url, json={
-"username": "TalhaAhmad1",
-  "password": "talha987",
-  "email": "talha.ahmad.tech@gmail.com",
-  "role": 2
-}, verify=False)
-
-print(response.status_code, response.text, sep='\n')
-"""
-
-"""
-(EXAMPLE)
-
-import requests
-
-class PizzaXClient:
-    def __init__(self, base_url, token=None):
-        self.base_url = base_url
-        self.headers = {}
-        if token:
-            self.headers["Authorization"] = f"Bearer {token}"
-
-    def get_pizzas(self):
-        return requests.get(f"{self.base_url}/api/pizzas", headers=self.headers).json()
-
-    def create_pizza(self, data):
-        return requests.post(
-            f"{self.base_url}/api/pizzas",
-            json=data,
-            headers=self.headers
-        ).json()
-
-
-client = PizzaXClient("https://localhost:5001")
-print(client.get_pizzas())
-
-"""
+    # This shows you EXACTLY what you sent to the server
+    # print(f"Sent to {response.url}: {response.request.body}")
+    # print(f"Status: {response.status_code}")
