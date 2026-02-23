@@ -11,7 +11,8 @@ namespace PizzaX.Infrastructure.Data
         public DbSet<User> Users => Set<User>();
         //public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<Product> Products => Set<Product>();
-        //public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
+        public DbSet<Pizza> Pizzas => Set<Pizza>();
+        public DbSet<PizzaVariety> PizzaVarieties => Set<PizzaVariety>();
         //public DbSet<DealItem> DealItems => Set<DealItem>();
         //public DbSet<Deal> Deals => Set<Deal>();
 
@@ -188,25 +189,51 @@ namespace PizzaX.Infrastructure.Data
                 builder.Property(p => p.ProductType)
                        .HasColumnName("ProductType")
                        .IsRequired();
+
+                // Product to Pizza - Relation
+                builder.HasOne(p => p.Pizza)
+                       .WithOne(p => p.Product)
+                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            ///*/ <----- Pizza Vareity - Configuration -----> /*/
-            //modelBuilder.Entity<PizzaVariety>(builder =>
-            //{
-            //    // Many-to-One relation with pizzas
-            //    builder.HasMany(v => v.Products)
-            //           .WithOne(p => p.Variety)
-            //           .OnDelete(DeleteBehavior.Cascade);
+            /*/ <----- Pizza - Configuration -----> /*/
+            modelBuilder.Entity<Pizza>(builder =>
+            {
+                // Pizza to Product - Relation
+                builder.HasOne(p => p.Product)
+                       .WithOne(p => p.Pizza)
+                       .HasForeignKey<Pizza>(p => p.ProductId)
+                       .OnDelete(DeleteBehavior.Restrict);
 
-            //    // Name property
-            //    builder.Property(v => v.Value)
-            //           .HasColumnName("Name")
-            //           .HasMaxLength(50)
-            //           .IsRequired();
+                // Pizza to Variety - Relation
+                builder.HasOne(p => p.Variety)
+                       .WithMany(v => v.Pizzas)
+                       .HasForeignKey(p => p.VarietyId)
+                       .OnDelete(DeleteBehavior.Restrict);
 
-            //    builder.HasIndex(v => v.Value)
-            //           .IsUnique();
-            //});
+                // Pizza - Size
+                builder.Property(p => p.Size)
+                       .HasColumnName("Size")
+                       .IsRequired();
+            });
+
+            /*/ <----- Pizza Vareity - Configuration -----> /*/
+            modelBuilder.Entity<PizzaVariety>(builder =>
+            {
+                // Many-to-One relation with pizzas
+                builder.HasMany(v => v.Pizzas)
+                       .WithOne(p => p.Variety)
+                       .OnDelete(DeleteBehavior.Cascade);
+
+                // Name property
+                builder.Property(v => v.Name)
+                       .HasColumnName("Name")
+                       .HasMaxLength(50)
+                       .IsRequired();
+
+                builder.HasIndex(v => v.Name)
+                       .IsUnique();
+            });
 
             ///*/ <----- Deal Item - Configuration -----> /*/
             //modelBuilder.Entity<DealItem>(builder =>

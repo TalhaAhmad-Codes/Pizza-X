@@ -30,7 +30,6 @@
             "It can only contain alphabets and a single space between them."
         );
 
-        public static Pattern CategoryName => FullName;
         public static Pattern ProductName => FullName;
         public static Pattern DealName => new(
             @"^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$",

@@ -8,27 +8,34 @@ namespace PizzaX.Domain.Entities
     public sealed class Product : AuditableEntity
     {
         // Attributes
-        public byte[]? Image { get; protected set; }
-        public Price Price { get; protected set; }
-        public string? Description { get; protected set; }
-        public StockStatus StockStatus { get; protected set; }
-        public ProductType ProductType { get; protected set; }
+        public byte[]? Image { get; private set; }
+        public Price Price { get; private set; }
+        public string? Description { get; private set; }
+        public StockStatus StockStatus { get; private set; }
+        public ProductType ProductType { get; private set; }
 
         // Navigation
+        public Pizza Pizza { get; private set; }
 
         // Constructors
-        protected Product() { }
+        private Product() { }
 
-        protected Product(byte[]? image, decimal unitPrice, string? description, StockStatus stockStatus, ProductType productType)
+        private Product(Guid id, byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
         {
             Guard.AgainstWhitespace(description, nameof(Description));
 
+            Id = id;
             Image = image;
-            Price = Price.Create(unitPrice);
+            Price = Price.Create(price);
             StockStatus = stockStatus;
             Description = Function.Simplify(description);
             ProductType = productType;
         }
+
+        public static Product Create(byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
+            => new(Guid.NewGuid(), image, price, description, stockStatus, productType);
+        public static Product Create(Guid id, byte[]? image, decimal price, string? description, StockStatus stockStatus, ProductType productType)
+            => new(id, image, price, description, stockStatus, productType);
 
         /***********************************************/
         /* Methods to change properties of the product */
