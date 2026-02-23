@@ -3,6 +3,7 @@ using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.PizzaDTOs;
 using PizzaX.Application.Interfaces.Repositories;
 using PizzaX.Domain.Entities;
+using PizzaX.Domain.Enums.Pizza;
 using PizzaX.Infrastructure.Data;
 
 namespace PizzaX.Infrastructure.Repositories
@@ -22,10 +23,10 @@ namespace PizzaX.Infrastructure.Repositories
                 query = query.Where(p => p.Size == filterDto.Size);
 
             if (filterDto.MinPrice.HasValue)
-                query = query.Where(p => dbSetProduct.Find(p.ProductId)!.Price >= filterDto.MinPrice.Value);
+                query = query.Where(p => p.Product.Price >= filterDto.MinPrice.Value);
 
             if (filterDto.MaxPrice.HasValue)
-                query = query.Where(p => dbSetProduct.Find(p.ProductId)!.Price <= filterDto.MaxPrice.Value);
+                query = query.Where(p => p.Product.Price <= filterDto.MaxPrice.Value);
 
             var totalCount = await query.CountAsync();
             var items = await GetPagedResultItemsAsync(query, filterDto.PageNumber, filterDto.PageSize);
@@ -36,5 +37,8 @@ namespace PizzaX.Infrastructure.Repositories
                 TotalCount = totalCount
             };
         }
+
+        public async Task<Pizza?> GetSimilarVarietyAndSizePizzaAsync(Guid varietyId, PizzaSize pizzaSize)
+            => await dbSet.FirstOrDefaultAsync(p => p.VarietyId == varietyId && p.Size == pizzaSize);
     }
 }

@@ -15,6 +15,7 @@ namespace PizzaX.Domain.Entities
         public ProductType ProductType { get; private set; }
 
         // Navigation
+        public Pizza Pizza { get; private set; }
 
         // Constructors
         private Product() { }

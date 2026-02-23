@@ -10,7 +10,7 @@ namespace PizzaX.Application.Services
     {
         protected readonly IProductRepository productRepository;
 
-        public BaseProductService(IProductRepository productRepository)
+        protected BaseProductService(IProductRepository productRepository)
             => this.productRepository = productRepository;
 
         public async Task<ProductDto> CreateProductAsync(Guid productId, CreateProductDto dto)

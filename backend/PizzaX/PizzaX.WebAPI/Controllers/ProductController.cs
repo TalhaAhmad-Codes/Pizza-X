@@ -8,7 +8,7 @@ namespace PizzaX.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public sealed class ProductController : ControllerBase
     {
         private readonly IProductService service;
 

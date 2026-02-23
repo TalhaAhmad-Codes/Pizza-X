@@ -22,7 +22,7 @@ public static class DependencyInjection
         //services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IPizzaRepository, PizzaRepository>();
-        //services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
+        services.AddScoped<IPizzaVarietyRepository, PizzaVarietyRepository>();
         //services.AddScoped<IDealItemRepository, DealItemRepository>();
         //services.AddScoped<IDealRepository, DealRepository>();
 
