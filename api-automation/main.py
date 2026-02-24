@@ -9,15 +9,15 @@ if __name__ == '__main__':
     try:
         client: APIClient = APIClient()
 
-        count: int = 7
+        count: int = 20
         fake: Faker = Faker()
         bulk: CreateBulkUserDto = CreateBulkUserDto()
         unique_emails = [fake.unique.email() for _ in range(count)]
         for i in range(count):
             user: CreateUserDto = CreateUserDto(
                 username=fake.user_name(),
-                email=fake.email(),
-                password=fake.password(length=8, lower_case=True, digits=True),
+                email=unique_emails[i],
+                password="password12",
                 role=fake.enum(UserRole).value
             )
             bulk.add(user)
