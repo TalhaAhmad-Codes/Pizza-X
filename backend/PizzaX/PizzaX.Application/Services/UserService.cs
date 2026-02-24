@@ -106,5 +106,22 @@ namespace PizzaX.Application.Services
             await repository.UpdateAsync(user);
             return true;
         }
+
+        public async Task CreateBulkAsync(CreateBulkDto<CreateUserDto> dtos)
+        {
+            foreach (var dto in dtos.Items)
+            {
+                var user = User.Create(
+                    username: dto.Username,
+                    email: dto.Email,
+                    password: dto.Password,
+                    userRole: dto.Role
+                );
+
+                await repository.AddAsync(user, false);
+            }
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

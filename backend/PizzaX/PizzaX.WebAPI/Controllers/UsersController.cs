@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PizzaX.Application.DTOs.Common;
 using PizzaX.Application.DTOs.UserDTOs;
 using PizzaX.Application.DTOs.UserDTOs.UserUpdateDtos;
 using PizzaX.Application.Interfaces.Services;
@@ -54,6 +56,28 @@ namespace PizzaX.WebAPI.Controllers
             catch (DomainException e)
             {
                 return BadRequest(e.Message);
+            }
+            catch (DbUpdateException e)
+            {
+                return BadRequest("Email must be unique. And username can't exceed 20 characters.");
+            }
+        }
+
+        [HttpPost("bulk")]
+        public async Task<IActionResult> CreateBulkAsync(CreateBulkDto<CreateUserDto> dtos)
+        {
+            try
+            {
+                await service.CreateBulkAsync(dtos);
+                return Ok($"All {dtos.Items.Count} users has been inserted successfully.");
+            }
+            catch (DomainException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (DbUpdateException e)
+            {
+                return BadRequest("Email must be unique. And username can't exceed 20 characters.");
             }
         }
 

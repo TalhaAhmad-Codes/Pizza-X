@@ -20,24 +20,26 @@ namespace PizzaX.Infrastructure.Repositories
             => await dbSet.FindAsync(id);
 
         // Add an entity to the database
-        public async Task AddAsync(Entity entity)
+        public async Task AddAsync(Entity entity, bool saveChanges = true)
         {
             dbContext.Add(entity);
-            await dbContext.SaveChangesAsync();
+
+            if (saveChanges)
+                await SaveChangesAsync();
         }
 
         // Delete an entity from the database
         public async Task RemoveAsync(Entity entity)
         {
             dbSet.Remove(entity);
-            await dbContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         // Update an entity into database
         public async Task UpdateAsync(Entity entity)
         {
             dbSet.Update(entity);
-            await dbContext.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         // Get paged result items
@@ -47,6 +49,11 @@ namespace PizzaX.Infrastructure.Repositories
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
         }
     }
 }

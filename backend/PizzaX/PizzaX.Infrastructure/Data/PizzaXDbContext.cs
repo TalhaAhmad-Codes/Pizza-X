@@ -49,9 +49,6 @@ namespace PizzaX.Infrastructure.Data
                        .HasMaxLength(20)
                        .IsRequired();
 
-                builder.HasIndex(u => u.Username)
-                       .IsUnique();
-
                 // Role is required
                 builder.Property(u => u.UserRole)
                        .HasColumnName("Role")

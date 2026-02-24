@@ -10,6 +10,7 @@ endpoints: dict = {
             'email': 'Users/update/email',
             'password': 'Users/update/password',
             'profile-pic': 'Users/update/profile-pic'
-        }
+        },
+        'bulk': 'Users/bulk'
     }
 }

@@ -1,33 +1,34 @@
-from rich import print
-from enums import UserRole
-from dtos.user_dtos import *
-from api_client import *
 from environment_variables import endpoints
+from dtos.user_dtos import *
+from enums import UserRole
+from api_client import *
+from rich import print
+from faker import Faker
 
 if __name__ == '__main__':
-    client: APIClient = APIClient()
+    try:
+        client: APIClient = APIClient()
 
-    # dto: CreateUserDto = CreateUserDto(
-    #     username='BilalAhmad',
-    #     email='bilal@gamil.com',
-    #     password='bilal123',
-    #     role=2
-    # )
+        count: int = 7
+        fake: Faker = Faker()
+        bulk: CreateBulkUserDto = CreateBulkUserDto()
+        unique_emails = [fake.unique.email() for _ in range(count)]
+        for i in range(count):
+            user: CreateUserDto = CreateUserDto(
+                username=fake.user_name(),
+                email=fake.email(),
+                password=fake.password(length=8, lower_case=True, digits=True),
+                role=fake.enum(UserRole).value
+            )
+            bulk.add(user)
 
-    # response = client.post(
-    #     endpoint=dto.endpoint,
-    #     data=dto.json
-    # )
-    response = client.get(
-        endpoint=endpoints['users']['normal']
-    )
+        print('Inserting! Please Wait...')
+        response = client.post(
+            endpoint=CreateBulkUserDto.endpoint(),
+            data=bulk.json
+        )
 
-    # if response.status_code != 200:
-    #     print(response.text)
-    #     exit()
-    #
-    print(response.json())
+        print(response.text)
 
-    # This shows you EXACTLY what you sent to the server
-    # print(f"Sent to {response.url}: {response.request.body}")
-    # print(f"Status: {response.status_code}")
+    except Exception as e:
+        print("It seems the backend server might be offline.", f"{e}", sep='\n\n')

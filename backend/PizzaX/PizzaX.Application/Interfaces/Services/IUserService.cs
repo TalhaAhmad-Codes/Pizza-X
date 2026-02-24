@@ -12,6 +12,7 @@ namespace PizzaX.Application.Interfaces.Services
         Task<UserDto?> GetByEmailAsync(string email);
         Task<UserDto?> GetByIdAsync(Guid id);
         Task<UserDto> CreateAsync(CreateUserDto dto);
+        Task CreateBulkAsync(CreateBulkDto<CreateUserDto> dtos);
         Task<bool> RemoveAsync(Guid id);
 
         // Update methods
