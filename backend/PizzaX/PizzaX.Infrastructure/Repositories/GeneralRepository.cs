@@ -20,12 +20,10 @@ namespace PizzaX.Infrastructure.Repositories
             => await dbSet.FindAsync(id);
 
         // Add an entity to the database
-        public async Task AddAsync(Entity entity, bool saveChanges = true)
+        public async Task AddAsync(Entity entity)
         {
             dbContext.Add(entity);
-
-            if (saveChanges)
-                await SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         // Delete an entity from the database
@@ -54,6 +52,16 @@ namespace PizzaX.Infrastructure.Repositories
         public async Task SaveChangesAsync()
         {
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task AddBulkAsync(List<Entity> entities)
+        {
+            dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+
+            await dbSet.AddRangeAsync(entities);
+            await SaveChangesAsync();
+
+            dbContext.ChangeTracker.AutoDetectChangesEnabled = true;
         }
     }
 }

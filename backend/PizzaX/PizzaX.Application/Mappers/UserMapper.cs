@@ -15,5 +15,13 @@ namespace PizzaX.Application.Mappers
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt
             };
+
+        public static User ToEntity(CreateUserDto dto)
+            => User.Create(
+                username: dto.Username,
+                email: dto.Email,
+                password: dto.Password,
+                userRole: dto.Role
+            );
     }
 }
